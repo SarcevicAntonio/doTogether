@@ -7,7 +7,7 @@
 	import { fade, fly } from 'svelte/transition';
 
 	const dbRef = ref(db, 'todos');
-	let items = []; //$objectStore?.snapshot.val();
+	let items = [];
 	onValue(dbRef, (snapshot) => {
 		items = snapshot.val();
 	});
@@ -92,20 +92,19 @@
 	</ul>
 {/if}
 
-<button
+<!-- <button
 	on:click={() => {
-		items.forEach((item) => {
-			item.remaining--;
-			console.log(item);
+		fetch('/cron', {
+			headers: {
+				Authorization: 'Bearer ' + import.meta.env.VITE_CRON_KEY
+			}
 		});
-		set(dbRef, items);
 	}}
 >
 	next day, cron 0 0 * * *
-</button>
+</button> -->
 
-<pre>{JSON.stringify(items, null, 2)}</pre>
-
+<!-- <pre>{JSON.stringify(items, null, 2)}</pre> -->
 <style>
 	.done {
 		text-decoration: line-through;
