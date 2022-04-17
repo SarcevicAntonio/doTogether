@@ -1,0 +1,13 @@
+name: Daily cron job
+on:
+  schedule:
+    - cron: '0 0 * * *'
+jobs:
+  cron:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Daily cron job
+        run: |
+          curl --request POST \
+          --url 'https://do-together.vercel.app/cron' \
+          --header 'Authorization: Bearer ${{ secrets.VITE_CRON_KEY  }}'
