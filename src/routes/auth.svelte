@@ -12,8 +12,8 @@
 	}
 
 	let user = null;
-	auth.onAuthStateChanged((user) => {
-		user = user;
+	auth.onAuthStateChanged((userChanged) => {
+		user = userChanged;
 	});
 </script>
 
