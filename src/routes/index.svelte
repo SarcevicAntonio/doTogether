@@ -12,13 +12,42 @@
 		items = snapshot.val();
 	});
 
-	let label = 'test';
+	let label = '';
 	let desc = '';
 	let days = 7;
 	$: nextId = items?.length + 1;
 </script>
 
-<h1>Todo</h1>
+<div class="sb aic">
+	<h1>doTogether</h1>
+	<Dialog triggerLabel="➕ Add Item" let:toggle>
+		<h2>Add Item</h2>
+		<form
+			on:submit|preventDefault={() => {
+				items = [...items, { label, desc, days, remaining: 0, id: nextId }];
+				set(dbRef, items);
+				label = '';
+				desc = ''
+				days = 7;
+				toggle();
+			}}
+		>
+			<label>
+				<span>Label</span>
+				<input bind:value={label} />
+			</label>
+			<label>
+				<span>Description</span>
+				<textarea bind:value={desc} rows="6" />
+			</label>
+			<label>
+				<span>Days to return after</span>
+				<input type="number" bind:value={days} />
+			</label>
+			<button> ➕ Add </button>
+		</form>
+	</Dialog>
+</div>
 
 {#if items?.length}
 	<ul>
