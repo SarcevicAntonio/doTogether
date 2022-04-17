@@ -1,0 +1,27 @@
+html {
+	font-family: system-ui, sans-serif;
+}
+
+button,
+input,
+textarea {
+	font: inherit;
+}
+
+button,
+input,
+textarea {
+	border: 1px solid black;
+	border-radius: 4px;
+	background: white;
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+	gap: 1em;
+}
+label {
+	display: flex;
+	flex-direction: column;
+}

@@ -6,32 +6,27 @@
 	const dispatch = createEventDispatcher();
 </script>
 
-<h2>Edit Item</h2>
+<h2>Edit Item: "{item.label}"</h2>
 <form
 	on:submit|preventDefault={() => {
 		dispatch('edit', item);
 	}}
 >
 	<label>
-		Label
+		<span>Label</span>
 		<input bind:value={item.label} />
 	</label>
-	<br />
 	<label>
-		Description
+		<span>Description</span>
 		<textarea bind:value={item.desc} />
 	</label>
-	<br />
 	<label>
-		Return in
+		<span>Days to return after</span>
 		<input type="number" bind:value={item.days} />
-		days
 	</label>
-	<br />
 	<label>
+		<span>Days remaining</span>
 		<input type="number" bind:value={item.remaining} />
-		days remaining
 	</label>
-	<br />
 	<button> 💾 Save </button>
 </form>

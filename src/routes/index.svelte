@@ -19,64 +19,39 @@
 </script>
 
 <h1>Todo</h1>
-<Dialog triggerLabel="Add Item" let:toggle>
-	<h2>Add Item</h2>
-	<form
-		on:submit|preventDefault={() => {
-			items = [...items, { label, desc, days, remaining: 0, id: nextId }];
-			set(dbRef, items);
-			toggle();
-		}}
-	>
-		<label>
-			Label
-			<input bind:value={label} />
-		</label>
-		<br />
-		<label>
-			Description
-			<textarea bind:value={desc} />
-		</label>
-		<br />
-		<label>
-			Return in
-			<input type="number" bind:value={days} />
-			days
-		</label>
-
-		<button> ➕ Add </button>
-	</form>
-</Dialog>
 
 {#if items?.length}
 	<ul>
 		{#each items.sort((a, b) => a.remaining - b.remaining) as item (item.id)}
 			{@const done = item.remaining > 0}
-			<li animate:flip in:fly={{ x: -40 }} out:fade class:done>
-				{item.label}
-				<Dialog triggerLabel="ℹ️">
-					{#if item.desc}
-						<p>{item.desc}</p>
-					{/if}
-					<ul>
-						<li>Returns every {item.days} days.</li>
-						{#if done}
-							<li>✅ Done! {item.remaining} days remaining to next return.</li>
-						{:else}
-							<li>⚠️ Currently todo!</li>
+			<li animate:flip in:fly={{ x: -40 }} out:fade>
+				<span class="item">
+					<Dialog triggerLabel="ℹ️">
+						<h2>{item.label}</h2>
+						{#if item.desc}
+							<p>{item.desc}</p>
 						{/if}
-					</ul>
-					<Dialog triggerLabel="⚙️ Settings" let:toggle>
-						<EditForm
-							{item}
-							on:edit={({ detail: newItem }) => {
-								item = newItem;
-								set(dbRef, items);
-								toggle();
-							}}
-						/>
+						<p>🔄 Returns every {item.days} days.</p>
+						{#if done}
+							<p>✅ Done! {item.remaining} days remaining to next return.</p>
+						{:else}
+							<p>⚠️ Currently todo!</p>
+						{/if}
+						<Dialog triggerLabel="⚙️ Settings" let:toggle>
+							<EditForm
+								{item}
+								on:edit={({ detail: newItem }) => {
+									item = newItem;
+									set(dbRef, items);
+									toggle();
+								}}
+							/>
+						</Dialog>
 					</Dialog>
-				</Dialog>
+					<span class="item-label" class:done>
+						{item.label}
+					</span>
+				</span>
 				{#if !done}
 					<button
 						on:click={() => {
@@ -92,20 +67,62 @@
 	</ul>
 {/if}
 
-<!-- <button
-	on:click={() => {
-		fetch('/cron', {
-			headers: {
-				Authorization: 'Bearer ' + import.meta.env.VITE_CRON_KEY
-			}
-		});
-	}}
->
-	next day, cron 0 0 * * *
-</button> -->
+<div class="add-item-container">
+	<Dialog triggerLabel="➕ Add Item" let:toggle>
+		<h2>Add Item</h2>
+		<form
+			on:submit|preventDefault={() => {
+				items = [...items, { label, desc, days, remaining: 0, id: nextId }];
+				set(dbRef, items);
+				toggle();
+			}}
+		>
+			<label>
+				<span>Label</span>
+				<input bind:value={label} />
+			</label>
+			<label>
+				<span>Description</span>
+				<textarea bind:value={desc} />
+			</label>
+			<label>
+				<span>Days to return after</span>
+				<input type="number" bind:value={days} />
+			</label>
+			<button> ➕ Add </button>
+		</form>
+	</Dialog>
+</div>
 
-<!-- <pre>{JSON.stringify(items, null, 2)}</pre> -->
 <style>
+	ul {
+		display: flex;
+		flex-direction: column;
+		gap: 1em;
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	li {
+		display: flex;
+		justify-content: space-between;
+	}
+
+	.item {
+		display: flex;
+		gap: 1em;
+	}
+
+	.item-label {
+		font-size: 1.2em;
+	}
+
+	.add-item-container {
+		margin-top: 1em;
+		display: flex;
+		justify-content: end;
+	}
 	.done {
 		text-decoration: line-through;
 	}
