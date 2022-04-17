@@ -29,7 +29,7 @@
 					<Dialog triggerLabel="ℹ️">
 						<h2>{item.label}</h2>
 						{#if item.desc}
-							<p>{item.desc}</p>
+							<p class="desc">{@html item.desc}</p>
 						{/if}
 						<p>🔄 Returns every {item.days} days.</p>
 						{#if done}
@@ -83,7 +83,7 @@
 			</label>
 			<label>
 				<span>Description</span>
-				<textarea bind:value={desc} />
+				<textarea bind:value={desc} rows="6" />
 			</label>
 			<label>
 				<span>Days to return after</span>
@@ -107,6 +107,10 @@
 	li {
 		display: flex;
 		justify-content: space-between;
+	}
+
+	.desc {
+		white-space: pre-line;
 	}
 
 	.item {
