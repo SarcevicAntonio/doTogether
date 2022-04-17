@@ -1,15 +1,16 @@
 <script>
+	import EditForm from '$lib/EditForm.svelte';
 	import { db } from '$lib/firebase';
 	import { Dialog } from 'as-comps';
-	import { ref, set } from 'firebase/database';
-	import { object } from 'rxfire/database';
-	import EditForm from '$lib/EditForm.svelte';
+	import { onValue, ref, set } from 'firebase/database';
 	import { flip } from 'svelte/animate';
-	import { fly, fade } from 'svelte/transition';
+	import { fade, fly } from 'svelte/transition';
 
 	const dbRef = ref(db, 'todos');
-	const objectStore = object(dbRef);
-	$: items = $objectStore?.snapshot.val();
+	let items = []; //$objectStore?.snapshot.val();
+	onValue(dbRef, (snapshot) => {
+		items = snapshot.val();
+	});
 
 	let label = 'test';
 	let desc = '';

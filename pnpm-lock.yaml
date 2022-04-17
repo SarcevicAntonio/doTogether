@@ -13,8 +13,6 @@ specifiers:
   firebase: ^9.6.11
   prettier: ^2.5.1
   prettier-plugin-svelte: ^2.5.0
-  rxfire: ^6.0.3
-  rxjs: ^7.5.5
   svelte: ^3.44.0
   svelte-check: ^2.2.6
   svelte-preprocess: ^4.10.1
@@ -24,8 +22,6 @@ specifiers:
 dependencies:
   as-comps: 0.0.7
   firebase: 9.6.11
-  rxfire: 6.0.3_firebase@9.6.11+rxjs@7.5.5
-  rxjs: 7.5.5
 
 devDependencies:
   '@playwright/test': 1.21.0
@@ -3115,23 +3111,6 @@ packages:
       queue-microtask: 1.2.3
     dev: true
 
-  /rxfire/6.0.3_firebase@9.6.11+rxjs@7.5.5:
-    resolution: {integrity: sha512-77nkyffHh7jgfi1YA/N9RI+kWxYpgKk6GRML1lyersvaqbJt4hkvWwk1rWib9Rb5Lr5mT+Ha45lu7nM79sJCZA==}
-    peerDependencies:
-      firebase: ^9.0.0
-      rxjs: ^6.0.0 || ^7.0.0
-    dependencies:
-      firebase: 9.6.11
-      rxjs: 7.5.5
-      tslib: 1.14.1
-    dev: false
-
-  /rxjs/7.5.5:
-    resolution: {integrity: sha512-sy+H0pQofO95VDmFLzyaw9xNJU4KTRSwQIGM6+iG3SypAtCiLDzpeG8sJrNCWn2Up9km+KhkvTdbkrdy+yzZdw==}
-    dependencies:
-      tslib: 2.3.1
-    dev: false
-
   /sade/1.8.1:
     resolution: {integrity: sha512-xal3CZX1Xlo/k4ApwCFrHVACi9fBqJ7V+mwhBsuf/1IOKbBy098Fex+Wa/5QMubw09pSZ/u8EY8PWgevJsXp1A==}
     engines: {node: '>=6'}
@@ -3485,6 +3464,7 @@ packages:
 
   /tslib/1.14.1:
     resolution: {integrity: sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==}
+    dev: true
 
   /tslib/2.3.0:
     resolution: {integrity: sha512-N82ooyxVNm6h1riLCoyS9e3fuJ3AMG2zIZs2Gd1ATcSFjSA23Q0fzjjZeh0jbJvWVDZ0cJT8yaNNaaXHzueNjg==}

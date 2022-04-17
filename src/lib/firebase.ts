@@ -1,7 +1,6 @@
 import { getApp, getApps, initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getDatabase } from 'firebase/database';
-import { authState } from 'rxfire/auth';
 
 const firebaseConfig = {
 	apiKey: import.meta.env.VITE_FIRE_APIKEY,
@@ -34,5 +33,4 @@ export function getClient() {
 
 export const app = getClient().app;
 export const auth = getClient().auth;
-export const authStore = authState(auth);
 export const db = getClient().db;
