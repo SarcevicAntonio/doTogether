@@ -29,7 +29,7 @@
 	</label>
 	<br />
 	<label>
-		<input type="number" bind:value={item.days} />
+		<input type="number" bind:value={item.remaining} />
 		days remaining
 	</label>
 	<br />
