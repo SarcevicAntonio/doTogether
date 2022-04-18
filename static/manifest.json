@@ -1,0 +1,26 @@
+{
+	"name": "doTogether",
+	"short_name": "doTogether",
+	"start_url": "/",
+	"display": "standalone",
+	"theme_color": "#161617",
+	"background_color": "#EBE8F7",
+	"icons": [
+		{
+			"sizes": "192x192",
+			"src": "icon192.png",
+			"type": "image/png"
+		},
+		{
+			"sizes": "512x512",
+			"src": "icon512.png",
+			"type": "image/png"
+		},
+		{
+			"sizes": "512x512",
+			"src": "icon-maskable.png",
+			"type": "image/png",
+			"purpose": "maskable"
+		}
+	]
+}
