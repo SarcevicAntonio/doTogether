@@ -23,6 +23,13 @@ h2 {
 	margin: 0;
 }
 
+h1 {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 0.25em;
+}
+
 html {
 	font-family: system-ui, sans-serif;
 	background: var(--background);

@@ -1,7 +1,7 @@
 <script>
 	import EditForm from '$lib/EditForm.svelte';
 	import { db } from '$lib/firebase';
-import Logo from '$lib/Logo.svelte';
+	import Logo from '$lib/Logo.svelte';
 	import { Dialog } from 'as-comps';
 	import { onValue, ref, set } from 'firebase/database';
 	import { flip } from 'svelte/animate';
@@ -19,7 +19,7 @@ import Logo from '$lib/Logo.svelte';
 </script>
 
 <div class="jcsb ais mb2">
-	<h1><Logo/> doTogether</h1>
+	<h1><Logo /> doTogether</h1>
 </div>
 
 {#if items?.length}
@@ -118,9 +118,6 @@ import Logo from '$lib/Logo.svelte';
 </div>
 
 <style>
-	h1 {
-		text-align: center;
-	}
 	ul {
 		display: flex;
 		flex-direction: column;
