@@ -1,6 +1,11 @@
-import { db } from '$lib/firebase';
+import { dbADMIN } from '$lib/firebase-admin';
 import type { RequestHandler } from '@sveltejs/kit';
-import { get as getFire, ref, set } from 'firebase/database';
+
+const noCacheHeaders = {
+	'Cache-Control': 'no-cache, no-store, must-revalidate',
+	Pragma: 'no-cache',
+	Expires: 0
+};
 
 export const get: RequestHandler = async ({ request }) => {
 	const key = import.meta.env.VITE_CRON_KEY;
@@ -9,24 +14,28 @@ export const get: RequestHandler = async ({ request }) => {
 	const reqKey = request.headers.get('Authorization')?.split(' ')[1];
 	console.log('reqKey: ', JSON.stringify(reqKey, null, 2));
 	if (reqKey === key) {
-		console.log('true');
-
-		const dbRef = ref(db, 'todos');
-		const items = (await getFire(dbRef)).val();
-
-		console.log('items: ', JSON.stringify(items, null, 2));
-
+		console.log('authed!');
+		const ref = dbADMIN.ref('todos');
+		const items = (await ref.once('value')).val();
+		console.log('items read: ', JSON.stringify(items, null, 2));
 		items.forEach((item) => {
 			item.remaining--;
-
-			console.log('item: ', JSON.stringify(item, null, 2));
 		});
-
-		set(dbRef, items);
-
-		console.log('items: ', JSON.stringify(items, null, 2));
+		await ref.set(items);
+		console.log('items updated: ', JSON.stringify(items, null, 2));
+		return {
+			status: 200,
+			headers: {
+				...noCacheHeaders
+			}
+		};
 	} else {
-		console.log('false');
+		console.log('not authed!');
+		return {
+			status: 404,
+			headers: {
+				...noCacheHeaders
+			}
+		};
 	}
-	return { status: 200 };
 };

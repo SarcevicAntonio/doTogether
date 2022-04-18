@@ -1,5 +1,6 @@
 <script>
 	import { auth } from '$lib/firebase';
+import Logo from '$lib/Logo.svelte';
 	import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 
 	const provider = new GoogleAuthProvider();
@@ -17,9 +18,49 @@
 	});
 </script>
 
-{#if !user}
-	<button on:click={popAuth}> auth now </button>
-{:else}
-	<pre>{JSON.stringify(user, null, 2)}</pre>
-	<button on:click={logout}>logout</button>
-{/if}
+<div class="container">
+	<h1><Logo/> doTogether</h1>
+
+	{#if !user}
+		<button on:click={popAuth}>🔑 Login with Google</button>
+	{:else}
+		<button on:click={logout}>🔒 Logout</button>
+		<div class="user">
+			<div class="flx g1 aic">
+				<img src={user.photoURL} alt="Your Google profile" />
+				<h2>{user.displayName}</h2>
+			</div>
+			<ul>
+				<li>Email: {user.email}</li>
+				<li>uid: {user.uid}</li>
+			</ul>
+		</div>
+		<a href="/">📝 Go to list!</a>
+	{/if}
+</div>
+
+<style>
+	.container {
+		height: 100%;
+		display: grid;
+		place-items: center;
+		gap: 2em;
+	}
+
+	.user {
+		background-color: var(--surface);
+		color: var(--on-surface);
+		padding: 0.5rem;
+		border-radius: 1rem;
+	}
+
+	img {
+		border-radius: 1em;
+	}
+
+	ul {
+		list-style: none;
+		text-align: center;
+		padding: 0;
+	}
+</style>

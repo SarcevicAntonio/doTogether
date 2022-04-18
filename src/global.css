@@ -1,27 +1,76 @@
+@import './as-utils';
+
+:root {
+	--background: hsl(252, 48%, 94%);
+	--foreground: hsl(240, 2%, 9%);
+	--on-surface: black;
+	--surface: white;
+	--as-dialog-background: var(--background);
+	--as-notification-info-color: var(--on-surface);
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--background: hsl(240, 2%, 4%);
+		--foreground: hsl(252, 52%, 94%);
+		--surface: hsl(132, 48%, 94%);
+		--on-surface: hsl(120, 2%, 9%);
+	}
+}
+
+h1,
+h2 {
+	margin: 0;
+}
+
 html {
 	font-family: system-ui, sans-serif;
+	background: var(--background);
+	color: var(--foreground);
+	height: 100%;
+}
+
+body {
+	margin: 0.5rem;
+	height: calc(100% - 1rem);
 }
 
 button,
 input,
-textarea {
+textarea,
+label,
+a {
 	font: inherit;
+	font-weight: 500;
 }
 
 button,
 input,
-textarea {
-	border: 1px solid black;
-	border-radius: 4px;
-	background: white;
+textarea,
+a {
+	border-radius: 0.25em;
+	border: none;
+	background-color: var(--surface);
+	color: var(--on-surface);
+	padding: 0.25em 0.5em;
 }
 
 form {
 	display: flex;
 	flex-direction: column;
-	gap: 1em;
+	gap: 1rem;
 }
+
 label {
 	display: flex;
 	flex-direction: column;
+}
+
+button {
+	cursor: pointer;
+}
+
+button:disabled {
+	opacity: 0.6;
+	cursor: default;
 }

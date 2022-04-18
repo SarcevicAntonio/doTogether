@@ -33,6 +33,7 @@
 	"type": "module",
 	"dependencies": {
 		"as-comps": "^0.0.7",
-		"firebase": "^9.6.11"
+		"firebase": "^9.6.11",
+		"firebase-admin": "^10.0.2"
 	}
 }

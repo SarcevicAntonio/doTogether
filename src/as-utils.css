@@ -1,0 +1,36 @@
+.flx {
+	display: flex;
+}
+
+.jcsb {
+	justify-content: space-between;
+}
+
+.jce {
+	justify-content: end;
+}
+
+.aic {
+	align-items: center;
+}
+
+.ais {
+	align-items: start;
+}
+
+.g1 {
+	gap: 1em;
+}
+
+.mt1 {
+	margin-top: 1rem;
+}
+
+.mt2 {
+	margin-top: 2rem;
+}
+
+.mb2 {
+	margin-bottom: 2rem;
+}
+
