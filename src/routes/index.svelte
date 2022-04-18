@@ -51,6 +51,8 @@
 									<button on:click={toggle}>🔙 Do nothing</button>
 									<button
 										on:click={() => {
+											toggle();
+											toggleParent();
 											items = items.filter((i) => i.id !== item.id);
 											set(dbRef, items);
 										}}>🗑️ Delete</button
@@ -61,10 +63,10 @@
 								<EditForm
 									{item}
 									on:edit={({ detail: newItem }) => {
-										item = newItem;
-										set(dbRef, items);
 										toggle();
 										toggleParent();
+										item = newItem;
+										set(dbRef, items);
 									}}
 								/>
 							</Dialog>
@@ -82,9 +84,9 @@
 							<button on:click={toggle}>🔙 Do nothing</button>
 							<button
 								on:click={() => {
+									toggle();
 									item.remaining = item.days;
 									set(dbRef, items);
-									toggle();
 								}}
 							>
 								✅ Mark as Done
@@ -104,12 +106,12 @@
 		<h2>Add Item</h2>
 		<form
 			on:submit|preventDefault={() => {
+				toggle();
 				items = [...items, { label, desc, days, remaining: 0, id: nextId }];
 				set(dbRef, items);
 				label = '';
 				desc = '';
 				days = 7;
-				toggle();
 			}}
 		>
 			<label>
