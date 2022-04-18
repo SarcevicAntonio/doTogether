@@ -37,7 +37,11 @@
 						{#if done}
 							<p>✅ Done! {item.remaining} days remaining to next return.</p>
 						{:else}
-							<p>⚠️ Currently todo!</p>
+							<p>
+								⚠️ Currently todo. {#if item.remaining < 0}
+									{Math.abs(item.remaining)} days overdue!
+								{/if}
+							</p>
 						{/if}
 						<div class="flx jcsb">
 							<Dialog triggerLabel="🗑️" let:toggle>
@@ -71,14 +75,22 @@
 					</span>
 				</span>
 				{#if !done}
-					<button
-						on:click={() => {
-							item.remaining = item.days;
-							set(dbRef, items);
-						}}
-					>
-						✅ Done
-					</button>
+					<Dialog triggerLabel="✅ Done" let:toggle>
+						<h2>Is "{item.label}" really done?</h2>
+						<p>The item wil return in {item.days} days.</p>
+						<div class="flx jcsb">
+							<button on:click={toggle}>🔙 Do nothing</button>
+							<button
+								on:click={() => {
+									item.remaining = item.days;
+									set(dbRef, items);
+									toggle();
+								}}
+							>
+								✅ Mark as Done
+							</button>
+						</div>
+					</Dialog>
 				{:else}
 					<button disabled>⏰ {item.remaining} Days</button>
 				{/if}
