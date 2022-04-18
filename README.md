@@ -4,7 +4,9 @@
 
 A stupidly simple realtime-multiplayer todo list for recurring tasks.
 
-![A screenshot of the app. It displays a list of household tasks.](./screenshot.png)
+![A mockup of a Pixel 5 with the app open. It displays a list of household tasks.](./device-frame.png)
+
+<!-- ![A screenshot of the app. It displays a list of household tasks.](./screenshot.png) -->
 
 ---
 
