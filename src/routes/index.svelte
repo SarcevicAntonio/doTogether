@@ -1,17 +1,15 @@
 <script>
-	import EditForm from '$lib/EditForm.svelte';
 	import { db } from '$lib/firebase';
+	import Form from '$lib/Form.svelte';
 	import { Dialog } from 'as-comps';
 	import { onValue, ref, set } from 'firebase/database';
 	import { flip } from 'svelte/animate';
 	import IcBaseline360 from '~icons/ic/baseline-360';
-	import IcRoundAdd from '~icons/ic/round-add';
 	import IcRoundAlarm from '~icons/ic/round-alarm';
 	import IcRoundArrowBack from '~icons/ic/round-arrow-back';
 	import IcRoundDeleteForever from '~icons/ic/round-delete-forever';
 	import IcRoundDone from '~icons/ic/round-done';
 	import IcRoundInfo from '~icons/ic/round-info';
-	import IcRoundSettings from '~icons/ic/round-settings';
 
 	const dbRef = ref(db, 'todos');
 	let items;
@@ -19,9 +17,6 @@
 		items = snapshot.val();
 	});
 
-	let label = '';
-	let desc = '';
-	let days = 7;
 	$: nextId = items?.length + 1;
 </script>
 
@@ -72,20 +67,15 @@
 										>
 									</div>
 								</Dialog>
-								<Dialog let:toggle>
-									<svelte:fragment slot="trigger-label">
-										<IcRoundSettings /> Settings
-									</svelte:fragment>
-									<EditForm
-										{item}
-										on:edit={({ detail: newItem }) => {
-											toggle();
-											toggleParent();
-											item = newItem;
-											set(dbRef, items);
-										}}
-									/>
-								</Dialog>
+								<Form
+									edit
+									{item}
+									on:edit={({ detail: newItem }) => {
+										toggleParent();
+										item = newItem;
+										set(dbRef, items);
+									}}
+								/>
 							</div>
 						</Dialog>
 						<span class="item-label">
@@ -119,40 +109,16 @@
 			{/each}
 		</ol>
 	{:else}
-		<h2>Loading ...</h2>
+		<h2 class="loading">Loading ...</h2>
 	{/if}
 
 	<div class="flx jce mt2">
-		<Dialog let:toggle>
-			<svelte:fragment slot="trigger-label">
-				<IcRoundAdd /> Add Item
-			</svelte:fragment>
-			<h2>Add Item</h2>
-			<form
-				on:submit|preventDefault={() => {
-					toggle();
-					items = [...items, { label, desc, days, remaining: 0, id: nextId }];
-					set(dbRef, items);
-					label = '';
-					desc = '';
-					days = 7;
-				}}
-			>
-				<label>
-					<span>Label</span>
-					<input bind:value={label} />
-				</label>
-				<label>
-					<span>Description</span>
-					<textarea bind:value={desc} rows="6" />
-				</label>
-				<label>
-					<span>Days to return after</span>
-					<input type="number" bind:value={days} />
-				</label>
-				<button> <IcRoundAdd /> Add </button>
-			</form>
-		</Dialog>
+		<Form
+			on:edit={({ detail: newItem }) => {
+				items = [...items, { ...newItem, id: nextId }];
+				set(dbRef, items);
+			}}
+		/>
 	</div>
 </main>
 
@@ -162,7 +128,7 @@
 		margin: auto;
 	}
 
-	h2 {
+	.loading {
 		text-align: center;
 	}
 
