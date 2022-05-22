@@ -1,13 +1,12 @@
 <script>
 	import EditForm from '$lib/EditForm.svelte';
 	import { db } from '$lib/firebase';
-	import Logo from '$lib/Logo.svelte';
 	import { Dialog } from 'as-comps';
 	import { onValue, ref, set } from 'firebase/database';
 	import { flip } from 'svelte/animate';
 
 	const dbRef = ref(db, 'todos');
-	let items = [];
+	let items;
 	onValue(dbRef, (snapshot) => {
 		items = snapshot.val();
 	});
@@ -18,121 +17,130 @@
 	$: nextId = items?.length + 1;
 </script>
 
-<div class="jcsb ais mb2">
-	<h1><Logo /> doTogether</h1>
-</div>
-
-{#if items?.length}
-	<ul>
-		{#each items.sort((a, b) => a.remaining - b.remaining) as item (item.id)}
-			{@const done = item.remaining > 0}
-			<li animate:flip>
-				<span class="item" class:done>
-					<Dialog triggerLabel="ℹ️" let:toggle={toggleParent}>
-						<h2>{item.label}</h2>
-						{#if item.desc}
-							<p class="desc">{@html item.desc}</p>
-						{/if}
-						<p>🔄 Returns every {item.days} days.</p>
-						{#if done}
-							<p>✅ Done! {item.remaining} days remaining to next return.</p>
-						{:else}
-							<p>
-								⚠️ Currently todo. {#if item.remaining < 0}
-									{Math.abs(item.remaining)} days overdue!
-								{/if}
-							</p>
-						{/if}
-						<div class="flx jcsb">
-							<Dialog triggerLabel="🗑️" let:toggle>
-								<h2>Are you Sure?</h2>
-								<p>Deleting the item "{item.label}" can't be undone.</p>
-								<div class="flx jcsb">
-									<button on:click={toggle}>🔙 Do nothing</button>
-									<button
-										on:click={() => {
+<main>
+	{#if items}
+		<ol>
+			{#each items.sort((a, b) => a.remaining - b.remaining) as item (item.id)}
+				{@const done = item.remaining > 0}
+				<li animate:flip>
+					<span class="item" class:done>
+						<Dialog triggerLabel="ℹ️" let:toggle={toggleParent}>
+							<h2>{item.label}</h2>
+							{#if item.desc}
+								<p class="desc">{@html item.desc}</p>
+							{/if}
+							<p>🔄 Returns every {item.days} days.</p>
+							{#if done}
+								<p>✅ Done! {item.remaining} days remaining to next return.</p>
+							{:else}
+								<p>
+									⚠️ Currently todo. {#if item.remaining < 0}
+										{Math.abs(item.remaining)} days overdue!
+									{/if}
+								</p>
+							{/if}
+							<div class="flx jcsb">
+								<Dialog triggerLabel="🗑️" let:toggle>
+									<h2>Are you Sure?</h2>
+									<p>Deleting the item "{item.label}" can't be undone.</p>
+									<div class="flx jcsb">
+										<button on:click={toggle}>🔙 Do nothing</button>
+										<button
+											on:click={() => {
+												toggle();
+												toggleParent();
+												items = items.filter((i) => i.id !== item.id);
+												set(dbRef, items);
+											}}>🗑️ Delete</button
+										>
+									</div>
+								</Dialog>
+								<Dialog triggerLabel="⚙️ Settings" let:toggle>
+									<EditForm
+										{item}
+										on:edit={({ detail: newItem }) => {
 											toggle();
 											toggleParent();
-											items = items.filter((i) => i.id !== item.id);
+											item = newItem;
 											set(dbRef, items);
-										}}>🗑️ Delete</button
-									>
-								</div>
-							</Dialog>
-							<Dialog triggerLabel="⚙️ Settings" let:toggle>
-								<EditForm
-									{item}
-									on:edit={({ detail: newItem }) => {
+										}}
+									/>
+								</Dialog>
+							</div>
+						</Dialog>
+						<span class="item-label">
+							{item.label}
+						</span>
+					</span>
+					{#if !done}
+						<Dialog triggerLabel="✅ Done" let:toggle>
+							<h2>Is "{item.label}" really done?</h2>
+							<p>The item wil return in {item.days} days.</p>
+							<div class="flx jcsb">
+								<button on:click={toggle}>🔙 Do nothing</button>
+								<button
+									on:click={() => {
 										toggle();
-										toggleParent();
-										item = newItem;
+										item.remaining = item.days;
 										set(dbRef, items);
 									}}
-								/>
-							</Dialog>
-						</div>
-					</Dialog>
-					<span class="item-label">
-						{item.label}
-					</span>
-				</span>
-				{#if !done}
-					<Dialog triggerLabel="✅ Done" let:toggle>
-						<h2>Is "{item.label}" really done?</h2>
-						<p>The item wil return in {item.days} days.</p>
-						<div class="flx jcsb">
-							<button on:click={toggle}>🔙 Do nothing</button>
-							<button
-								on:click={() => {
-									toggle();
-									item.remaining = item.days;
-									set(dbRef, items);
-								}}
-							>
-								✅ Mark as Done
-							</button>
-						</div>
-					</Dialog>
-				{:else}
-					<button disabled>⏰ {item.remaining} Days</button>
-				{/if}
-			</li>
-		{/each}
-	</ul>
-{/if}
+								>
+									✅ Mark as Done
+								</button>
+							</div>
+						</Dialog>
+					{:else}
+						<button disabled>⏰ {item.remaining} Days</button>
+					{/if}
+				</li>
+			{/each}
+		</ol>
+	{:else}
+		<h2>Loading ...</h2>
+	{/if}
 
-<div class="flx jce mt2">
-	<Dialog triggerLabel="➕ Add Item" let:toggle>
-		<h2>Add Item</h2>
-		<form
-			on:submit|preventDefault={() => {
-				toggle();
-				items = [...items, { label, desc, days, remaining: 0, id: nextId }];
-				set(dbRef, items);
-				label = '';
-				desc = '';
-				days = 7;
-			}}
-		>
-			<label>
-				<span>Label</span>
-				<input bind:value={label} />
-			</label>
-			<label>
-				<span>Description</span>
-				<textarea bind:value={desc} rows="6" />
-			</label>
-			<label>
-				<span>Days to return after</span>
-				<input type="number" bind:value={days} />
-			</label>
-			<button> ➕ Add </button>
-		</form>
-	</Dialog>
-</div>
+	<div class="flx jce mt2">
+		<Dialog triggerLabel="➕ Add Item" let:toggle>
+			<h2>Add Item</h2>
+			<form
+				on:submit|preventDefault={() => {
+					toggle();
+					items = [...items, { label, desc, days, remaining: 0, id: nextId }];
+					set(dbRef, items);
+					label = '';
+					desc = '';
+					days = 7;
+				}}
+			>
+				<label>
+					<span>Label</span>
+					<input bind:value={label} />
+				</label>
+				<label>
+					<span>Description</span>
+					<textarea bind:value={desc} rows="6" />
+				</label>
+				<label>
+					<span>Days to return after</span>
+					<input type="number" bind:value={days} />
+				</label>
+				<button> ➕ Add </button>
+			</form>
+		</Dialog>
+	</div>
+</main>
 
 <style>
-	ul {
+	main {
+		max-width: 70ch;
+		margin: auto;
+	}
+
+	h2 {
+		text-align: center;
+	}
+
+	ol {
 		display: flex;
 		flex-direction: column;
 		gap: 1.25em;

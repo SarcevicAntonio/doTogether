@@ -12,8 +12,10 @@
 	});
 </script>
 
-{#if loading}
+<header>
 	<h1><Logo /> doTogether</h1>
+</header>
+{#if loading}
 	<h2>Loading ...</h2>
 {:else if !user}
 	<Auth />
@@ -22,8 +24,11 @@
 {/if}
 
 <style>
+	h1 {
+		margin-top: 0.5em;
+		margin-bottom: 1em;
+	}
 	h2 {
-		margin-top: 2em;
 		text-align: center;
 	}
 </style>

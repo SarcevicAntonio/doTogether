@@ -1,6 +1,6 @@
 <script>
 	import { auth } from '$lib/firebase';
-import Logo from '$lib/Logo.svelte';
+	import Logo from '$lib/Logo.svelte';
 	import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 
 	const provider = new GoogleAuthProvider();
@@ -18,9 +18,7 @@ import Logo from '$lib/Logo.svelte';
 	});
 </script>
 
-<div class="container">
-	<h1><Logo/> doTogether</h1>
-
+<main>
 	{#if !user}
 		<button on:click={popAuth}>🔑 Login with Google</button>
 	{:else}
@@ -37,11 +35,11 @@ import Logo from '$lib/Logo.svelte';
 		</div>
 		<a href="/">📝 Go to list!</a>
 	{/if}
-</div>
+</main>
 
 <style>
-	.container {
-		height: 100%;
+	main {
+		min-height: 60vw;
 		display: grid;
 		place-items: center;
 		gap: 2em;
