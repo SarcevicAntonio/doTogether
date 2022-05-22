@@ -4,6 +4,14 @@
 	import { Dialog } from 'as-comps';
 	import { onValue, ref, set } from 'firebase/database';
 	import { flip } from 'svelte/animate';
+	import IcBaseline360 from '~icons/ic/baseline-360';
+	import IcRoundAdd from '~icons/ic/round-add';
+	import IcRoundAlarm from '~icons/ic/round-alarm';
+	import IcRoundArrowBack from '~icons/ic/round-arrow-back';
+	import IcRoundDeleteForever from '~icons/ic/round-delete-forever';
+	import IcRoundDone from '~icons/ic/round-done';
+	import IcRoundInfo from '~icons/ic/round-info';
+	import IcRoundSettings from '~icons/ic/round-settings';
 
 	const dbRef = ref(db, 'todos');
 	let items;
@@ -24,38 +32,50 @@
 				{@const done = item.remaining > 0}
 				<li animate:flip>
 					<span class="item" class:done>
-						<Dialog triggerLabel="ℹ️" let:toggle={toggleParent}>
+						<Dialog let:toggle={toggleParent}>
+							<svelte:fragment slot="trigger-label">
+								<IcRoundInfo />
+							</svelte:fragment>
 							<h2>{item.label}</h2>
 							{#if item.desc}
 								<p class="desc">{@html item.desc}</p>
 							{/if}
-							<p>🔄 Returns every {item.days} days.</p>
+							<p><IcBaseline360 /> Returns every {item.days} day{item.days !== 1 ? 's' : ''}.</p>
 							{#if done}
-								<p>✅ Done! {item.remaining} days remaining to next return.</p>
+								<p>
+									<IcRoundDone /> Done! {item.remaining} day{item.remaining !== 1 ? 's' : ''} remaining
+									to next return.
+								</p>
 							{:else}
 								<p>
-									⚠️ Currently todo. {#if item.remaining < 0}
-										{Math.abs(item.remaining)} days overdue!
+									<IcRoundAlarm /> Currently todo. {#if item.remaining < 0}
+										{Math.abs(item.remaining)} day{Math.abs(item.remaining) !== 1 ? 's' : ''} overdue!
 									{/if}
 								</p>
 							{/if}
 							<div class="flx jcsb">
-								<Dialog triggerLabel="🗑️" let:toggle>
+								<Dialog let:toggle>
+									<svelte:fragment slot="trigger-label">
+										<IcRoundDeleteForever />
+									</svelte:fragment>
 									<h2>Are you Sure?</h2>
 									<p>Deleting the item "{item.label}" can't be undone.</p>
 									<div class="flx jcsb">
-										<button on:click={toggle}>🔙 Do nothing</button>
+										<button on:click={toggle}><IcRoundArrowBack /> Do nothing</button>
 										<button
 											on:click={() => {
 												toggle();
 												toggleParent();
 												items = items.filter((i) => i.id !== item.id);
 												set(dbRef, items);
-											}}>🗑️ Delete</button
+											}}><IcRoundDeleteForever /> Delete</button
 										>
 									</div>
 								</Dialog>
-								<Dialog triggerLabel="⚙️ Settings" let:toggle>
+								<Dialog let:toggle>
+									<svelte:fragment slot="trigger-label">
+										<IcRoundSettings /> Settings
+									</svelte:fragment>
 									<EditForm
 										{item}
 										on:edit={({ detail: newItem }) => {
@@ -73,11 +93,14 @@
 						</span>
 					</span>
 					{#if !done}
-						<Dialog triggerLabel="✅ Done" let:toggle>
+						<Dialog let:toggle>
+							<svelte:fragment slot="trigger-label">
+								<IcRoundDone /> Done
+							</svelte:fragment>
 							<h2>Is "{item.label}" really done?</h2>
 							<p>The item wil return in {item.days} days.</p>
 							<div class="flx jcsb">
-								<button on:click={toggle}>🔙 Do nothing</button>
+								<button on:click={toggle}><IcRoundArrowBack /> Do nothing</button>
 								<button
 									on:click={() => {
 										toggle();
@@ -85,12 +108,12 @@
 										set(dbRef, items);
 									}}
 								>
-									✅ Mark as Done
+									<IcRoundDone /> Mark as Done
 								</button>
 							</div>
 						</Dialog>
 					{:else}
-						<button disabled>⏰ {item.remaining} Days</button>
+						<button disabled><IcRoundAlarm /> {item.remaining} Days</button>
 					{/if}
 				</li>
 			{/each}
@@ -100,7 +123,10 @@
 	{/if}
 
 	<div class="flx jce mt2">
-		<Dialog triggerLabel="➕ Add Item" let:toggle>
+		<Dialog let:toggle>
+			<svelte:fragment slot="trigger-label">
+				<IcRoundAdd /> Add Item
+			</svelte:fragment>
 			<h2>Add Item</h2>
 			<form
 				on:submit|preventDefault={() => {
@@ -124,7 +150,7 @@
 					<span>Days to return after</span>
 					<input type="number" bind:value={days} />
 				</label>
-				<button> ➕ Add </button>
+				<button> <IcRoundAdd /> Add </button>
 			</form>
 		</Dialog>
 	</div>
@@ -152,6 +178,12 @@
 	li {
 		display: flex;
 		justify-content: space-between;
+		align-items: center;
+	}
+
+	p {
+		display: flex;
+		gap: 0.25em;
 	}
 
 	.desc {
@@ -161,6 +193,7 @@
 	.item {
 		display: flex;
 		gap: 1em;
+		align-items: center;
 	}
 
 	.item-label {

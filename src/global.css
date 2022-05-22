@@ -57,9 +57,23 @@ textarea,
 a {
 	border-radius: 0.25em;
 	border: none;
+	padding: 0.45em;
+	display: flex;
+	align-items: center;
+	gap: 0.5em;
+}
+
+button,
+a {
 	background-color: var(--surface);
 	color: var(--on-surface);
-	padding: 0.25em 0.5em;
+}
+
+input,
+textarea {
+	border: 1px solid var(--surface);
+	background-color: var(--on-surface);
+	color: var(--surface);
 }
 
 form {
