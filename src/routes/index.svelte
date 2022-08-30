@@ -16,8 +16,6 @@
 	onValue(dbRef, (snapshot) => {
 		items = snapshot.val();
 	});
-
-	$: nextId = items?.length + 1;
 </script>
 
 <main>
@@ -115,7 +113,7 @@
 	<div class="flx jce mt2">
 		<Form
 			on:edit={({ detail: newItem }) => {
-				items = [...items, { ...newItem, id: nextId }];
+				items = [...items, { ...newItem, id: crypto.randomUUID() }];
 				set(dbRef, items);
 			}}
 		/>
