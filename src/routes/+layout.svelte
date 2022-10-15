@@ -2,7 +2,7 @@
 	import { auth } from '$lib/firebase';
 	import Logo from '$lib/Logo.svelte';
 	import '../global.css';
-	import Auth from './auth.svelte';
+	import Auth from './auth/+page.svelte';
 
 	let loading = true;
 	let user = null;
