@@ -1,8 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@firebase/app-compat': 0.x
-  '@firebase/app-types': 0.x
+  '@firebase/app-types': ^0.x
   '@iconify/json': ^2.1.122
   '@playwright/test': ^1.21.0
   '@sveltejs/adapter-auto': ^1.0.0-next.83
@@ -13,7 +12,7 @@ specifiers:
   eslint: ^8.25.0
   eslint-config-prettier: ^8.5.0
   eslint-plugin-svelte3: ^4.0.0
-  firebase: ^9.12.1
+  firebase: ^9.6.11
   firebase-admin: ^10.0.2
   prettier: ^2.7.1
   prettier-plugin-svelte: ^2.8.0
@@ -26,11 +25,10 @@ specifiers:
   vite: ^3.1.8
 
 dependencies:
-  '@firebase/app-compat': 0.1.22
-  '@firebase/app-types': 0.7.0
+  '@firebase/app-types': 0.8.0
   as-comps: 0.0.7
   firebase: 9.12.1
-  firebase-admin: 10.3.0_@firebase+app-types@0.7.0
+  firebase-admin: 10.3.0_@firebase+app-types@0.8.0
 
 devDependencies:
   '@iconify/json': 2.1.122
@@ -693,16 +691,6 @@ packages:
       tslib: 2.4.0
     dev: false
 
-  /@firebase/app-compat/0.1.22:
-    resolution: {integrity: sha512-InzQWdIKXsioZb6Ll/uynvopFbq9k3Qpi3gEUq+f8q0yr8/KQVuH2lIDmN70z11LRKXlsziU49qRwtV9tcEYhA==}
-    dependencies:
-      '@firebase/app': 0.7.21
-      '@firebase/component': 0.5.13
-      '@firebase/logger': 0.3.2
-      '@firebase/util': 1.5.2
-      tslib: 2.4.0
-    dev: false
-
   /@firebase/app-compat/0.1.37:
     resolution: {integrity: sha512-doTKYGlVc8ZiQNOl66rpkU/YItRyOxCgMp4YWThXkPM4T/pTi4a9IMCe8K88gVNeYWd8sKW4vSnxjcOG5hQXEA==}
     dependencies:
@@ -713,21 +701,8 @@ packages:
       tslib: 2.4.0
     dev: false
 
-  /@firebase/app-types/0.7.0:
-    resolution: {integrity: sha512-6fbHQwDv2jp/v6bXhBw2eSRbNBpxHcd1NBF864UksSMVIqIyri9qpJB1Mn6sGZE+bnDsSQBC5j2TbMxYsJQkQg==}
-    dev: false
-
   /@firebase/app-types/0.8.0:
     resolution: {integrity: sha512-Lec3VVquUwXPn2UReGSsfTxuMBVRmzGIwA/CJnF0LQuPgv9kOmXk9mVqsDMfHxHtqjai0n6wWHR2TqjdVV/bYA==}
-    dev: false
-
-  /@firebase/app/0.7.21:
-    resolution: {integrity: sha512-b1COyw4HwajJ4zQCtL7w+d4GCQDmEaVO957eLLlBwz4QuDlx3eQIirpQhzkkPH17BJFZ6x0qyYEt6Wbhakn0kg==}
-    dependencies:
-      '@firebase/component': 0.5.13
-      '@firebase/logger': 0.3.2
-      '@firebase/util': 1.5.2
-      tslib: 2.4.0
     dev: false
 
   /@firebase/app/0.8.2:
@@ -759,16 +734,6 @@ packages:
       - bufferutil
       - encoding
       - utf-8-validate
-    dev: false
-
-  /@firebase/auth-interop-types/0.1.6_drbmzn3ajxio6y7n46xfxsjvha:
-    resolution: {integrity: sha512-etIi92fW3CctsmR9e3sYM3Uqnoq861M0Id9mdOPF6PWIg38BXL5k4upCNBggGUpLIS0H1grMOvy/wn1xymwe2g==}
-    peerDependencies:
-      '@firebase/app-types': 0.x
-      '@firebase/util': 1.x
-    dependencies:
-      '@firebase/app-types': 0.7.0
-      '@firebase/util': 1.7.2
     dev: false
 
   /@firebase/auth-interop-types/0.1.6_lmwpdx2fmxhc4czm5d7dj3yohq:
@@ -809,31 +774,11 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@firebase/component/0.5.13:
-    resolution: {integrity: sha512-hxhJtpD8Ppf/VU2Rlos6KFCEV77TGIGD5bJlkPK1+B/WUe0mC6dTjW7KhZtXTc+qRBp9nFHWcsIORnT8liHP9w==}
-    dependencies:
-      '@firebase/util': 1.5.2
-      tslib: 2.4.0
-    dev: false
-
   /@firebase/component/0.5.20:
     resolution: {integrity: sha512-wP51tQBlPFprfAWxWjzC/56hG4APhl43jFsgwuqCl3bhVbiKcr278QbrbGNmIXDeGKo4sGZLAnH9whl2apeCmA==}
     dependencies:
       '@firebase/util': 1.7.2
       tslib: 2.4.0
-    dev: false
-
-  /@firebase/database-compat/0.2.9_@firebase+app-types@0.7.0:
-    resolution: {integrity: sha512-zzyFM3+jW/qYtHojiQirHXGXYyElbqVngEEn/i2gXoSzcK0Y2AL5oHAqGYXLaaW0+t4Zwnssh3HnQJM8C1D0fw==}
-    dependencies:
-      '@firebase/component': 0.5.20
-      '@firebase/database': 0.13.9_@firebase+app-types@0.7.0
-      '@firebase/database-types': 0.9.16
-      '@firebase/logger': 0.3.3
-      '@firebase/util': 1.7.2
-      tslib: 2.4.0
-    transitivePeerDependencies:
-      - '@firebase/app-types'
     dev: false
 
   /@firebase/database-compat/0.2.9_@firebase+app-types@0.8.0:
@@ -854,19 +799,6 @@ packages:
     dependencies:
       '@firebase/app-types': 0.8.0
       '@firebase/util': 1.7.2
-    dev: false
-
-  /@firebase/database/0.13.9_@firebase+app-types@0.7.0:
-    resolution: {integrity: sha512-raQEBgQQybaEoMloJL8wWHQywGQ9mF2VbitvHydsbSNn+KL/xRDjXeQZPuuSbRjkYV6mR8jvQB7gpnzQQNE8Qg==}
-    dependencies:
-      '@firebase/auth-interop-types': 0.1.6_drbmzn3ajxio6y7n46xfxsjvha
-      '@firebase/component': 0.5.20
-      '@firebase/logger': 0.3.3
-      '@firebase/util': 1.7.2
-      faye-websocket: 0.11.4
-      tslib: 2.4.0
-    transitivePeerDependencies:
-      - '@firebase/app-types'
     dev: false
 
   /@firebase/database/0.13.9_@firebase+app-types@0.8.0:
@@ -1000,12 +932,6 @@ packages:
       '@firebase/component': 0.5.20
       '@firebase/util': 1.7.2
       idb: 7.0.1
-      tslib: 2.4.0
-    dev: false
-
-  /@firebase/logger/0.3.2:
-    resolution: {integrity: sha512-lzLrcJp9QBWpo40OcOM9B8QEtBw2Fk1zOZQdvv+rWS6gKmhQBCEMc4SMABQfWdjsylBcDfniD1Q+fUX1dcBTXA==}
-    dependencies:
       tslib: 2.4.0
     dev: false
 
@@ -1152,12 +1078,6 @@ packages:
       tslib: 2.4.0
     transitivePeerDependencies:
       - encoding
-    dev: false
-
-  /@firebase/util/1.5.2:
-    resolution: {integrity: sha512-YvBH2UxFcdWG2HdFnhxZptPl2eVFlpOyTH66iDo13JPEYraWzWToZ5AMTtkyRHVmu7sssUpQlU9igy1KET7TOw==}
-    dependencies:
-      tslib: 2.4.0
     dev: false
 
   /@firebase/util/1.7.2:
@@ -2810,12 +2730,12 @@ packages:
       path-exists: 4.0.0
     dev: true
 
-  /firebase-admin/10.3.0_@firebase+app-types@0.7.0:
+  /firebase-admin/10.3.0_@firebase+app-types@0.8.0:
     resolution: {integrity: sha512-A0wgMLEjyVyUE+heyMJYqHRkPVjpebhOYsa47RHdrTM4ltApcx8Tn86sUmjqxlfh09gNnILAm7a8q5+FmgBYpg==}
     engines: {node: '>=12.7.0'}
     dependencies:
       '@fastify/busboy': 1.1.0
-      '@firebase/database-compat': 0.2.9_@firebase+app-types@0.7.0
+      '@firebase/database-compat': 0.2.9_@firebase+app-types@0.8.0
       '@firebase/database-types': 0.9.16
       '@types/node': 17.0.24
       jsonwebtoken: 8.5.1
@@ -4650,7 +4570,7 @@ packages:
     dev: true
 
   /util-deprecate/1.0.2:
-    resolution: {integrity: sha1-RQ1Nyfpw3nMnYvvS1KKJgUGaDM8=}
+    resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
 
   /uuid/8.3.2:
     resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}

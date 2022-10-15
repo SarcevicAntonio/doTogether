@@ -34,10 +34,9 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@firebase/app-compat": "0.x",
-		"@firebase/app-types": "0.x",
+		"@firebase/app-types":"^0.x",
 		"as-comps": "0.0.7",
-		"firebase": "^9.12.1",
+		"firebase": "^9.6.11",
 		"firebase-admin": "^10.0.2"
 	}
 }

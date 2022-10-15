@@ -18,7 +18,7 @@
 	};
 
 	export let item = defaultItem;
-	export let edit;
+	export let edit = false;
 </script>
 
 <Dialog let:toggle>
@@ -65,7 +65,8 @@
 </Dialog>
 
 <style>
-	span, h2 {
+	span,
+	h2 {
 		display: flex;
 		align-items: center;
 		gap: 0.5em;

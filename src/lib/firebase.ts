@@ -26,11 +26,11 @@ export function getClient() {
 	if (!app) throw new Error('something went wrong with app: ' + JSON.stringify(app, null, 2));
 
 	const auth = getAuth(app);
-	// const db = getDatabase(app);
+	const db = getDatabase(app);
 
-	return { app, auth };
+	return { app, db, auth };
 }
 
 export const app = getClient().app;
 export const auth = getClient().auth;
-// export const db = getClient().db;
+export const db = getClient().db;
