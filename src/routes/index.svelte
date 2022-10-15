@@ -11,10 +11,12 @@
 	import IcRoundDone from '~icons/ic/round-done';
 	import IcRoundInfo from '~icons/ic/round-info';
 
-	const dbRef = ref(db, 'todos');
+	const dbRef = ref(db, 'rooms');
 	let items;
+
 	onValue(dbRef, (snapshot) => {
-		items = snapshot.val();
+		items = snapshot.val() || [];
+		console.log(items)
 	});
 </script>
 
@@ -61,8 +63,10 @@
 												toggleParent();
 												items = items.filter((i) => i.id !== item.id);
 												set(dbRef, items);
-											}}><IcRoundDeleteForever /> Delete</button
+											}}
 										>
+											<IcRoundDeleteForever /> Delete
+										</button>
 									</div>
 								</Dialog>
 								<Form
