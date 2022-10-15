@@ -14,10 +14,14 @@
 	const dbRef = ref(db, 'rooms');
 	let items;
 
-	onValue(dbRef, (snapshot) => {
-		items = snapshot.val() || [];
-		console.log(items)
-	});
+	onValue(
+		dbRef,
+		(snapshot) => {
+			items = snapshot.val() || [];
+			console.log(items);
+		},
+		(error) => console.log(error)
+	);
 </script>
 
 <main>
