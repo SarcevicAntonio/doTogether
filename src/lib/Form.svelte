@@ -8,19 +8,17 @@
 	import IcRoundDescription from '~icons/ic/round-description';
 	import IcRoundEdit from '~icons/ic/round-edit';
 	import IcRoundLocalOffer from '~icons/ic/round-local-offer';
+	const dispatch = createEventDispatcher();
 
 	let defaultItem = {
 		label: '',
 		desc: '',
 		days: 7,
-		remaining: 0
+		remaining: 0 // TODO: replace with last done
 	};
 
 	export let item = defaultItem;
-
 	export let edit;
-
-	const dispatch = createEventDispatcher();
 </script>
 
 <Dialog let:toggle>
