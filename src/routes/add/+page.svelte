@@ -15,7 +15,7 @@
 	let pending = false;
 </script>
 
-<Dialog>
+<Dialog let:toggle>
 	<svelte:fragment slot="trigger-label">Create new room</svelte:fragment>
 	<form
 		on:submit|preventDefault={async () => {
@@ -23,6 +23,7 @@
 			pending = true;
 			const { id } = await create_new_room(new_room_title);
 			pending = false;
+			toggle();
 			current_room.set(id);
 			goto('/');
 		}}
@@ -37,7 +38,7 @@
 
 <br />
 
-<Dialog>
+<Dialog let:toggle>
 	<svelte:fragment slot="trigger-label">Join room</svelte:fragment>
 	<form
 		on:submit|preventDefault={async () => {
@@ -45,6 +46,11 @@
 			pending = true;
 			await keychain.add(joining_room.id, joining_room.key);
 			pending = false;
+			let joining_room = {
+				id: '',
+				key: ''
+			};
+			toggle();
 			current_room.set(joining_room.id);
 			goto('/');
 		}}
