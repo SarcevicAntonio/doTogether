@@ -5,6 +5,9 @@
 	$: room = $rooms.get($page.params.id);
 </script>
 
-{room.title}
-
-{room.todos}
+{#if room}
+	{room.title}
+	{#each room.todos as item}
+		{item}
+	{/each}
+{/if}

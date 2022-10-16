@@ -3,7 +3,7 @@ import { onValue, ref, type Unsubscribe } from 'firebase/database';
 import { writable } from 'svelte/store';
 import { user } from './user';
 
-const store = writable(null);
+const { set, subscribe } = writable(null);
 
 let unsubscribe: Unsubscribe = null;
 user.subscribe(async ($user) => {
@@ -15,10 +15,10 @@ user.subscribe(async ($user) => {
 	unsubscribe = onValue(
 		dbRef,
 		(snapshot) => {
-			store.set(snapshot.val() || []);
+			set(snapshot.val() || []);
 		},
 		(error) => console.log(error)
 	);
 });
 
-export const room_keys = { subscribe: store.subscribe };
+export const room_keys = { subscribe };
