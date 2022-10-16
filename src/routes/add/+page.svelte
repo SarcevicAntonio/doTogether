@@ -23,8 +23,8 @@
 			pending = true;
 			const { id } = await create_new_room(new_room_title);
 			pending = false;
-			toggle();
 			current_room.set(id);
+			toggle();
 			goto('/');
 		}}
 	>
@@ -45,13 +45,14 @@
 			if (pending) return;
 			pending = true;
 			await keychain.add(joining_room.id, joining_room.key);
+			// todo fix wonkyness
 			pending = false;
-			let joining_room = {
+			current_room.set(joining_room.id);
+			joining_room = {
 				id: '',
 				key: ''
 			};
 			toggle();
-			current_room.set(joining_room.id);
 			goto('/');
 		}}
 	>

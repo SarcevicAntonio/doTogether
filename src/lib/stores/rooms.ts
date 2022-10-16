@@ -38,6 +38,7 @@ keychain.subscribe(async ($keychain) => {
 
 export const rooms = { subscribe };
 
+// TODO cleanup functions to make files more similar
 export async function delete_room(id) {
 	const dbRef = ref(db, 'rooms/' + id);
 	await remove(dbRef);

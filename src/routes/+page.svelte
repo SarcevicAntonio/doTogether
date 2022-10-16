@@ -12,9 +12,11 @@
 <br />
 
 {#if room}
-	{#each room.todos as item}
-		{JSON.stringify(item)}
-	{/each}
+	{#if room.todos}
+		{#each room.todos as item}
+			{JSON.stringify(item)}
+		{/each}
+	{/if}
 
 	<Dialog>
 		<svelte:fragment slot="trigger-label">Management</svelte:fragment>
