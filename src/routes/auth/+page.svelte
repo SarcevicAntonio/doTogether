@@ -1,6 +1,7 @@
 <script>
 	import { auth } from '$lib/firebase';
 	import Logo from '$lib/Logo.svelte';
+	import { user } from '$lib/stores/user';
 	import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 
 	const provider = new GoogleAuthProvider();
@@ -11,26 +12,21 @@
 	function popAuth() {
 		signInWithPopup(auth, provider);
 	}
-
-	let user = null;
-	auth.onAuthStateChanged((userChanged) => {
-		user = userChanged;
-	});
 </script>
 
 <main>
-	{#if !user}
+	{#if !$user}
 		<button on:click={popAuth}>🔑 Login with Google</button>
 	{:else}
 		<button on:click={logout}>🔒 Logout</button>
 		<div class="user">
 			<div class="flx g1 aic">
-				<img src={user.photoURL} alt="Your Google profile" />
-				<h2>{user.displayName}</h2>
+				<img src={$user.photoURL} alt="Your Google profile" />
+				<h2>{$user.displayName}</h2>
 			</div>
 			<ul>
-				<li>Email: {user.email}</li>
-				<li>uid: {user.uid}</li>
+				<li>Email: {$user.email}</li>
+				<li>uid: {$user.uid}</li>
 			</ul>
 		</div>
 		<a href="/">📝 Go to list!</a>

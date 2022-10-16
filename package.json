@@ -34,7 +34,8 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@firebase/app-types":"^0.x",
+		"@firebase/app-types": "^0.x",
+		"@square/svelte-store": "^1.0.1",
 		"as-comps": "0.0.7",
 		"firebase": "^9.6.11",
 		"firebase-admin": "^10.0.2"

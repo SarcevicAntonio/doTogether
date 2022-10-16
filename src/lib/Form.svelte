@@ -14,7 +14,7 @@
 		label: '',
 		desc: '',
 		days: 7,
-		remaining: 0 // TODO: replace with last done
+		done: new Date().toISOString().substring(0, 10) // TODO: replace with last done
 	};
 
 	export let item = defaultItem;
