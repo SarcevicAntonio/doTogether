@@ -1,5 +1,5 @@
 import { db } from '$lib/firebase';
-import { onValue, ref, type Unsubscribe } from 'firebase/database';
+import { onValue, ref, remove, type Unsubscribe } from 'firebase/database';
 import { writable } from 'svelte/store';
 import { keychain } from './keychain';
 
@@ -37,3 +37,8 @@ keychain.subscribe(async ($keychain) => {
 });
 
 export const rooms = { subscribe };
+
+export async function delete_room(id) {
+	const dbRef = ref(db, 'rooms/' + id);
+	await remove(dbRef);
+}
