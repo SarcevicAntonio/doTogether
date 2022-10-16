@@ -23,7 +23,6 @@
 			pending = true;
 			const { id } = await create_new_room(new_room_title);
 			pending = false;
-			// TODO: fix the wonkyness sometimes
 			current_room.set(id);
 			goto('/');
 		}}
