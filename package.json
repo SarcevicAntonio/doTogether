@@ -22,6 +22,7 @@
 		"eslint": "^8.25.0",
 		"eslint-config-prettier": "^8.5.0",
 		"eslint-plugin-svelte3": "^4.0.0",
+		"postcss": "^8.4",
 		"prettier": "^2.7.1",
 		"prettier-plugin-svelte": "^2.8.0",
 		"svelte": "^3.52.0",
@@ -36,7 +37,7 @@
 	"dependencies": {
 		"@firebase/app-types": "^0.x",
 		"@square/svelte-store": "^1.0.1",
-		"as-comps": "0.0.7",
+		"as-comps": "^0.0.24",
 		"firebase": "^9.6.11",
 		"firebase-admin": "^10.0.2"
 	}

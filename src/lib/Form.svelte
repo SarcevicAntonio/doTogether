@@ -8,16 +8,10 @@
 	import IcRoundDescription from '~icons/ic/round-description';
 	import IcRoundEdit from '~icons/ic/round-edit';
 	import IcRoundLocalOffer from '~icons/ic/round-local-offer';
+	import { default_item } from './items';
 	const dispatch = createEventDispatcher();
 
-	let defaultItem = {
-		label: '',
-		desc: '',
-		days: 7,
-		done: new Date().toISOString().substring(0, 10) // TODO: replace with last done
-	};
-
-	export let item = defaultItem;
+	export let item = default_item;
 	export let edit = false;
 </script>
 
@@ -41,7 +35,7 @@
 		on:submit|preventDefault={() => {
 			toggle();
 			dispatch('edit', item);
-			item = defaultItem;
+			item = default_item;
 		}}
 	>
 		<label>

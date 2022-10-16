@@ -11,8 +11,8 @@
 <br />
 
 {#if room}
-	{room.title}
-	{#each room.todos as item}
+	{JSON.stringify(room)}
+	<!-- {#each room.todos as item}
 		{item}
-	{/each}
+	{/each} -->
 {/if}

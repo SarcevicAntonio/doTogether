@@ -1,15 +1,15 @@
 import { db } from '$lib/firebase';
 import { onValue, ref, type Unsubscribe } from 'firebase/database';
 import { writable } from 'svelte/store';
-import { room_keys } from './room-keys';
+import { keychain } from './keychain';
 
 const { update, subscribe } = writable(new Map());
 
 const unsubs = new Map<string, Unsubscribe>();
 
-room_keys.subscribe(async ($room_keys) => {
-	if (!$room_keys) return;
-	for (const room_id of Object.keys($room_keys)) {
+keychain.subscribe(async ($keychain) => {
+	if (!$keychain) return;
+	for (const room_id of Object.keys($keychain)) {
 		const oldUnsub = unsubs.get(room_id);
 		if (oldUnsub) return;
 
@@ -20,8 +20,12 @@ room_keys.subscribe(async ($room_keys) => {
 				update((map) => map.set(room_id, snapshot.val()));
 			},
 			(error) => {
-				console.error(error);
-				// TODO: delete id:key pair from member if wrong.
+				if (error.message.includes('permission_denied at /rooms/')) {
+					keychain.remove(room_id);
+					if (freshUnsub) freshUnsub();
+				} else {
+					console.error(error);
+				}
 			}
 		);
 		unsubs.set(room_id, freshUnsub);

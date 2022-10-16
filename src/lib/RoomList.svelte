@@ -13,9 +13,12 @@
 	};
 </script>
 
+<pre>
+	{JSON.stringify([...$rooms], null, 2)}
+</pre>
 <select value={$current_room} on:change={handleChange}>
 	{#each [...$rooms] as [id, room]}
-		<option value={id}>{room.title}</option>
+		<option value={id}>{room?.title || JSON.stringify(room)}</option>
 	{/each}
 	<option value="#ADD">Add a new room</option>
 </select>
