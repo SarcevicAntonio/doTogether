@@ -1,7 +1,7 @@
 import { auth } from '$lib/firebase';
 import { writable } from 'svelte/store';
 
-const { set, subscribe } = writable(null);
+const { set, subscribe } = writable(null); // TODO: initial value
 
 auth.onAuthStateChanged((userChanged) => {
 	set(userChanged);

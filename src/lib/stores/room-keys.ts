@@ -3,7 +3,7 @@ import { onValue, ref, type Unsubscribe } from 'firebase/database';
 import { writable } from 'svelte/store';
 import { user } from './user';
 
-const { set, subscribe } = writable(null);
+const { set, subscribe } = writable(null); // TODO: initial value
 
 let unsubscribe: Unsubscribe = null;
 user.subscribe(async ($user) => {
