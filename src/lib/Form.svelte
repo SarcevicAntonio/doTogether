@@ -51,8 +51,8 @@
 			<input type="number" bind:value={item.days} />
 		</label>
 		<label>
-			<span><IcRoundAlarm /> Days remaining</span>
-			<input type="number" bind:value={item.remaining} />
+			<span><IcRoundAlarm /> Last time done</span>
+			<input type="date" bind:value={item.done_at} />
 		</label>
 		<button><IcRoundCloudUpload /> Save</button>
 	</form>
