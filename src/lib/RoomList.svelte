@@ -5,7 +5,7 @@
 
 	const handleChange = (e) => {
 		const val = e.target.value;
-		if (val.startsWith('#')) {
+		if (val.startsWith('#ADD')) {
 			goto('/add');
 		} else {
 			current_room.set(val);
@@ -17,7 +17,7 @@
 	{#each [...$rooms] as [id, room]}
 		<option value={id}>{room?.title || JSON.stringify(room)}</option>
 	{/each}
-	<option value="#ADD">Add a new room</option>
+	<option value="#ADD">+ Add a new room</option>
 </select>
 
 <!-- 
