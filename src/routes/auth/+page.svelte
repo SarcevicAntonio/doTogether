@@ -1,9 +1,10 @@
 <script>
 	import { auth } from '$lib/firebase';
-	import Logo from '$lib/Logo.svelte';
 	import { user } from '$lib/stores/user';
 	import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
-
+	import IcRoundHouse from '~icons/ic/round-house';
+	import IcRoundLogin from '~icons/ic/round-login';
+	import IcRoundLogout from '~icons/ic/round-logout';
 	const provider = new GoogleAuthProvider();
 	function logout() {
 		auth.signOut();
@@ -16,9 +17,13 @@
 
 <main>
 	{#if !$user}
-		<button on:click={popAuth}>🔑 Login with Google</button>
+		<button on:click={popAuth}>
+			<IcRoundLogin /> Login with Google
+		</button>
 	{:else}
-		<button on:click={logout}>🔒 Logout</button>
+		<button on:click={logout}>
+			<IcRoundLogout /> Logout
+		</button>
 		<div class="user">
 			<div class="flx g1 aic">
 				<img src={$user.photoURL} alt="Your Google profile" />
@@ -29,7 +34,7 @@
 				<li>uid: {$user.uid}</li>
 			</ul>
 		</div>
-		<a href="/">📝 Go to list!</a>
+		<a href="/"><IcRoundHouse /> Go to Rooms!</a>
 	{/if}
 </main>
 

@@ -1,20 +1,22 @@
 @import './as-utils';
 
 :root {
-	--background: hsl(252, 48%, 94%);
-	--foreground: hsl(240, 2%, 9%);
-	--on-surface: black;
+	--background: #eceff1;
 	--surface: white;
-	--as-dialog-background: var(--background);
+	--foreground: #37474f;
+	--on-surface: #263238;
 	--as-notification-info-color: var(--on-surface);
+	--as-dialog-background: var(--background);
+	--as-dialog--close-btn-color: var(--foreground);
+	--as-dialog--close-btn-border: 1px solid var(--foreground);
 }
 
 @media (prefers-color-scheme: dark) {
 	:root {
-		--background: hsl(240, 2%, 4%);
-		--foreground: hsl(252, 52%, 94%);
-		--surface: hsl(132, 48%, 94%);
-		--on-surface: hsl(120, 2%, 9%);
+		--background: black;
+		--surface: #263238;
+		--foreground: #cfd8dc;
+		--on-surface: #eceff1;
 	}
 }
 

@@ -8,9 +8,9 @@ A stupidly simple realtime-multiplayer todo list for recurring tasks.
 
 ## Setup Guide
 
-To use doTogether, you need to setup and host all components yourself.
+If you want, you can setup and host the components yourself.
 
-This includes a **Firebase project** for auth and database, the **frontend** for the UI and a **cron-job** for decreasing the days remaining for each item each day.
+This includes a **Firebase project** for auth and database and the **frontend** for the UI.
 
 This can all be setup completely free, without a credit card, using the following method:
 
@@ -24,8 +24,18 @@ This can all be setup completely free, without a credit card, using the followin
       ```json
       {
       	"rules": {
-      		".read": "auth.token.email_verified === true && (auth.token.email  === 'your-mail@gmail.com' || auth.token.email === 'another-mail@gmail.com')", // this can be chained longer for more people
-      		".write": "auth.token.email_verified === true && (auth.token.email  === 'your-mail@gmail.com' || auth.token.email === 'another-mail@gmail.com')"
+      		"rooms": {
+      			"$room_id": {
+      				".read": "data.child('key').val() === root.child('members').child(auth.uid).child($room_id).val()",
+      				".write": "data.child('key').val() === root.child('members').child(auth.uid).child($room_id).val()"
+      			}
+      		},
+      		"members": {
+      			"$user_id": {
+      				".read": "$user_id === auth.uid",
+      				".write": "$user_id === auth.uid"
+      			}
+      		}
       	}
       }
       ```
@@ -47,11 +57,6 @@ This can all be setup completely free, without a credit card, using the followin
    1. Click the cog next to Project Overview, select Project settings, Service accounts and click Generate new private key
    1. Copy over the last two fields according to the `/.env_template` file from the json file
    1. Now you can click "Deploy"
-1. Set up a daily cron-job to call an authenticated endpoint
-   1. I'm using [cron-job.org](https://cron-job.org/) for this but anything that can call a HTTP Get Request with Authorization Bearer Header should work
-   1. Register for [cron-job.org](https://cron-job.org/) and create a new Cronjob. Set the URL to `https://{your.hosted.frontend.vercel.app}/cron` (without the `{}` brackets)
-   1. It should run every day at 00:00
-   1. Under advanced add a Header with key `Authorization` and value `Bearer {your generated VITE_CRON_KEY here}` (without the `{}` brackets)
 
 ## Development
 
