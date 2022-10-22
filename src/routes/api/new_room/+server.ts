@@ -4,9 +4,9 @@ import type { RequestHandler } from '@sveltejs/kit';
 
 export const POST: RequestHandler = async ({ request }) => {
 	// TODO: check if authorized n shit
-	const { title } = await request.json();
+	const { label } = await request.json();
 	const room = {
-		title,
+		label,
 		key: crypto.randomUUID(),
 		todos: [default_item]
 	};

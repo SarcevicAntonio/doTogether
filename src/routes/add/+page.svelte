@@ -5,7 +5,7 @@
 	import { keychain } from '$lib/stores/keychain';
 	import { Dialog } from 'as-comps';
 
-	let new_room_title = '';
+	let new_room_label = '';
 
 	let joining_room = {
 		id: '',
@@ -21,7 +21,7 @@
 		on:submit|preventDefault={async () => {
 			if (pending) return;
 			pending = true;
-			const { id } = await create_new_room(new_room_title);
+			const { id } = await create_new_room(new_room_label);
 			pending = false;
 			current_room.set(id);
 			toggle();
@@ -29,8 +29,8 @@
 		}}
 	>
 		<label>
-			<span>Room Title</span>
-			<input bind:value={new_room_title} />
+			<span>Room Label</span>
+			<input bind:value={new_room_label} />
 		</label>
 		<button disabled={pending}>Create new room</button>
 	</form>

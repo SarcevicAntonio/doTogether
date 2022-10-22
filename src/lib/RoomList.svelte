@@ -15,7 +15,7 @@
 
 <select value={$current_room} on:change={handleChange}>
 	{#each [...$rooms] as [id, room]}
-		<option value={id}>{room?.title || JSON.stringify(room)}</option>
+		<option value={id}>{room?.label || JSON.stringify(room)}</option>
 	{/each}
 	<option value="#ADD">+ Add a new room</option>
 </select>
@@ -23,7 +23,7 @@
 <!-- 
 <button on:click={() => (open = !open)}>
 	{#if $current_room}
-		{$rooms.get($current_room).title}
+		{$rooms.get($current_room).label}
 	{:else}
 		select a room ...
 	{/if}
@@ -36,7 +36,7 @@
 			on:click={() => {
 				current_room.set(id);
 				open = false;
-			}}>{room.title}</button
+			}}>{room.label}</button
 		>
 	{/each}
 {/if} -->
