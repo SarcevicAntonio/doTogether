@@ -95,3 +95,52 @@ button:disabled {
 	opacity: 0.6;
 	cursor: default;
 }
+
+// DOTOGETHER
+main {
+	max-width: 70ch;
+	margin: auto;
+}
+
+.loading {
+	text-align: center;
+}
+
+ol {
+	display: flex;
+	flex-direction: column;
+	gap: 1.25em;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+li {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+p {
+	display: flex;
+	gap: 0.25em;
+}
+
+.desc {
+	white-space: pre-line;
+}
+
+.item {
+	display: flex;
+	gap: 1em;
+	align-items: center;
+}
+
+.item-label {
+	font-size: 1.2em;
+	font-weight: 500;
+}
+
+.done {
+	opacity: 0.8;
+}

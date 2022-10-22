@@ -1,5 +1,5 @@
 import { dbADMIN } from '$lib/firebase-admin';
-import { default_item } from '$lib/items';
+import { default_item } from '$lib/todo';
 import type { RequestHandler } from '@sveltejs/kit';
 
 export const POST: RequestHandler = async ({ request }) => {
@@ -8,7 +8,7 @@ export const POST: RequestHandler = async ({ request }) => {
 	const room = {
 		label,
 		key: crypto.randomUUID(),
-		todos: [default_item]
+		todos: [{ ...default_item, id: crypto.randomUUID() }]
 	};
 	const id = crypto.randomUUID();
 	const ref = dbADMIN.ref('rooms/' + id);

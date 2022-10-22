@@ -8,7 +8,7 @@
 	import IcRoundDescription from '~icons/ic/round-description';
 	import IcRoundEdit from '~icons/ic/round-edit';
 	import IcRoundLocalOffer from '~icons/ic/round-local-offer';
-	import { default_item } from './items';
+	import { default_item } from './todo';
 	const dispatch = createEventDispatcher();
 
 	export let item = default_item;
@@ -20,14 +20,14 @@
 		{#if edit}
 			<IcRoundEdit /> Edit
 		{:else}
-			<IcRoundAdd /> Add
+			<IcRoundAdd /> Add Todo
 		{/if}
 	</svelte:fragment>
 	<h2>
 		{#if edit}
 			<IcRoundEdit /> Edit
 		{:else}
-			<IcRoundAdd /> Add
+			<IcRoundAdd /> Add Todo
 		{/if}
 		Item
 	</h2>

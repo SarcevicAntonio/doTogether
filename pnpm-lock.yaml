@@ -10,6 +10,7 @@ specifiers:
   '@typescript-eslint/eslint-plugin': ^5.40.0
   '@typescript-eslint/parser': ^5.40.0
   as-comps: ^0.0.24
+  date-fns: ^2.29.3
   eslint: ^8.25.0
   eslint-config-prettier: ^8.5.0
   eslint-plugin-svelte3: ^4.0.0
@@ -30,6 +31,7 @@ dependencies:
   '@firebase/app-types': 0.8.0
   '@square/svelte-store': 1.0.1
   as-comps: 0.0.24_postcss@8.4.18
+  date-fns: 2.29.3
   firebase: 9.12.1
   firebase-admin: 10.3.0_@firebase+app-types@0.8.0
 
@@ -2343,6 +2345,11 @@ packages:
     resolution: {integrity: sha512-/Tb/JcjK111nNScGob5MNtsntNM1aCNUDipB/TkwZFhyDrrE47SOx/18wF2bbjgc3ZzCSKW1T5nt5EbFoAz/Vg==}
     engines: {node: '>=4'}
     hasBin: true
+    dev: false
+
+  /date-fns/2.29.3:
+    resolution: {integrity: sha512-dDCnyH2WnnKusqvZZ6+jA1O51Ibt8ZMRNkDZdyAyK4YfbDwa/cEmuztzG5pk6hqlp9aSBPYcjOlktquahGwGeA==}
+    engines: {node: '>=0.11'}
     dev: false
 
   /debug/4.3.3:
