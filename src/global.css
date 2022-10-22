@@ -56,8 +56,9 @@ a {
 button,
 input,
 textarea,
+select,
 a {
-	border-radius: 0.25em;
+	border-radius: 0.5em;
 	border: none;
 	padding: 0.45em;
 	display: flex;
@@ -72,10 +73,11 @@ a {
 }
 
 input,
-textarea {
-	border: 1px solid var(--surface);
-	background-color: var(--on-surface);
-	color: var(--surface);
+textarea,
+select {
+	/* border: 1px solid var(--foreground); */
+	background-color: var(--surface);
+	color: var(--on-surface);
 }
 
 form {

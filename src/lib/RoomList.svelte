@@ -2,6 +2,7 @@
 	import { goto } from '$app/navigation';
 	import { rooms } from '$lib/stores/rooms';
 	import { current_room } from './stores/current-room';
+	import IcRoundHouse from '~icons/ic/round-house';
 
 	const handleChange = (e) => {
 		const val = e.target.value;
@@ -13,12 +14,15 @@
 	};
 </script>
 
-<select value={$current_room} on:change={handleChange}>
-	{#each [...$rooms] as [id, room]}
-		<option value={id}>{room?.label || JSON.stringify(room)}</option>
-	{/each}
-	<option value="#ADD">+ Add a new room</option>
-</select>
+<label for="room">
+	<span> <IcRoundHouse /> Current Room </span>
+	<select id="room" value={$current_room} on:change={handleChange}>
+		{#each [...$rooms] as [id, room]}
+			<option value={id}>{room?.label || JSON.stringify(room)}</option>
+		{/each}
+		<option value="#ADD">+ Add a new room</option>
+	</select>
+</label>
 
 <!-- 
 <button on:click={() => (open = !open)}>
@@ -43,5 +47,11 @@
 <style>
 	select {
 		width: 100%;
+	}
+	span {
+		display: flex;
+		align-items: center;
+		gap: 0.5em;
+		margin-bottom: 0.25em;
 	}
 </style>

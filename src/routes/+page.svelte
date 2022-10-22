@@ -14,8 +14,6 @@
 
 <RoomList />
 
-<br />
-
 {#if room}
 	<Room
 		{room}

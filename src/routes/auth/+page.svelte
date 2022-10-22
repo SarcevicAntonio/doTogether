@@ -5,7 +5,9 @@
 	import IcRoundHouse from '~icons/ic/round-house';
 	import IcRoundLogin from '~icons/ic/round-login';
 	import IcRoundLogout from '~icons/ic/round-logout';
+
 	const provider = new GoogleAuthProvider();
+
 	function logout() {
 		auth.signOut();
 	}
