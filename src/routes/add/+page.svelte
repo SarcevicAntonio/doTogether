@@ -6,10 +6,12 @@
 	import { Dialog } from 'as-comps';
 	import IcBaselineKey from '~icons/ic/baseline-key';
 	import IcRoundAdd from '~icons/ic/round-add';
-	import IcRoundDoorSliding from '~icons/ic/round-door-sliding';
+	import IcRoundArrowBack from '~icons/ic/round-arrow-back';
 	import IcRoundGrid3x3 from '~icons/ic/round-grid-3x3';
 	import IcRoundLocalOffer from '~icons/ic/round-local-offer';
-	import IcRoundArrowBack from '~icons/ic/round-arrow-back';
+	import IcRoundVpnKey from '~icons/ic/round-vpn-key';
+	import IcRoundPlaylistAdd from '~icons/ic/round-playlist-add';
+
 	let new_room_label = '';
 
 	let joining_room = {
@@ -23,7 +25,7 @@
 <div class="new-room-buttons">
 	<Dialog let:toggle>
 		<svelte:fragment slot="trigger-label">
-			<IcRoundAdd />
+			<IcRoundPlaylistAdd />
 			Create New List
 		</svelte:fragment>
 		<form
@@ -45,7 +47,7 @@
 				<input bind:value={new_room_label} />
 			</label>
 			<button disabled={pending}>
-				<IcRoundAdd />
+				<IcRoundPlaylistAdd />
 				Create New List
 			</button>
 		</form>
@@ -53,7 +55,7 @@
 
 	<Dialog let:toggle>
 		<svelte:fragment slot="trigger-label">
-			<IcRoundDoorSliding />
+			<IcRoundVpnKey />
 			Join Existing List
 		</svelte:fragment>
 		<form
@@ -84,7 +86,7 @@
 				<input bind:value={joining_room.key} />
 			</label>
 			<button disabled={pending || !joining_room.id || !joining_room.key}>
-				<IcRoundDoorSliding /> Join Existing List
+				<IcRoundVpnKey /> Join Existing List
 			</button>
 		</form>
 	</Dialog>

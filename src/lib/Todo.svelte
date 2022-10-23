@@ -80,7 +80,7 @@
 		</svelte:fragment>
 		<h2>Is "{item.label}" really done?</h2>
 		<p>The item wil return in {item.days} days.</p>
-		<div class="flx jcsb">
+		<div class="flx jcsb g1">
 			<button on:click={toggle}><IcRoundArrowBack /> Do nothing</button>
 			<button
 				on:click={() => {

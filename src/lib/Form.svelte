@@ -20,16 +20,15 @@
 		{#if edit}
 			<IcRoundEdit /> Edit
 		{:else}
-			<IcRoundAdd /> Add Todo
+			<IcRoundAdd /> Add Task
 		{/if}
 	</svelte:fragment>
 	<h2>
 		{#if edit}
-			<IcRoundEdit /> Edit
+			<IcRoundEdit /> Edit Task
 		{:else}
-			<IcRoundAdd /> Add Todo
+			<IcRoundAdd /> Add Task
 		{/if}
-		Item
 	</h2>
 	<form
 		on:submit|preventDefault={() => {
