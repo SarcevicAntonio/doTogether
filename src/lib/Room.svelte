@@ -17,6 +17,9 @@
 	const dispatch = createEventDispatcher();
 
 	export let room;
+	$: if (!room.todos) {
+		room.todos = [];
+	}
 
 	function shareRoom() {
 		share({
