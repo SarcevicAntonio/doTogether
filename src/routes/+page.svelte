@@ -17,12 +17,14 @@
 {#if room}
 	<Room
 		{room}
-		on:change={() => {}}
-		on:delete={() => {
-			delete_room($current_room);
+		on:room-change={({ detail: room }) => {
+			set(room_ref, room);
 		}}
 		on:todos-change={({ detail: todos }) => {
 			set(item_ref, todos);
+		}}
+		on:delete={() => {
+			delete_room($current_room);
 		}}
 	/>
 {/if}

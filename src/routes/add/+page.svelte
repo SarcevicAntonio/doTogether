@@ -9,7 +9,7 @@
 	import IcRoundDoorSliding from '~icons/ic/round-door-sliding';
 	import IcRoundGrid3x3 from '~icons/ic/round-grid-3x3';
 	import IcRoundLocalOffer from '~icons/ic/round-local-offer';
-
+	import IcRoundArrowBack from '~icons/ic/round-arrow-back';
 	let new_room_label = '';
 
 	let joining_room = {
@@ -24,7 +24,7 @@
 	<Dialog let:toggle>
 		<svelte:fragment slot="trigger-label">
 			<IcRoundAdd />
-			Create new room
+			Create New List
 		</svelte:fragment>
 		<form
 			on:submit|preventDefault={async () => {
@@ -40,13 +40,13 @@
 			<label>
 				<span>
 					<IcRoundLocalOffer />
-					Room Label
+					List Label
 				</span>
 				<input bind:value={new_room_label} />
 			</label>
 			<button disabled={pending}>
 				<IcRoundAdd />
-				Create new room
+				Create New List
 			</button>
 		</form>
 	</Dialog>
@@ -54,7 +54,7 @@
 	<Dialog let:toggle>
 		<svelte:fragment slot="trigger-label">
 			<IcRoundDoorSliding />
-			Join room
+			Join Existing List
 		</svelte:fragment>
 		<form
 			on:submit|preventDefault={async () => {
@@ -73,21 +73,25 @@
 		>
 			<label>
 				<span>
-					<IcRoundGrid3x3 /> Room ID
+					<IcRoundGrid3x3 /> List ID
 				</span>
 				<input bind:value={joining_room.id} />
 			</label>
 			<label>
 				<span>
-					<IcBaselineKey /> Room Key
+					<IcBaselineKey /> List Key
 				</span>
 				<input bind:value={joining_room.key} />
 			</label>
 			<button disabled={pending || !joining_room.id || !joining_room.key}>
-				<IcRoundDoorSliding /> Join room
+				<IcRoundDoorSliding /> Join Existing List
 			</button>
 		</form>
 	</Dialog>
+	<a href="/">
+		<IcRoundArrowBack />
+		Back To Your Lists
+	</a>
 </div>
 
 <style>
@@ -99,9 +103,9 @@
 		gap: 2em;
 	}
 
-	:global(.new-room-buttons > button) {
-		justify-content: center;
+	:global(.new-room-buttons > button, a) {
 		font-size: 1.75rem;
+		text-decoration: none;
 	}
 
 	span {
