@@ -1,26 +1,33 @@
 <script>
 	import { goto } from '$app/navigation';
 	import { rooms } from '$lib/stores/rooms';
+	import IcRoundListAlt from '~icons/ic/round-list-alt';
 	import { current_room } from './stores/current-room';
-	import IcRoundHouse from '~icons/ic/round-house';
 
 	const handleChange = (e) => {
 		const val = e.target.value;
-		if (val.startsWith('#ADD')) {
-			goto('/add');
-		} else {
-			current_room.set(val);
+		switch (val) {
+			case '#ADD':
+				goto('/add');
+				break;
+			case '#---':
+				e.target.value = $current_room;
+				break;
+			default:
+				current_room.set(val);
+				break;
 		}
 	};
 </script>
 
 <label for="room">
-	<span> <IcRoundHouse /> Current Room </span>
+	<span> <IcRoundListAlt /> Current List </span>
 	<select id="room" value={$current_room} on:change={handleChange}>
 		{#each [...$rooms] as [id, room]}
 			<option value={id}>{room?.label || JSON.stringify(room)}</option>
 		{/each}
-		<option value="#ADD">+ Add a new room</option>
+		<option value="#---">-------------</option>
+		<option value="#ADD">[ + Add List ]</option>
 	</select>
 </label>
 
