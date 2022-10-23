@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { Dialog } from 'as-comps';
 	import { createEventDispatcher } from 'svelte';
 	import { flip } from 'svelte/animate';
@@ -7,14 +7,30 @@
 	import IcRoundDeleteForever from '~icons/ic/round-delete-forever';
 	import IcRoundLocalOffer from '~icons/ic/round-local-offer';
 	import IcRoundSettings from '~icons/ic/round-settings';
+	import IcRoundShare from '~icons/ic/round-share';
 	import Form from './Form.svelte';
+	import { share } from './share';
+	import { current_room } from './stores/current-room';
 	import { calc_remaining } from './todo';
 	import Todo from './Todo.svelte';
-	import IcRoundShare from '~icons/ic/round-share';
 
 	const dispatch = createEventDispatcher();
 
 	export let room;
+
+	function shareRoom() {
+		share({
+			title: room.label,
+			text: `Join the "${room.label}" List on doTogether:`,
+			url: window.location.origin + '/join/' + $current_room + '?key=' + room.key
+		});
+	}
+
+	function handleNameForm(e) {
+		const data = new FormData(e.target);
+		room.label = data.get('name');
+		dispatch('room-change', room);
+	}
 </script>
 
 {#if room.todos}
@@ -43,14 +59,7 @@
 			<IcRoundSettings /> List Settings
 		</svelte:fragment>
 		<h2>Settings for "{room.label}"</h2>
-		<form
-			on:submit|preventDefault={(e) => {
-				const data = new FormData(e.target);
-				room.label = data.get('name');
-				dispatch('room-change', room);
-				console.log('room', room);
-			}}
-		>
+		<form on:submit|preventDefault={handleNameForm}>
 			<label>
 				<span><IcRoundLocalOffer /> Label</span>
 				<input name="name" value={room.label} />
@@ -61,7 +70,7 @@
 			</button>
 		</form>
 
-		<button class="w100p">
+		<button class="w100p" on:click={shareRoom}>
 			<IcRoundShare />
 			Share Invite Link
 		</button>
