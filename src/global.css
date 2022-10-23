@@ -75,9 +75,10 @@ a {
 input,
 textarea,
 select {
-	/* border: 1px solid var(--foreground); */
+	border: 1px solid var(--foreground);
 	background-color: var(--surface);
 	color: var(--on-surface);
+	padding-inline: 0.5em;
 }
 
 form {

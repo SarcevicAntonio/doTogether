@@ -7,6 +7,7 @@
 	import IcRoundDeleteForever from '~icons/ic/round-delete-forever';
 	import IcRoundDone from '~icons/ic/round-done';
 	import IcRoundInfo from '~icons/ic/round-info';
+	import { confetti } from './confetti';
 	import Form from './Form.svelte';
 	import { calc_remaining, today_string } from './todo';
 
@@ -86,6 +87,7 @@
 					toggle();
 					item.done_at = today_string();
 					dispatch('change', item);
+					confetti();
 				}}
 			>
 				<IcRoundDone /> Mark as Done

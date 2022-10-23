@@ -16,6 +16,7 @@ specifiers:
   eslint-plugin-svelte3: ^4.0.0
   firebase: ^9.6.11
   firebase-admin: ^10.0.2
+  js-confetti: ^0.11.0
   postcss: ^8.4
   prettier: ^2.7.1
   prettier-plugin-svelte: ^2.8.0
@@ -34,6 +35,7 @@ dependencies:
   date-fns: 2.29.3
   firebase: 9.12.1
   firebase-admin: 10.3.0_@firebase+app-types@0.8.0
+  js-confetti: 0.11.0
 
 devDependencies:
   '@iconify/json': 2.1.122
@@ -3523,6 +3525,10 @@ packages:
   /jpeg-js/0.4.3:
     resolution: {integrity: sha512-ru1HWKek8octvUHFHvE5ZzQ1yAsJmIvRdGWvSoKV52XKyuyYA437QWDttXT8eZXDSbuMpHlLzPDZUPd6idIz+Q==}
     dev: true
+
+  /js-confetti/0.11.0:
+    resolution: {integrity: sha512-Hc7I3VI4r4H0nq5q/oQK+JJwGoYRYVHK72fGk8E9Ay1dbh+aiZ9yl0yFp1K4oYeq7YFDQAndYChwqLPA3QWQuA==}
+    dev: false
 
   /js-cookie/3.0.1:
     resolution: {integrity: sha512-+0rgsUXZu4ncpPxRL+lNEptWMOWl9etvPHc/koSRp6MPwpRYAhmk0dUG00J4bxVV3r9uUzfo24wW0knS07SKSw==}

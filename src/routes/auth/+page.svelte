@@ -19,7 +19,7 @@
 
 <main>
 	{#if !$user}
-		<button on:click={popAuth}>
+		<button on:click={popAuth} class="big">
 			<IcRoundLogin /> Login with Google
 		</button>
 	{:else}
@@ -42,7 +42,6 @@
 
 <style>
 	main {
-		min-height: 60vw;
 		display: grid;
 		place-items: center;
 		gap: 2em;
@@ -63,5 +62,10 @@
 		list-style: none;
 		text-align: center;
 		padding: 0;
+	}
+
+	.big {
+		justify-content: center;
+		font-size: 1.75rem;
 	}
 </style>

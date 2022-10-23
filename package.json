@@ -40,6 +40,7 @@
 		"as-comps": "^0.0.24",
 		"date-fns": "^2.29.3",
 		"firebase": "^9.6.11",
-		"firebase-admin": "^10.0.2"
+		"firebase-admin": "^10.0.2",
+		"js-confetti": "^0.11.0"
 	}
 }
