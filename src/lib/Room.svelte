@@ -10,6 +10,7 @@
 	import Form from './Form.svelte';
 	import { calc_remaining } from './todo';
 	import Todo from './Todo.svelte';
+	import IcRoundShare from '~icons/ic/round-share';
 
 	const dispatch = createEventDispatcher();
 
@@ -60,9 +61,14 @@
 			</button>
 		</form>
 
-		<Dialog let:toggle>
+		<button class="w100p">
+			<IcRoundShare />
+			Share Invite Link
+		</button>
+
+		<Dialog let:toggle triggerProps={{ class: 'w100p' }}>
 			<svelte:fragment slot="trigger-label">
-				<IcRoundDeleteForever /> Delete
+				<IcRoundDeleteForever /> Delete List
 			</svelte:fragment>
 			<h2>Are you Sure?</h2>
 			<p>Deleting the room "{room.label}" can't be undone.</p>

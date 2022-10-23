@@ -10,6 +10,7 @@
 	--as-dialog--close-btn-color: var(--foreground);
 	--as-dialog--close-btn-border: 1px solid var(--foreground);
 	--as-dialog-width: max-content;
+	--as-dialog-border-radius: 1em;
 }
 
 @media (prefers-color-scheme: dark) {
