@@ -35,7 +35,6 @@
 				const { id } = await create_new_room(new_room_label);
 				pending = false;
 				current_room.set(id);
-				toggle();
 				goto('/');
 			}}
 		>
@@ -69,7 +68,6 @@
 					id: '',
 					key: ''
 				};
-				toggle();
 				goto('/');
 			}}
 		>

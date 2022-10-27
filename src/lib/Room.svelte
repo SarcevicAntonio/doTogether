@@ -90,8 +90,6 @@
 				</button>
 				<button
 					on:click={() => {
-						toggle();
-						toggleParent();
 						dispatch('delete');
 					}}
 				>
