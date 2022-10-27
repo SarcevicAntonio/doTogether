@@ -36,7 +36,7 @@
 				<li>uid: {$user.uid}</li>
 			</ul>
 		</div>
-		<a href="/"><IcRoundHouse /> Go to Rooms!</a>
+		<a href="/"><IcRoundHouse /> Go to your Lists!</a>
 	{/if}
 </main>
 
