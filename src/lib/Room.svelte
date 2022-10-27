@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Dialog } from 'as-comps';
-	import { createEventDispatcher } from 'svelte';
+	import { createEventDispatcher, tick } from 'svelte';
 	import { flip } from 'svelte/animate';
 	import IcRoundArrowBack from '~icons/ic/round-arrow-back';
 	import IcRoundCloudUpload from '~icons/ic/round-cloud-upload';
@@ -89,8 +89,10 @@
 					<IcRoundArrowBack /> Do nothing
 				</button>
 				<button
-					on:click={() => {
+					on:click={async () => {
 						dispatch('delete');
+						await tick();
+						if (room) toggleParent();
 					}}
 				>
 					<IcRoundDeleteForever /> Delete
