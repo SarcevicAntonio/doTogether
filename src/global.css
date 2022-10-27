@@ -5,7 +5,13 @@
 	--surface: white;
 	--foreground: #37474f;
 	--on-surface: #263238;
-	--as-notification-info-color: var(--on-surface);
+
+	--as-notification--info-color: var(--on-surface);
+	--as-notification--info-background: var(--surface);
+	--as-notification--btn-background: var(--background);
+	--as-notification--btn-border: 1px solid var(--foreground);
+	--as-notification-border-radius: 1em;
+
 	--as-dialog-background: var(--background);
 	--as-dialog--close-btn-color: var(--foreground);
 	--as-dialog--close-btn-border: 1px solid var(--foreground);
