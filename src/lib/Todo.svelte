@@ -25,7 +25,7 @@
 		</svelte:fragment>
 		<h2>{item.label}</h2>
 		{#if item.desc}
-			<p class="desc">{@html item.desc}</p>
+			<p class="desc">{item.desc}</p>
 		{/if}
 		<p><IcBaseline360 /> Returns every {item.days} day{item.days !== 1 ? 's' : ''}.</p>
 		{#if done}
@@ -50,8 +50,6 @@
 					<button on:click={toggle}><IcRoundArrowBack /> Do nothing</button>
 					<button
 						on:click={() => {
-							toggle();
-							toggleParent();
 							dispatch('delete');
 						}}
 					>
