@@ -20,6 +20,7 @@ keychain.subscribe(async ($keychain) => {
 				update((map) => map.set(room_id, snapshot.val()));
 			},
 			(error) => {
+				console.error(error.message);
 				if (error.message.includes('permission_denied at /rooms/')) {
 					// permission lost or room deleted
 					keychain.remove(room_id);
