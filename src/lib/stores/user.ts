@@ -1,10 +1,4 @@
-import { auth } from '$lib/firebase';
+import type { User } from 'firebase/auth';
 import { writable } from 'svelte/store';
 
-const { set, subscribe } = writable(null); // TODO: initial value
-
-auth.onAuthStateChanged((userChanged) => {
-	set(userChanged);
-});
-
-export const user = { subscribe };
+export const user = writable<User | null>(null);
