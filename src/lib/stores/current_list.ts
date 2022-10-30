@@ -19,7 +19,8 @@ function select_next_list_id(
 	const ls_val = localStorage.getItem(LS_KEY);
 	if (ls_val && $task_list_map.get(ls_val)) return ls_val;
 	if ($task_list_map.get($current_list_id)) return $current_list_id;
-	return [...$task_list_map][0][0];
+	return '---not-found---';
+	// return [...$task_list_map][0][0];
 }
 
 export const current_list = derived(
@@ -27,7 +28,6 @@ export const current_list = derived(
 	([$task_list_map, $current_list_id]) => {
 		if (!$task_list_map || !$task_list_map.size || !$current_list_id) return;
 		$current_list_id = select_next_list_id($task_list_map, $current_list_id);
-		console.log($current_list_id);
 		set($current_list_id);
 		return $task_list_map.get($current_list_id);
 	}
