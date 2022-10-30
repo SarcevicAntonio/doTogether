@@ -9,7 +9,7 @@
 	const handleChange = (e) => {
 		const val = e.target.value;
 		switch (val) {
-			case '#ADD':
+			case '#CREATE':
 				isOpen = true;
 				break;
 			case '#---':
@@ -34,7 +34,7 @@
 				<option value={id}>{list?.label || id}</option>
 			{/each}
 			<option value="#---">-------------</option>
-			<option value="#ADD">[ + Add List ]</option>
+			<option value="#CREATE">[ + Create List ]</option>
 		</select>
 	</label>
 {/if}
