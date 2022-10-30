@@ -49,6 +49,7 @@
 			if (pending) return;
 			pending = true;
 			const { id } = await create_list(new_list_label);
+			new_list_label = '';
 			pending = false;
 			set_current_list_id(id);
 			toggle();
