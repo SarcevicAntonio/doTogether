@@ -10,7 +10,7 @@ export interface Task_List {
 	tasks: Task[];
 }
 
-const { update, subscribe } = writable(new Map());
+const { update, subscribe } = writable<Map<string, Task_List>>(new Map());
 
 const unsubs = new Map<string, Unsubscribe>();
 
