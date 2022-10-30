@@ -16,7 +16,6 @@
 </script>
 
 <Dialog let:toggle>
-	{default_item.title}
 	<svelte:fragment slot="trigger-label">
 		{#if edit}
 			<IcRoundEdit /> Edit

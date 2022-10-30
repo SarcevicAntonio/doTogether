@@ -12,6 +12,8 @@ export interface Task_List {
 
 const { update, subscribe } = writable<Map<string, Task_List>>(new Map());
 
+export const task_list_map = { subscribe };
+
 const unsubs = new Map<string, Unsubscribe>();
 
 keychain.subscribe(async ($keychain) => {
@@ -43,15 +45,12 @@ keychain.subscribe(async ($keychain) => {
 	}
 });
 
-export const task_list_map = { subscribe };
-
-// TODO cleanup functions to make files more similar
 export async function delete_list(id: string): Promise<void> {
 	const dbRef = ref(db, 'lists/' + id);
 	await remove(dbRef);
 }
 
-export async function create_new_list(label: string) {
+export async function create_list(label: string) {
 	const { list, id } = await fetch('/api/new_list', {
 		method: 'POST',
 		body: JSON.stringify({

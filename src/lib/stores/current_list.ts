@@ -4,11 +4,12 @@ import { task_list_map, type Task_List } from './task_lists';
 
 const LS_KEY = 'current_list';
 
-export const current_list_id = writable(browser ? localStorage.getItem(LS_KEY) : null);
+const { subscribe, set } = writable(browser ? localStorage.getItem(LS_KEY) : null);
+export const current_list_id = { subscribe };
 
 export function set_current_list_id(val: string) {
 	localStorage.setItem(LS_KEY, val);
-	current_list_id.set(val);
+	set(val);
 }
 
 function select_next_list_id(
@@ -36,7 +37,7 @@ export const current_list = derived(
 	([$task_list_map, $current_list_id]) => {
 		if (!$task_list_map || !$current_list_id) return;
 		$current_list_id = select_next_list_id($task_list_map, $current_list_id);
-		current_list_id.set($current_list_id);
+		set($current_list_id);
 		return $task_list_map.get($current_list_id);
 	}
 );

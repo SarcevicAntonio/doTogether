@@ -7,7 +7,7 @@ import { user } from './user';
 
 let unsubscribe: Unsubscribe;
 
-function subscribe(uid: string, set: (value: Record<string, string>) => void) {
+function subscribe_user_keys(uid: string, set: (value: Record<string, string>) => void) {
 	const dbRef = ref(db, 'members/' + uid);
 	unsubscribe = onValue(
 		dbRef,
@@ -21,10 +21,11 @@ function subscribe(uid: string, set: (value: Record<string, string>) => void) {
 	);
 }
 
+/** keychain store contains the rooms and keys the user has access to */
 export const keychain = derived<typeof user, Record<string, string> | void>(user, ($user, set) => {
 	if (!$user) return;
 	if (unsubscribe) unsubscribe();
-	subscribe($user.uid, set);
+	subscribe_user_keys($user.uid, set);
 });
 
 export async function add_list_key(id: string, key: string) {

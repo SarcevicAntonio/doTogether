@@ -2,7 +2,7 @@
 	import { goto } from '$app/navigation';
 	import { set_current_list_id } from '$lib/stores/current_list';
 	import { add_list_key } from '$lib/stores/keychain';
-	import { create_new_list } from '$lib/stores/task_lists';
+	import { create_list } from '$lib/stores/task_lists';
 	import { Dialog } from 'as-comps';
 	import IcBaselineKey from '~icons/ic/baseline-key';
 	import IcRoundArrowBack from '~icons/ic/round-arrow-back';
@@ -31,7 +31,7 @@
 			on:submit|preventDefault={async () => {
 				if (pending) return;
 				pending = true;
-				const { id } = await create_new_list(new_list_label);
+				const { id } = await create_list(new_list_label);
 				pending = false;
 				set_current_list_id(id);
 				goto('/');
