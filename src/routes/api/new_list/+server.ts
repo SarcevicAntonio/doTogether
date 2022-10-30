@@ -4,15 +4,12 @@ import type { RequestHandler } from '@sveltejs/kit';
 export const POST: RequestHandler = async ({ request }) => {
 	// TODO: check if authorized n shit
 	const { label } = await request.json();
-	const room = {
+	const list = {
 		label,
-		key: crypto.randomUUID(),
-		todos: [
-			// { ...default_item, id: crypto.randomUUID() }
-		]
+		key: crypto.randomUUID()
 	};
 	const id = crypto.randomUUID();
-	const ref = dbADMIN.ref('rooms/' + id);
-	ref.set(room);
-	return new Response(JSON.stringify({ room, id }));
+	const ref = dbADMIN.ref('lists/' + id);
+	ref.set(list);
+	return new Response(JSON.stringify({ list, id }));
 };

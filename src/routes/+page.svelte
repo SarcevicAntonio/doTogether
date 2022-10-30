@@ -1,30 +1,29 @@
 <script>
 	import { db } from '$lib/firebase';
-	import Room from '$lib/Room.svelte';
-	import RoomList from '$lib/RoomList.svelte';
-	import { current_room } from '$lib/stores/current-room';
-	import { delete_room, rooms } from '$lib/stores/rooms';
+	import { current_list, current_list_id } from '$lib/stores/current_list';
+	import { delete_list } from '$lib/stores/task_lists';
+	import TaskList from '$lib/TaskList.svelte';
+	import TaskListSelector from '$lib/TaskListSelector.svelte';
 	import { ref, set } from 'firebase/database';
 
-	$: room = $rooms.get($current_room);
-	$: room_path = `/rooms/${$current_room}`;
-	$: room_ref = ref(db, room_path);
-	$: item_ref = ref(db, room_path + '/todos');
+	$: list_path = `/lists/${$current_list_id}`;
+	$: list_ref = ref(db, list_path);
+	$: item_ref = ref(db, list_path + '/tasks');
 </script>
 
-<RoomList />
+<TaskListSelector />
 
-{#if room}
-	<Room
-		{room}
-		on:room-change={({ detail: room }) => {
-			set(room_ref, room);
+{#if $current_list}
+	<TaskList
+		task_list={$current_list}
+		on:list-change={({ detail: list }) => {
+			set(list_ref, list);
 		}}
-		on:todos-change={({ detail: todos }) => {
-			set(item_ref, todos);
+		on:tasks-change={({ detail: tasks }) => {
+			set(item_ref, tasks);
 		}}
 		on:delete={() => {
-			delete_room($current_room);
+			delete_list($current_list_id);
 		}}
 	/>
 {/if}

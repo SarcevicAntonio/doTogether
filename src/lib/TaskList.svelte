@@ -10,48 +10,55 @@
 	import IcRoundShare from '~icons/ic/round-share';
 	import Form from './Form.svelte';
 	import { share } from './share';
-	import { current_room } from './stores/current-room';
-	import { calc_remaining } from './todo';
+	import { current_list } from './stores/current_list';
+	import type { Task_List } from './stores/task_lists';
+	import { calc_remaining } from './task';
 	import Todo from './Todo.svelte';
 
 	const dispatch = createEventDispatcher();
 
-	export let room;
-	$: if (!room.todos) {
-		room.todos = [];
+	export let task_list: Task_List;
+	$: if (!task_list.tasks) {
+		// firebase realtime database removes keys for empty values
+		// so we need to initialize it if it doesn't exist
+		task_list.tasks = [];
+	}
+	function share_task_list() {
+		share(
+			{
+				title: task_list.label,
+				text: `Join the "${task_list.label}" List on doTogether:`,
+				url: window.location.origin + '/join/' + $current_list + '?key=' + task_list.key
+			},
+			'Copied List invite link to clipboard.'
+		);
 	}
 
-	function shareRoom() {
-		share({
-			title: room.label,
-			text: `Join the "${room.label}" List on doTogether:`,
-			url: window.location.origin + '/join/' + $current_room + '?key=' + room.key
-		});
-	}
-
-	function handleNameForm(e) {
-		const data = new FormData(e.target);
-		room.label = data.get('name');
-		dispatch('room-change', room);
+	function handleNameForm(e: Event) {
+		const data = new FormData(e.target as HTMLFormElement);
+		task_list.label = data.get('name') as string;
+		dispatch('list-change', task_list);
 	}
 </script>
 
-{#if room.todos}
+{#if task_list.tasks}
 	<ol class="mt2">
-		{#each room.todos.sort((a, b) => calc_remaining(a) - calc_remaining(b)) as item (item.id)}
+		{#each task_list.tasks.sort((a, b) => calc_remaining(a) - calc_remaining(b)) as item (item.id)}
 			<li animate:flip>
 				<Todo
 					{item}
 					on:delete={() => {
-						room.todos = room.todos.filter((i) => i.id !== item.id);
-						dispatch('todos-change', room.todos);
+						task_list.tasks = task_list.tasks.filter((i) => i.id !== item.id);
+						dispatch('tasks-change', task_list.tasks);
 					}}
 					on:change={({ detail: newItem }) => {
 						item = newItem;
-						dispatch('todos-change', room.todos);
+						dispatch('tasks-change', task_list.tasks);
 					}}
 				/>
 			</li>
+		{:else}
+			No tasks found...
 		{/each}
 	</ol>
 {/if}
@@ -61,11 +68,11 @@
 		<svelte:fragment slot="trigger-label">
 			<IcRoundSettings /> List Settings
 		</svelte:fragment>
-		<h2>Settings for "{room.label}"</h2>
+		<h2>Settings for "{task_list.label}"</h2>
 		<form on:submit|preventDefault={handleNameForm}>
 			<label>
 				<span><IcRoundLocalOffer /> Label</span>
-				<input name="name" value={room.label} />
+				<input name="name" value={task_list.label} />
 			</label>
 			<button>
 				<IcRoundCloudUpload />
@@ -73,7 +80,7 @@
 			</button>
 		</form>
 
-		<button class="w100p" on:click={shareRoom}>
+		<button class="w100p" on:click={share_task_list}>
 			<IcRoundShare />
 			Share Invite Link
 		</button>
@@ -83,7 +90,7 @@
 				<IcRoundDeleteForever /> Delete List
 			</svelte:fragment>
 			<h2>Are you Sure?</h2>
-			<p>Deleting the room "{room.label}" can't be undone.</p>
+			<p>Deleting the task_list "{task_list.label}" can't be undone.</p>
 			<div class="flx jcsb">
 				<button on:click={toggle}>
 					<IcRoundArrowBack /> Do nothing
@@ -92,7 +99,7 @@
 					on:click={async () => {
 						dispatch('delete');
 						await tick();
-						if (room) toggleParent();
+						if (task_list) toggleParent();
 					}}
 				>
 					<IcRoundDeleteForever /> Delete
@@ -103,8 +110,8 @@
 
 	<Form
 		on:edit={({ detail: newItem }) => {
-			room.todos = [...room.todos, { ...newItem, id: crypto.randomUUID() }];
-			dispatch('todos-change', room.todos);
+			task_list.tasks = [...task_list.tasks, { ...newItem, id: crypto.randomUUID() }];
+			dispatch('tasks-change', task_list.tasks);
 		}}
 	/>
 </div>

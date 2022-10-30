@@ -8,14 +8,15 @@
 	import IcRoundDescription from '~icons/ic/round-description';
 	import IcRoundEdit from '~icons/ic/round-edit';
 	import IcRoundLocalOffer from '~icons/ic/round-local-offer';
-	import { default_item } from './todo';
+	import { default_item } from './task';
 	const dispatch = createEventDispatcher();
 
-	export let item = default_item;
+	export let item = structuredClone(default_item);
 	export let edit = false;
 </script>
 
 <Dialog let:toggle>
+	{default_item.title}
 	<svelte:fragment slot="trigger-label">
 		{#if edit}
 			<IcRoundEdit /> Edit
@@ -34,7 +35,7 @@
 		on:submit|preventDefault={() => {
 			toggle();
 			dispatch('edit', item);
-			item = default_item;
+			item = structuredClone(default_item);
 		}}
 	>
 		<label>

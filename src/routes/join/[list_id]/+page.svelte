@@ -1,28 +1,27 @@
 <script>
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
-	import { current_room } from '$lib/stores/current-room';
-	import { keychain } from '$lib/stores/keychain';
-
+	import { set_current_list_id } from '$lib/stores/current_list';
+	import { add_list_key } from '$lib/stores/keychain';
 	import IcRoundArrowBack from '~icons/ic/round-arrow-back';
 	import IcRoundVpnKey from '~icons/ic/round-vpn-key';
 
-	const id = $page.params.room_id;
+	const id = $page.params.list_id;
 	const key = $page.url.searchParams.get('key');
 
 	let pending = false;
 </script>
 
-<div class="join-room-buttons">
+<div class="join-list-buttons">
 	<h2>Do you want to join this list?</h2>
 	<button
 		disabled={pending}
 		on:click={async () => {
 			if (pending) return;
 			pending = true;
-			await keychain.add(id, key);
+			await add_list_key(id, key);
 			pending = false;
-			current_room.set(id);
+			set_current_list_id(id);
 			goto('/');
 		}}
 	>
@@ -37,7 +36,7 @@
 </div>
 
 <style>
-	.join-room-buttons {
+	.join-list-buttons {
 		display: flex;
 		align-items: stretch;
 		justify-content: center;
@@ -49,7 +48,7 @@
 		text-align: center;
 	}
 
-	:global(.join-room-buttons > button, a) {
+	:global(.join-list-buttons > button, a) {
 		font-size: 1.75rem;
 		text-decoration: none;
 	}

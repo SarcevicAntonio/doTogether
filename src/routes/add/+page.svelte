@@ -1,20 +1,19 @@
 <script>
 	import { goto } from '$app/navigation';
-	import { create_new_room } from '$lib/create_new_room';
-	import { current_room } from '$lib/stores/current-room';
-	import { keychain } from '$lib/stores/keychain';
+	import { set_current_list_id } from '$lib/stores/current_list';
+	import { add_list_key } from '$lib/stores/keychain';
+	import { create_new_list } from '$lib/stores/task_lists';
 	import { Dialog } from 'as-comps';
 	import IcBaselineKey from '~icons/ic/baseline-key';
-	import IcRoundAdd from '~icons/ic/round-add';
 	import IcRoundArrowBack from '~icons/ic/round-arrow-back';
 	import IcRoundGrid3x3 from '~icons/ic/round-grid-3x3';
 	import IcRoundLocalOffer from '~icons/ic/round-local-offer';
-	import IcRoundVpnKey from '~icons/ic/round-vpn-key';
 	import IcRoundPlaylistAdd from '~icons/ic/round-playlist-add';
+	import IcRoundVpnKey from '~icons/ic/round-vpn-key';
 
-	let new_room_label = '';
+	let new_list_label = '';
 
-	let joining_room = {
+	let joining_list = {
 		id: '',
 		key: ''
 	};
@@ -22,8 +21,8 @@
 	let pending = false;
 </script>
 
-<div class="new-room-buttons">
-	<Dialog let:toggle>
+<div class="new-list-buttons">
+	<Dialog>
 		<svelte:fragment slot="trigger-label">
 			<IcRoundPlaylistAdd />
 			Create New List
@@ -32,9 +31,9 @@
 			on:submit|preventDefault={async () => {
 				if (pending) return;
 				pending = true;
-				const { id } = await create_new_room(new_room_label);
+				const { id } = await create_new_list(new_list_label);
 				pending = false;
-				current_room.set(id);
+				set_current_list_id(id);
 				goto('/');
 			}}
 		>
@@ -43,7 +42,7 @@
 					<IcRoundLocalOffer />
 					List Label
 				</span>
-				<input bind:value={new_room_label} />
+				<input bind:value={new_list_label} />
 			</label>
 			<button disabled={pending}>
 				<IcRoundPlaylistAdd />
@@ -52,7 +51,7 @@
 		</form>
 	</Dialog>
 
-	<Dialog let:toggle>
+	<Dialog>
 		<svelte:fragment slot="trigger-label">
 			<IcRoundVpnKey />
 			Join Existing List
@@ -61,10 +60,10 @@
 			on:submit|preventDefault={async () => {
 				if (pending) return;
 				pending = true;
-				await keychain.add(joining_room.id, joining_room.key);
+				await add_list_key(joining_list.id, joining_list.key);
 				pending = false;
-				current_room.set(joining_room.id);
-				joining_room = {
+				set_current_list_id(joining_list.id);
+				joining_list = {
 					id: '',
 					key: ''
 				};
@@ -75,15 +74,15 @@
 				<span>
 					<IcRoundGrid3x3 /> List ID
 				</span>
-				<input bind:value={joining_room.id} />
+				<input bind:value={joining_list.id} />
 			</label>
 			<label>
 				<span>
 					<IcBaselineKey /> List Key
 				</span>
-				<input bind:value={joining_room.key} />
+				<input bind:value={joining_list.key} />
 			</label>
-			<button disabled={pending || !joining_room.id || !joining_room.key}>
+			<button disabled={pending || !joining_list.id || !joining_list.key}>
 				<IcRoundVpnKey /> Join Existing List
 			</button>
 		</form>
@@ -95,7 +94,7 @@
 </div>
 
 <style>
-	.new-room-buttons {
+	.new-list-buttons {
 		display: flex;
 		align-items: stretch;
 		justify-content: center;
@@ -103,7 +102,7 @@
 		gap: 2em;
 	}
 
-	:global(.new-room-buttons > button, a) {
+	:global(.new-list-buttons > button, a) {
 		font-size: 1.75rem;
 		text-decoration: none;
 	}

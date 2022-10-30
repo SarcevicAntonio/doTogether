@@ -9,7 +9,7 @@
 	import IcRoundInfo from '~icons/ic/round-info';
 	import { confetti } from './confetti';
 	import Form from './Form.svelte';
-	import { calc_remaining, today_string } from './todo';
+	import { calc_remaining, today_string } from './task';
 
 	const dispatch = createEventDispatcher();
 

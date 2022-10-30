@@ -1,22 +1,14 @@
 import { db } from '$lib/firebase';
 import { notification } from 'as-comps';
-import {
-	onValue,
-	ref,
-	remove as removeDoc,
-	set as setDoc,
-	type Unsubscribe
-} from 'firebase/database';
-import { get, writable } from 'svelte/store';
+import type { Unsubscribe } from 'firebase/auth';
+import { onValue, ref, remove as removeDoc, set as setDoc } from 'firebase/database';
+import { derived, get } from 'svelte/store';
 import { user } from './user';
 
-const { set, subscribe } = writable(null); // TODO: initial value
+let unsubscribe: Unsubscribe;
 
-let unsubscribe: Unsubscribe = null;
-user.subscribe(async ($user) => {
-	if (!$user) return;
-	if (unsubscribe) return;
-	const dbRef = ref(db, 'members/' + $user.uid);
+function subscribe(uid: string, set: (value: Record<string, string>) => void) {
+	const dbRef = ref(db, 'members/' + uid);
 	unsubscribe = onValue(
 		dbRef,
 		(snapshot) => {
@@ -24,19 +16,27 @@ user.subscribe(async ($user) => {
 		},
 		(error) => {
 			console.error(error);
-			notification('You are trying to access a different users room keys.', { type: 'warn' });
+			notification('ERROR: ' + error.message, { type: 'warn' });
 		}
 	);
+}
+
+export const keychain = derived<typeof user, Record<string, string> | void>(user, ($user, set) => {
+	if (!$user) return;
+	if (unsubscribe) unsubscribe();
+	subscribe($user.uid, set);
 });
 
-async function add(id, key) {
-	const dbRef = ref(db, 'members/' + get(user).uid + '/' + id);
+export async function add_list_key(id: string, key: string) {
+	const $user = get(user);
+	if (!$user) return;
+	const dbRef = ref(db, 'members/' + $user.uid + '/' + id);
 	await setDoc(dbRef, key);
 }
 
-async function remove(id) {
-	const dbRef = ref(db, 'members/' + get(user).uid + '/' + id);
+export async function remove_list_key(id: string) {
+	const $user = get(user);
+	if (!$user) return;
+	const dbRef = ref(db, 'members/' + $user.uid + '/' + id);
 	await removeDoc(dbRef);
 }
-
-export const keychain = { subscribe, add, remove };
