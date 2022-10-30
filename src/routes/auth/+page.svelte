@@ -17,7 +17,7 @@
 	}
 </script>
 
-<main>
+<section>
 	{#if !$user}
 		<button on:click={popAuth} class="big">
 			<IcRoundLogin /> Login with Google
@@ -38,10 +38,10 @@
 		</div>
 		<a href="/"><IcRoundHouse /> Go to your Lists!</a>
 	{/if}
-</main>
+</section>
 
 <style>
-	main {
+	section {
 		display: grid;
 		place-items: center;
 		gap: 2em;

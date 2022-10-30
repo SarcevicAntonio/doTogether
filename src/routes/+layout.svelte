@@ -40,14 +40,16 @@
 	</div>
 </header>
 
-{#if loading_user}
-	<span>Loading ...</span>
-{:else if !$user}
-	<Landing />
-	<Auth />
-{:else}
-	<slot />
-{/if}
+<main>
+	{#if loading_user}
+		<span>Loading ...</span>
+	{:else if !$user}
+		<Landing />
+		<Auth />
+	{:else}
+		<slot />
+	{/if}
+</main>
 
 <style>
 	header {
