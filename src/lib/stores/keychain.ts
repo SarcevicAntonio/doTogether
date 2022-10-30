@@ -23,8 +23,8 @@ function subscribe_user_keys(uid: string, set: (value: Record<string, string>) =
 
 /** keychain store contains the rooms and keys the user has access to */
 export const keychain = derived<typeof user, Record<string, string> | void>(user, ($user, set) => {
-	if (!$user) return;
 	if (unsubscribe) unsubscribe();
+	if (!$user) return;
 	subscribe_user_keys($user.uid, set);
 });
 
