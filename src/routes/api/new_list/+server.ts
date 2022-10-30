@@ -10,6 +10,6 @@ export const POST: RequestHandler = async ({ request }) => {
 	};
 	const id = crypto.randomUUID();
 	const ref = dbADMIN.ref('lists/' + id);
-	ref.set(list);
+	await ref.set(list);
 	return new Response(JSON.stringify({ list, id }));
 };
