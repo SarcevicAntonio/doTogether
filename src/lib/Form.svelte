@@ -20,14 +20,14 @@
 		{#if edit}
 			<IcRoundEdit /> Edit
 		{:else}
-			<IcRoundAdd /> Add Task
+			<IcRoundAdd /> Create Task
 		{/if}
 	</svelte:fragment>
 	<h2>
 		{#if edit}
 			<IcRoundEdit /> Edit Task
 		{:else}
-			<IcRoundAdd /> Add Task
+			<IcRoundAdd /> Create Task
 		{/if}
 	</h2>
 	<form

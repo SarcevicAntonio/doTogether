@@ -5,6 +5,7 @@
 	import TaskList from '$lib/TaskList.svelte';
 	import TaskListSelector from '$lib/TaskListSelector.svelte';
 	import { ref, set } from 'firebase/database';
+	import IcRoundFilterNone from '~icons/ic/round-filter-none';
 
 	$: list_path = `/lists/${$current_list_id}`;
 	$: list_ref = ref(db, list_path);
@@ -27,5 +28,9 @@
 		}}
 	/>
 {:else}
-	Select or create a list above.
+	<div class="empty">
+		<IcRoundFilterNone />
+		<p>No List selected...</p>
+		<p>Select or create a list above.</p>
+	</div>
 {/if}

@@ -5,15 +5,18 @@
 	import IcRoundArrowBack from '~icons/ic/round-arrow-back';
 	import IcRoundCloudUpload from '~icons/ic/round-cloud-upload';
 	import IcRoundDeleteForever from '~icons/ic/round-delete-forever';
+	import IcRoundFilterNone from '~icons/ic/round-filter-none';
 	import IcRoundLocalOffer from '~icons/ic/round-local-offer';
 	import IcRoundSettings from '~icons/ic/round-settings';
 	import IcRoundShare from '~icons/ic/round-share';
+	import IcRoundDoneAll from '~icons/ic/round-done-all';
 	import Form from './Form.svelte';
 	import { share } from './share';
 	import { current_list_id } from './stores/current_list';
 	import type { Task_List } from './stores/task_lists';
 	import { calc_remaining } from './task';
 	import Todo from './Todo.svelte';
+	import MdiHandClap from '~icons/mdi/hand-clap';
 
 	const dispatch = createEventDispatcher();
 
@@ -42,11 +45,24 @@
 		task_list.label = data.get('name') as string;
 		dispatch('list-change', task_list);
 	}
+
+	$: sorted_list = task_list.tasks.sort((a, b) => calc_remaining(a) - calc_remaining(b));
+	$: remaining_tasks = sorted_list.filter((a) => calc_remaining(a) <= 0);
 </script>
 
 {#if task_list.tasks}
-	<ol class="mt2" class:mb2={demo}>
-		{#each task_list.tasks.sort((a, b) => calc_remaining(a) - calc_remaining(b)) as item (item.id)}
+	{#if !remaining_tasks.length}
+		<!-- <p class="mt1">
+			{remaining_tasks.length} Task{remaining_tasks.length === 1 ? '' : 's'} remaining.
+		</p>
+	{:else} -->
+		<div class="empty">
+			<IcRoundDoneAll />
+			<p>You're all caught up! Good job!</p>
+		</div>
+	{/if}
+	<ol class="mt1" class:mb2={demo}>
+		{#each sorted_list as item (item.id)}
 			<li animate:flip>
 				<Todo
 					{item}
@@ -61,7 +77,11 @@
 				/>
 			</li>
 		{:else}
-			No tasks found...
+			<div class="empty">
+				<IcRoundFilterNone />
+				<p>No Tasks found...</p>
+				<p>Create Tasks with the button below.</p>
+			</div>
 		{/each}
 	</ol>
 {/if}
@@ -132,5 +152,9 @@
 
 	button {
 		margin-bottom: 1em;
+	}
+
+	p {
+		text-align: center;
 	}
 </style>

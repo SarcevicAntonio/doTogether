@@ -28,7 +28,7 @@
 
 {#if $task_list_map}
 	<label for="list">
-		<span> <IcRoundListAlt /> Current List </span>
+		<IcRoundListAlt /> List:
 		<select id="list" value={$current_list_id} on:change={handleChange}>
 			{#each [...$task_list_map] as [id, list]}
 				<option value={id}>{list?.label || id}</option>
@@ -71,12 +71,14 @@
 
 <style>
 	select {
-		width: 100%;
+		flex-grow: 1;
 	}
-	span {
+	label {
+		flex-direction: row;
 		display: flex;
 		align-items: center;
 		gap: 0.5em;
 		margin-bottom: 0.25em;
+		font-size: 1.25rem;
 	}
 </style>
