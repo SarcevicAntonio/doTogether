@@ -51,7 +51,7 @@
 </script>
 
 {#if task_list.tasks}
-	{#if !remaining_tasks.length}
+	{#if task_list.tasks.length && !remaining_tasks.length}
 		<!-- <p class="mt1">
 			{remaining_tasks.length} Task{remaining_tasks.length === 1 ? '' : 's'} remaining.
 		</p>

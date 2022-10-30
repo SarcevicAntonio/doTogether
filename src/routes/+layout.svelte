@@ -5,6 +5,7 @@
 	import { user } from '$lib/stores/user';
 	import { Notifications } from 'as-comps';
 	import IconProfile from '~icons/ic/round-account-circle';
+	import LineMdLoadingLoop from '~icons/line-md/loading-loop';
 	import '../global.css';
 	import Auth from './auth/+page.svelte';
 
@@ -42,7 +43,10 @@
 
 <main>
 	{#if loading_user}
-		<span>Loading ...</span>
+		<div class="empty">
+			<LineMdLoadingLoop />
+			<p>Loading ...</p>
+		</div>
 	{:else if !$user}
 		<Landing />
 		<Auth />
@@ -58,10 +62,6 @@
 		align-items: center;
 		justify-content: space-between;
 		margin-bottom: 1em;
-	}
-
-	span {
-		text-align: center;
 	}
 
 	a {

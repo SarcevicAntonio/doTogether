@@ -44,6 +44,7 @@
 
 <style>
 	section {
+		margin-top: 2em;
 		display: grid;
 		place-items: center;
 		gap: 2em;
