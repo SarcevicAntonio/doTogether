@@ -7,8 +7,7 @@ export const confetti = () => {
 	if (browser && !jsConfetti) {
 		jsConfetti = new JSConfetti();
 	}
-	jsConfetti?.addConfetti({
-		emojis: ['🌈', '⚡️', '💥', '✨', '💫', '🧹', '🚿', '💨', '🛁', '🪟', '🌸', '🌼', '🛏', '🥐'],
-		emojiSize: 50
+	jsConfetti.addConfetti({
+		emojis: ['🌈', '⚡️', '💥', '✨', '💫', '🧹', '🚿', '💨', '🛁', '🪟', '🌸', '🌼', '🛏', '🥐']
 	});
 };

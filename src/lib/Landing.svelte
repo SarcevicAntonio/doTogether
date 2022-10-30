@@ -4,6 +4,8 @@
 	import { onMount } from 'svelte';
 	import type { Task_List } from './stores/task_lists';
 	import TaskList from './TaskList.svelte';
+	import IcRoundPeopleAlt from '~icons/ic/round-people-alt';
+	import IcRoundTask from '~icons/ic/round-task';
 
 	let task_list: Task_List = {
 		key: 'string',
@@ -55,29 +57,37 @@
 		<span class="brand">
 			<b>doTogether</b>
 		</span>
-		helps you keep track of all the stuff you have get done via
-		<b>a List of recurring Tasks</b>.
+		helps you keep track of stuff you have get done via
+		<b>a List of recurring Tasks</b>. You can try it out by marking a Task below as done.
 	</p>
 	<TaskList {task_list} demo />
+
 	<p>
-		The app is build to be as simple as possible, so you can focus on getting stuff done. It's also
-		build to be used with multiple people. <b>Realtime data</b> means the Lists are always in sync and
-		up to date, but you can of course also use the app by yourself. You can create a List for your shared
-		home chores and one for your daily habits!
+		Each <b>Task</b> has a certain number of days it takes to recur. When you mark a Task as done,
+		it will recur after that set amount of days. <b>Lists</b> contain Tasks and can be shared with other
+		people, so you can work on Tasks together. The List is ordererd by the remaining / overdue days of
+		each Task.
 	</p>
 	<p>
-		Each Task has a certain number of days it takes to recur. When you mark a Task as done, it will
-		recur after that set amount of days. Lists contain Tasks and can be shared with people so you
-		can work on Tasks together. The List is ordererd by the remaining / overdue days of each Task.
-		You can try it out by marking a Task above as done.
+		The app is build to be as <b>simple as possible</b>, so you can focus on getting stuff done
+		instead of figuring out all the features. It's also build to be used with multiple people.
+		<b> Realtime data</b>
+		means the Lists are always in sync and up to date, but you can of course also use the app by yourself.
+		You can create a List for your shared home chores and one for your daily habits!
+	</p>
+	<p>
+		The app is completely
+		<a href="https://github.com/SarcevicAntonio/doTogether">open source</a>
+		and free to use. To get started, login with your Google account below. We don't save any personal
+		data.
 	</p>
 </section>
 
 <style>
-	h2 {
+	h2,
+	h3 {
 		display: flex;
 		align-items: center;
-		justify-content: center;
 	}
 
 	:global(h2 svg) {
@@ -87,7 +97,14 @@
 	section {
 		padding-inline: 1em;
 	}
+
 	p {
 		display: block;
+	}
+
+	a {
+		background-color: transparent;
+		display: inline;
+		padding: 0;
 	}
 </style>

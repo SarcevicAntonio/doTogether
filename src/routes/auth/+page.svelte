@@ -1,4 +1,5 @@
 <script>
+	import { goto } from '$app/navigation';
 	import { auth } from '$lib/firebase';
 	import { user } from '$lib/stores/user';
 	import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
@@ -10,6 +11,7 @@
 
 	function logout() {
 		auth.signOut();
+		goto('/');
 	}
 
 	function popAuth() {
