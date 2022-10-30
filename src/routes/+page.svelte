@@ -26,4 +26,6 @@
 			delete_list($current_list_id);
 		}}
 	/>
+{:else}
+	Select or create a list above.
 {/if}
