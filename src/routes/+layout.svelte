@@ -1,5 +1,6 @@
 <script>
 	import { auth } from '$lib/firebase';
+	import Landing from '$lib/Landing.svelte';
 	import Logo from '$lib/Logo.svelte';
 	import { user } from '$lib/stores/user';
 	import { Notifications } from 'as-comps';
@@ -42,6 +43,7 @@
 {#if loading_user}
 	<span>Loading ...</span>
 {:else if !$user}
+	<Landing />
 	<Auth />
 {:else}
 	<slot />

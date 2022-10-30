@@ -18,6 +18,7 @@
 	const dispatch = createEventDispatcher();
 
 	export let task_list: Task_List;
+	export let demo: boolean = false;
 
 	$: if (!task_list.tasks) {
 		// firebase realtime database removes keys for empty values
@@ -44,7 +45,7 @@
 </script>
 
 {#if task_list.tasks}
-	<ol class="mt2">
+	<ol class="mt2" class:mb2={demo}>
 		{#each task_list.tasks.sort((a, b) => calc_remaining(a) - calc_remaining(b)) as item (item.id)}
 			<li animate:flip>
 				<Todo
@@ -65,58 +66,60 @@
 	</ol>
 {/if}
 
-<div class="flx jcsb mt2">
-	<Dialog let:toggle={toggleParent}>
-		<svelte:fragment slot="trigger-label">
-			<IcRoundSettings /> List Settings
-		</svelte:fragment>
-		<h2>Settings for "{task_list.label}"</h2>
-		<form on:submit|preventDefault={handleNameForm}>
-			<label>
-				<span><IcRoundLocalOffer /> Label</span>
-				<input name="name" value={task_list.label} />
-			</label>
-			<button>
-				<IcRoundCloudUpload />
-				Save Changes
-			</button>
-		</form>
-
-		<button class="w100p" on:click={share_task_list}>
-			<IcRoundShare />
-			Share Invite Link
-		</button>
-
-		<Dialog let:toggle triggerProps={{ class: 'w100p' }}>
+{#if !demo}
+	<div class="flx jcsb mt2">
+		<Dialog let:toggle={toggleParent}>
 			<svelte:fragment slot="trigger-label">
-				<IcRoundDeleteForever /> Delete List
+				<IcRoundSettings /> List Settings
 			</svelte:fragment>
-			<h2>Are you Sure?</h2>
-			<p>Deleting the task_list "{task_list.label}" can't be undone.</p>
-			<div class="flx jcsb">
-				<button on:click={toggle}>
-					<IcRoundArrowBack /> Do nothing
+			<h2>Settings for "{task_list.label}"</h2>
+			<form on:submit|preventDefault={handleNameForm}>
+				<label>
+					<span><IcRoundLocalOffer /> Label</span>
+					<input name="name" value={task_list.label} />
+				</label>
+				<button>
+					<IcRoundCloudUpload />
+					Save Changes
 				</button>
-				<button
-					on:click={async () => {
-						dispatch('delete');
-						await tick();
-						if (task_list) toggleParent();
-					}}
-				>
-					<IcRoundDeleteForever /> Delete
-				</button>
-			</div>
-		</Dialog>
-	</Dialog>
+			</form>
 
-	<Form
-		on:edit={({ detail: newItem }) => {
-			task_list.tasks = [...task_list.tasks, { ...newItem, id: crypto.randomUUID() }];
-			dispatch('tasks-change', task_list.tasks);
-		}}
-	/>
-</div>
+			<button class="w100p" on:click={share_task_list}>
+				<IcRoundShare />
+				Share Invite Link
+			</button>
+
+			<Dialog let:toggle triggerProps={{ class: 'w100p' }}>
+				<svelte:fragment slot="trigger-label">
+					<IcRoundDeleteForever /> Delete List
+				</svelte:fragment>
+				<h2>Are you Sure?</h2>
+				<p>Deleting the task_list "{task_list.label}" can't be undone.</p>
+				<div class="flx jcsb">
+					<button on:click={toggle}>
+						<IcRoundArrowBack /> Do nothing
+					</button>
+					<button
+						on:click={async () => {
+							dispatch('delete');
+							await tick();
+							if (task_list) toggleParent();
+						}}
+					>
+						<IcRoundDeleteForever /> Delete
+					</button>
+				</div>
+			</Dialog>
+		</Dialog>
+
+		<Form
+			on:edit={({ detail: newItem }) => {
+				task_list.tasks = [...task_list.tasks, { ...newItem, id: crypto.randomUUID() }];
+				dispatch('tasks-change', task_list.tasks);
+			}}
+		/>
+	</div>
+{/if}
 
 <style>
 	span {
