@@ -23,7 +23,8 @@ keychain.subscribe(async ($keychain) => {
 				console.error(error.message);
 				if (error.message.includes('permission_denied at /rooms/')) {
 					// permission lost or room deleted
-					keychain.remove(room_id);
+					// keychain.remove(room_id); // can't delete here, because of bug where sometimes new rooms are denied
+					// TODO: fix that horrible bug i can't figure out
 					update((map) => {
 						map.delete(room_id);
 						return map;
