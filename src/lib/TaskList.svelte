@@ -10,7 +10,7 @@
 	import IcRoundShare from '~icons/ic/round-share';
 	import Form from './Form.svelte';
 	import { share } from './share';
-	import { current_list } from './stores/current_list';
+	import { current_list_id } from './stores/current_list';
 	import type { Task_List } from './stores/task_lists';
 	import { calc_remaining } from './task';
 	import Todo from './Todo.svelte';
@@ -18,17 +18,19 @@
 	const dispatch = createEventDispatcher();
 
 	export let task_list: Task_List;
+
 	$: if (!task_list.tasks) {
 		// firebase realtime database removes keys for empty values
 		// so we need to initialize it if it doesn't exist
 		task_list.tasks = [];
 	}
+
 	function share_task_list() {
 		share(
 			{
 				title: task_list.label,
 				text: `Join the "${task_list.label}" List on doTogether:`,
-				url: window.location.origin + '/join/' + $current_list + '?key=' + task_list.key
+				url: window.location.origin + '/join/' + $current_list_id + '?key=' + task_list.key
 			},
 			'Copied List invite link to clipboard.'
 		);
