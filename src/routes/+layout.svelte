@@ -45,7 +45,7 @@
 	{#if loading_user}
 		<div class="empty">
 			<LineMdLoadingLoop />
-			<p>Loading ...</p>
+			<span>Loading ...</span>
 		</div>
 	{:else if !$user}
 		<Landing />

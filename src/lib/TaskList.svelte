@@ -58,7 +58,7 @@
 	{:else} -->
 		<div class="empty">
 			<IcRoundDoneAll />
-			<p>You're all caught up! Good job!</p>
+			<span>All caught up!</span>
 		</div>
 	{/if}
 	<ol class="mt1" class:mb2={demo}>
@@ -79,8 +79,8 @@
 		{:else}
 			<div class="empty">
 				<IcRoundFilterNone />
-				<p>No Tasks found...</p>
-				<p>Create Tasks with the button below.</p>
+				<span>No Tasks found...</span>
+				<span>Create Tasks with the button below.</span>
 			</div>
 		{/each}
 	</ol>

@@ -30,7 +30,7 @@
 {:else}
 	<div class="empty">
 		<IcRoundFilterNone />
-		<p>No List selected...</p>
-		<p>Select or create a list above.</p>
+		<span>No List selected...</span>
+		<span>Select or create a list above.</span>
 	</div>
 {/if}
