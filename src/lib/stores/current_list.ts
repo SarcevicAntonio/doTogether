@@ -16,27 +16,18 @@ function select_next_list_id(
 	$task_list_map: Map<string, Task_List>,
 	$current_list_id: string
 ): string {
-	// no tasks lists
-	if ($task_list_map.size === 0) return $current_list_id;
-
-	const local_store_value = localStorage.getItem(LS_KEY);
-	if (local_store_value && $task_list_map.get(local_store_value)) {
-		return local_store_value;
-	}
-
+	const ls_val = localStorage.getItem(LS_KEY);
+	if (ls_val && $task_list_map.get(ls_val)) return ls_val;
 	if ($task_list_map.get($current_list_id)) return $current_list_id;
-
-	// no (fitting) current_list
-	const next_list_id = $task_list_map.entries().next().value[0];
-
-	return next_list_id;
+	return [...$task_list_map][0][0];
 }
 
 export const current_list = derived(
 	[task_list_map, current_list_id],
 	([$task_list_map, $current_list_id]) => {
-		if (!$task_list_map || !$current_list_id) return;
+		if (!$task_list_map || !$task_list_map.size || !$current_list_id) return;
 		$current_list_id = select_next_list_id($task_list_map, $current_list_id);
+		console.log($current_list_id);
 		set($current_list_id);
 		return $task_list_map.get($current_list_id);
 	}
