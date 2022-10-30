@@ -2,7 +2,7 @@ import { db } from '$lib/firebase';
 import type { Task } from '$lib/task';
 import { onValue, ref, remove, type Unsubscribe } from 'firebase/database';
 import { writable } from 'svelte/store';
-import { add_list_key, keychain } from './keychain';
+import { add_list_key, keychain, remove_list_key } from './keychain';
 
 export interface Task_List {
 	key: string;
@@ -31,7 +31,7 @@ keychain.subscribe(async ($keychain) => {
 			(error) => {
 				if (error.message.includes('permission_denied at /lists/')) {
 					// permission lost or list deleted
-					// remove_list_key(list_id);
+					remove_list_key(list_id);
 					update((map) => {
 						map.delete(list_id);
 						return map;
