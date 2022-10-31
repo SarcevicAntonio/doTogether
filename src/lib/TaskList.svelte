@@ -5,18 +5,17 @@
 	import IcRoundArrowBack from '~icons/ic/round-arrow-back';
 	import IcRoundCloudUpload from '~icons/ic/round-cloud-upload';
 	import IcRoundDeleteForever from '~icons/ic/round-delete-forever';
+	import IcRoundDoneAll from '~icons/ic/round-done-all';
 	import IcRoundFilterNone from '~icons/ic/round-filter-none';
 	import IcRoundLocalOffer from '~icons/ic/round-local-offer';
 	import IcRoundSettings from '~icons/ic/round-settings';
 	import IcRoundShare from '~icons/ic/round-share';
-	import IcRoundDoneAll from '~icons/ic/round-done-all';
 	import Form from './Form.svelte';
 	import { share } from './share';
 	import { current_list_id } from './stores/current_list';
 	import type { Task_List } from './stores/task_lists';
 	import { calc_remaining } from './task';
 	import Todo from './Todo.svelte';
-	import MdiHandClap from '~icons/mdi/hand-clap';
 
 	const dispatch = createEventDispatcher();
 
@@ -50,44 +49,47 @@
 	$: remaining_tasks = sorted_list.filter((a) => calc_remaining(a) <= 0);
 </script>
 
-{#if task_list.tasks}
-	{#if task_list.tasks.length && !remaining_tasks.length}
-		<!-- <p class="mt1">
+{#if task_list.tasks.length && !remaining_tasks.length}
+	<!-- <p class="mt1">
 			{remaining_tasks.length} Task{remaining_tasks.length === 1 ? '' : 's'} remaining.
 		</p>
 	{:else} -->
-		<div class="empty">
-			<IcRoundDoneAll />
-			<span>All caught up!</span>
-		</div>
-	{/if}
-	<ol class="mt1" class:mb2={demo}>
-		{#each sorted_list as item (item.id)}
-			<li animate:flip>
-				<Todo
-					{item}
-					on:delete={() => {
-						task_list.tasks = task_list.tasks.filter((i) => i.id !== item.id);
-						dispatch('tasks-change', task_list.tasks);
-					}}
-					on:change={({ detail: newItem }) => {
-						item = newItem;
-						dispatch('tasks-change', task_list.tasks);
-					}}
-				/>
-			</li>
-		{:else}
-			<div class="empty">
-				<IcRoundFilterNone />
-				<span>No Tasks found...</span>
-				<span>Create Tasks with the button below.</span>
-			</div>
-		{/each}
-	</ol>
+	<div class="empty">
+		<IcRoundDoneAll />
+		<span>All caught up!</span>
+	</div>
+{/if}
+
+<ol class="mt1" class:mb2={demo}>
+	{#each sorted_list as item (item.id)}
+		<li animate:flip>
+			<Todo
+				{item}
+				on:delete={() => {
+					task_list.tasks = task_list.tasks.filter((i) => i.id !== item.id);
+					dispatch('tasks-change', task_list.tasks);
+				}}
+				on:change={({ detail: newItem }) => {
+					item = newItem;
+					dispatch('tasks-change', task_list.tasks);
+				}}
+			/>
+		</li>
+	{/each}
+</ol>
+
+{#if !task_list.tasks.length}
+	<div class="empty">
+		<IcRoundFilterNone />
+		<span>No Tasks found...</span>
+		<span>Create Tasks with the button below.</span>
+	</div>
+{:else if remaining_tasks.length}
+	<div class="fill" />
 {/if}
 
 {#if !demo}
-	<div class="flx jcsb mt2">
+	<div class="flx jcsb mt2 mb1">
 		<Dialog let:toggle={toggleParent}>
 			<svelte:fragment slot="trigger-label">
 				<IcRoundSettings /> List Settings
@@ -159,5 +161,10 @@
 
 	p {
 		text-align: center;
+	}
+
+	.empty,
+	.fill {
+		flex: 1;
 	}
 </style>

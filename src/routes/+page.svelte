@@ -34,3 +34,9 @@
 		<span>Select or create a list above.</span>
 	</div>
 {/if}
+
+<style>
+	.empty {
+		flex: 1;
+	}
+</style>

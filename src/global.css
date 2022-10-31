@@ -44,12 +44,23 @@ html {
 	font-family: system-ui, sans-serif;
 	background: var(--background);
 	color: var(--foreground);
-	height: 100%;
+	height: -webkit-fill-available;
 }
 
 body {
 	margin: 0.5rem;
-	height: calc(100% - 1rem);
+	min-height: -webkit-fill-available;
+	display: flex;
+	flex-direction: column;
+}
+
+main {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	max-width: 70ch;
+	margin: auto;
+	flex: 1;
 }
 
 button,
@@ -107,11 +118,6 @@ button {
 button:disabled {
 	opacity: 0.6;
 	cursor: default;
-}
-
-main {
-	max-width: 70ch;
-	margin: auto;
 }
 
 .loading {

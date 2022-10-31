@@ -57,7 +57,6 @@
 
 <style>
 	header {
-		margin-top: 0.5em;
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
