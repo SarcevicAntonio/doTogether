@@ -1,12 +1,18 @@
 <img src="./static/favicon.svg" width="64" height="64" alt="" />
 
-# doTogether
+# [doTogether](https://do-together.vercel.app/)
 
-A stupidly simple realtime-multiplayer todo list for recurring tasks.
+[**doTogether**](https://do-together.vercel.app/) helps you keep track of stuff you have get done via **a List of recurring Tasks**.
+
+Each **Task** has a certain number of days it takes to recur. When you mark a Task as done, it will recur after that set amount of days. **Lists** contain Tasks and can be shared with other people, so you can work on Tasks together. The List is ordererd by the remaining / overdue days of each Task.
+
+The app is build to be as **simple as possible**, so you can focus on getting stuff done instead of figuring out all the features. It's also build to be used with multiple people. **Realtime data** means the Lists are always in sync and up to date, but you can of course also use the app by yourself. You can create a List for your shared home chores and one for your daily habits!
+
+The app is completely open source and free to use. To get started, login with your Google account under https://do-together.vercel.app/. We don't save any personal data.
 
 ![A mockup of a Phone with the UI of doTogether open. It displays a list of household tasks with a button to mark as done, or a notice for when the item will come back.](./device-frame.png)
 
-## Setup Guide
+## Self Hosting Guide
 
 If you want, you can setup and host the components yourself.
 
@@ -24,10 +30,10 @@ This can all be setup completely free, without a credit card, using the followin
       ```json
       {
       	"rules": {
-      		"rooms": {
-      			"$room_id": {
-      				".read": "data.child('key').val() === root.child('members').child(auth.uid).child($room_id).val()",
-      				".write": "data.child('key').val() === root.child('members').child(auth.uid).child($room_id).val()"
+      		"lists": {
+      			"$list_id": {
+      				".read": "data.child('key').val() === root.child('members').child(auth.uid).child($list_id).val()",
+      				".write": "data.child('key').val() === root.child('members').child(auth.uid).child($list_id).val()"
       			}
       		},
       		"members": {
@@ -60,7 +66,7 @@ This can all be setup completely free, without a credit card, using the followin
 
 ## Development
 
-1. Follow the Setup Guide, hosting can be skipped.
+1. Follow the Setup Guide, hosting the frontend can be skipped.
 1. Setup the environment variables from the hosting step in a `.env` file (You can copy the `.env_template` for this)
 1. Install [pnpm](https://pnpm.io/installation)
 1. Run `pnpm i`
