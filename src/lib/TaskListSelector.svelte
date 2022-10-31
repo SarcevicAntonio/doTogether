@@ -6,6 +6,7 @@
 	import IcRoundPlaylistAdd from '~icons/ic/round-playlist-add';
 	import { current_list_id, set_current_list_id } from './stores/current_list';
 	import EosIconsThreeDotsLoading from '~icons/eos-icons/three-dots-loading';
+
 	let selectEl;
 
 	const handleChange = () => {
@@ -14,7 +15,7 @@
 			case '#CREATE':
 				isOpen = true;
 				break;
-			case '#---':
+			case '---not-found---':
 				selectEl.value = $current_list_id;
 				break;
 			default:
@@ -35,7 +36,7 @@
 			{#each [...$task_list_map] as [id, list]}
 				<option value={id}>{list?.label || id}</option>
 			{/each}
-			<option value="#---">-------------</option>
+			<option value="---not-found---">-------------</option>
 			<option value="#CREATE">[ + Create List ]</option>
 		</select>
 	</label>
