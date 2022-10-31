@@ -5,15 +5,17 @@
 	import IcRoundLocalOffer from '~icons/ic/round-local-offer';
 	import IcRoundPlaylistAdd from '~icons/ic/round-playlist-add';
 	import { current_list_id, set_current_list_id } from './stores/current_list';
+	import EosIconsThreeDotsLoading from '~icons/eos-icons/three-dots-loading';
+	let selectEl;
 
-	const handleChange = (e) => {
-		const val = e.target.value;
+	const handleChange = () => {
+		const val = selectEl.value;
 		switch (val) {
 			case '#CREATE':
 				isOpen = true;
 				break;
 			case '#---':
-				e.target.value = $current_list_id;
+				selectEl.value = $current_list_id;
 				break;
 			default:
 				set_current_list_id(val);
@@ -29,7 +31,7 @@
 {#if $task_list_map}
 	<label for="list" class="list-selector">
 		<IcRoundListAlt /> List:
-		<select id="list" value={$current_list_id} on:change={handleChange}>
+		<select id="list" value={$current_list_id} on:change={handleChange} bind:this={selectEl}>
 			{#each [...$task_list_map] as [id, list]}
 				<option value={id}>{list?.label || id}</option>
 			{/each}
@@ -39,7 +41,14 @@
 	</label>
 {/if}
 
-<Dialog includedTrigger={false} bind:isOpen let:toggle>
+<Dialog
+	includedTrigger={false}
+	bind:isOpen
+	let:toggle
+	on:dismiss={() => {
+		selectEl.value = $current_list_id;
+	}}
+>
 	<svelte:fragment slot="trigger-label">
 		<IcRoundPlaylistAdd />
 		Create New List
@@ -68,7 +77,11 @@
 		</label>
 		<button disabled={pending}>
 			<IcRoundPlaylistAdd />
-			Create New List
+			{#if !pending}
+				Create New List
+			{:else}
+				<EosIconsThreeDotsLoading />
+			{/if}
 		</button>
 	</form>
 </Dialog>
