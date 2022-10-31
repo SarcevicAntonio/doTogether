@@ -27,7 +27,7 @@
 </script>
 
 {#if $task_list_map}
-	<label for="list">
+	<label for="list" class="list-selector">
 		<IcRoundListAlt /> List:
 		<select id="list" value={$current_list_id} on:change={handleChange}>
 			{#each [...$task_list_map] as [id, list]}
@@ -44,6 +44,10 @@
 		<IcRoundPlaylistAdd />
 		Create New List
 	</svelte:fragment>
+	<h2 class="close-btn-pad">
+		<IcRoundPlaylistAdd />
+		Create New List
+	</h2>
 	<form
 		on:submit|preventDefault={async () => {
 			if (pending) return;
@@ -56,7 +60,7 @@
 		}}
 	>
 		<label>
-			<span>
+			<span class="inline-icon">
 				<IcRoundLocalOffer />
 				List Label
 			</span>
@@ -70,10 +74,23 @@
 </Dialog>
 
 <style>
+	h2,
+	.inline-icon {
+		display: flex;
+		align-items: center;
+		gap: 0.5em;
+		margin-bottom: 0.25em;
+	}
+
+	h2 {
+		margin-bottom: 1em;
+	}
+
 	select {
 		flex-grow: 1;
 	}
-	label {
+
+	.list-selector {
 		flex-direction: row;
 		display: flex;
 		align-items: center;

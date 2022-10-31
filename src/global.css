@@ -169,3 +169,7 @@ p {
 .empty svg {
 	font-size: 3em;
 }
+
+.close-btn-pad {
+	margin-right: 2em;
+}

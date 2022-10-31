@@ -92,7 +92,7 @@
 			<svelte:fragment slot="trigger-label">
 				<IcRoundSettings /> List Settings
 			</svelte:fragment>
-			<h2>Settings for "{task_list.label}"</h2>
+			<h2 class="close-btn-pad">Settings for "{task_list.label}"</h2>
 			<form on:submit|preventDefault={handleNameForm}>
 				<label>
 					<span><IcRoundLocalOffer /> Label</span>
@@ -113,8 +113,11 @@
 				<svelte:fragment slot="trigger-label">
 					<IcRoundDeleteForever /> Delete List
 				</svelte:fragment>
-				<h2>Are you Sure?</h2>
-				<p>Deleting the task_list "{task_list.label}" can't be undone.</p>
+				<h2 class="close-btn-pad">Are you Sure?</h2>
+				<p>
+					Deleting the List "{task_list.label}" will delete it and it's containing Tasks for
+					everyone. This can't be undone.
+				</p>
 				<div class="flx jcsb">
 					<button on:click={toggle}>
 						<IcRoundArrowBack /> Do nothing

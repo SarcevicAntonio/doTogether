@@ -23,7 +23,7 @@
 		<svelte:fragment slot="trigger-label">
 			<IcRoundInfo />
 		</svelte:fragment>
-		<h2>{item.label}</h2>
+		<h2 class="close-btn-pad">{item.label}</h2>
 		{#if item.desc}
 			<p class="desc">{item.desc}</p>
 		{/if}
@@ -44,8 +44,8 @@
 				<svelte:fragment slot="trigger-label">
 					<IcRoundDeleteForever />
 				</svelte:fragment>
-				<h2>Are you Sure?</h2>
-				<p>Deleting the item "{item.label}" can't be undone.</p>
+				<h2 class="close-btn-pad">Are you Sure?</h2>
+				<p>Deleting the Item "{item.label}" can't be undone.</p>
 				<div class="flx jcsb">
 					<button on:click={toggle}><IcRoundArrowBack /> Do nothing</button>
 					<button
@@ -61,7 +61,6 @@
 				edit
 				{item}
 				on:edit={({ detail: newItem }) => {
-					toggleParent();
 					dispatch('change', newItem);
 				}}
 			/>
@@ -76,8 +75,8 @@
 		<svelte:fragment slot="trigger-label">
 			<IcRoundDone /> Done
 		</svelte:fragment>
-		<h2>Is "{item.label}" really done?</h2>
-		<p>The item wil return in {item.days} days.</p>
+		<h2 class="close-btn-pad">Is "{item.label}" really done?</h2>
+		<p><IcBaseline360 /> The item wil return in {item.days} days.</p>
 		<div class="flx jcsb g1">
 			<button on:click={toggle}><IcRoundArrowBack /> Do nothing</button>
 			<button

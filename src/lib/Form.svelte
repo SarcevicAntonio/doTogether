@@ -23,7 +23,7 @@
 			<IcRoundAdd /> Create Task
 		{/if}
 	</svelte:fragment>
-	<h2>
+	<h2 class="close-btn-pad">
 		{#if edit}
 			<IcRoundEdit /> Edit Task
 		{:else}
