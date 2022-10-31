@@ -30,6 +30,10 @@
 	margin-top: 2rem;
 }
 
+[class~='mb.5'] {
+	margin-bottom: 0.5rem;
+}
+
 .mb1 {
 	margin-bottom: 1rem;
 }

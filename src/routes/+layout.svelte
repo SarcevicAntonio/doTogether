@@ -74,4 +74,8 @@
 		aspect-ratio: 1/1;
 		height: 1.8em;
 	}
+
+	.empty {
+		flex: 1;
+	}
 </style>

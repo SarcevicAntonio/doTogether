@@ -89,7 +89,7 @@
 {/if}
 
 {#if !demo}
-	<div class="flx jcsb mt2 mb1">
+	<div class="flx jcsb mt2">
 		<Dialog let:toggle={toggleParent}>
 			<svelte:fragment slot="trigger-label">
 				<IcRoundSettings /> List Settings
@@ -147,7 +147,7 @@
 {/if}
 
 <style>
-	span {
+	label span {
 		display: flex;
 		align-items: center;
 		gap: 0.5em;
