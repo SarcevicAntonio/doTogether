@@ -8,6 +8,7 @@ export const confetti = () => {
 		jsConfetti = new JSConfetti();
 	}
 	jsConfetti.addConfetti({
+		confettiNumber: 25,
 		emojis: [
 			'🌈',
 			'⚡️',
