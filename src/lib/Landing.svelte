@@ -4,8 +4,6 @@
 	import { onMount } from 'svelte';
 	import type { Task_List } from './stores/task_lists';
 	import TaskList from './TaskList.svelte';
-	import IcRoundPeopleAlt from '~icons/ic/round-people-alt';
-	import IcRoundTask from '~icons/ic/round-task';
 
 	let task_list: Task_List = {
 		key: 'string',
