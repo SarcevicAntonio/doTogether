@@ -7,9 +7,9 @@
 	import IcRoundDeleteForever from '~icons/ic/round-delete-forever';
 	import IcRoundDone from '~icons/ic/round-done';
 	import IcRoundInfo from '~icons/ic/round-info';
-	import { confetti } from './confetti';
-	import Form from './Form.svelte';
-	import { calc_remaining, today_string } from './task';
+	import Form from '../Form.svelte';
+	import { calc_remaining } from '../task';
+	import MarkAsDone from './MarkAsDone.svelte';
 
 	const dispatch = createEventDispatcher();
 
@@ -18,7 +18,7 @@
 	$: done = remaining > 0;
 </script>
 
-<span class="item" class:done>
+<span class="item">
 	<Dialog let:toggle={toggleParent}>
 		<svelte:fragment slot="trigger-label">
 			<IcRoundInfo />
@@ -66,31 +66,21 @@
 			/>
 		</div>
 	</Dialog>
-	<span class="item-label">
+	<span class="item-label" class:done>
 		{item.label}
 	</span>
 </span>
-{#if !done}
-	<Dialog let:toggle>
-		<svelte:fragment slot="trigger-label">
-			<IcRoundDone /> Done
-		</svelte:fragment>
-		<h2 class="close-btn-pad">Is "{item.label}" really done?</h2>
-		<p><IcBaseline360 /> The item wil return in {item.days} days.</p>
-		<div class="flx jcsb g1">
-			<button on:click={toggle}><IcRoundArrowBack /> Do nothing</button>
-			<button
-				on:click={() => {
-					toggle();
-					item.done_at = today_string();
-					dispatch('change', item);
-					confetti();
-				}}
-			>
-				<IcRoundDone /> Mark as Done
-			</button>
-		</div>
-	</Dialog>
+
+<MarkAsDone {item} on:change />
+
+<!-- {#if !done}
+
 {:else}
 	<button disabled><IcRoundAlarm /> {remaining} Days</button>
-{/if}
+{/if} -->
+<style>
+	.done {
+		text-decoration: line-through;
+		opacity: 0.8;
+	}
+</style>

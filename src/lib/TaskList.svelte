@@ -15,7 +15,7 @@
 	import { current_list_id } from './stores/current_list';
 	import type { Task_List } from './stores/task_lists';
 	import { calc_remaining } from './task';
-	import Todo from './Todo.svelte';
+	import Todo from './Todo/Todo.svelte';
 
 	const dispatch = createEventDispatcher();
 

@@ -161,10 +161,6 @@ p {
 	font-weight: 500;
 }
 
-.done {
-	opacity: 0.8;
-}
-
 .empty {
 	display: flex;
 	flex-direction: column;
