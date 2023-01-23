@@ -9,9 +9,16 @@
 	import IcRoundDone from '~icons/ic/round-done';
 	import IcRoundCalendarToday from '~icons/ic/round-calendar-today';
 	import { confetti } from '../confetti';
+	import { longpress } from '$lib/longpress';
 	const dispatch = createEventDispatcher();
 
 	export let item: Task;
+
+	let isOpen = false;
+	function toggleOpen() {
+		isOpen = !isOpen;
+	}
+	let long_pressing = false;
 
 	let new_done_at = today_string();
 	$: remaining = calc_remaining(item);
@@ -19,14 +26,31 @@
 	$: done = remaining > 0;
 </script>
 
-<Dialog let:toggle>
-	<svelte:fragment slot="trigger-label">
-		{#if done}
-			<IcRoundAlarm /> {remaining} Days
-		{:else}
-			<IcRoundDone /> Done
-		{/if}
-	</svelte:fragment>
+<button
+	on:click={toggleOpen}
+	class:long_pressing
+	use:longpress
+	on:longpress_start={() => {
+		long_pressing = true;
+	}}
+	on:longpress={() => {
+		item.done_at = today_string();
+		dispatch('change', item);
+		confetti();
+		long_pressing = false;
+	}}
+	on:longpress_cancel={() => {
+		long_pressing = false;
+	}}
+>
+	{#if done}
+		<IcRoundAlarm /> {remaining} Days
+	{:else}
+		<IcRoundDone /> Done
+	{/if}
+</button>
+
+<Dialog bind:isOpen let:toggle includedTrigger={false}>
 	<h2 class="close-btn-pad">When was "{item.label}" done?</h2>
 	<label>
 		<span><IcRoundCalendarToday /> Day done</span>
@@ -79,5 +103,19 @@
 		background-color: var(--surface);
 		width: 10em;
 		height: 1em;
+	}
+
+	.long_pressing {
+		animation-name: fill;
+		animation-duration: 2s;
+	}
+
+	@keyframes fill {
+		from {
+			background-color: var(--surface);
+		}
+		to {
+			background-color: hsl(200, 19%, 32%);
+		}
 	}
 </style>

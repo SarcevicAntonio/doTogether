@@ -89,8 +89,19 @@ a {
 
 button,
 a {
+	border: 1px solid transparent;
 	background-color: var(--surface);
 	color: var(--on-surface);
+}
+
+a:hover,
+button:hover {
+	border-color: var(--on-surface);
+}
+
+a:active,
+button:active {
+	background-color: hsl(200, 19%, 32%);
 }
 
 input,
