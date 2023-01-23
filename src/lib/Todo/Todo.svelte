@@ -51,6 +51,8 @@
 					<button
 						on:click={() => {
 							dispatch('delete');
+							toggle();
+							toggleParent();
 						}}
 					>
 						<IcRoundDeleteForever /> Delete
@@ -62,6 +64,7 @@
 				{item}
 				on:edit={({ detail: newItem }) => {
 					dispatch('change', newItem);
+					toggleParent();
 				}}
 			/>
 		</div>
