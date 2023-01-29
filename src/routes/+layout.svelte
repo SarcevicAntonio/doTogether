@@ -1,4 +1,5 @@
 <script>
+	import Credits from '$lib/Credits.svelte';
 	import { auth } from '$lib/firebase';
 	import Landing from '$lib/Landing.svelte';
 	import Logo from '$lib/Logo.svelte';
@@ -17,12 +18,14 @@
 		user.set(user_changed);
 		loading_user = false;
 	});
+
+	let showCredits = false;
 </script>
 
-<Notifications />
-
 <header>
-	<h1><Logo /> doTogether</h1>
+	<button on:click={() => (showCredits = !showCredits)}>
+		<h1><Logo /> doTogether</h1>
+	</button>
 	<div>
 		{#if $user}
 			<a class="btn text" href="/auth">
@@ -55,7 +58,15 @@
 	{/if}
 </main>
 
+<Notifications />
+
+<Credits bind:isOpen={showCredits} />
+
 <style>
+	button {
+		background-color: transparent;
+		padding: 0;
+	}
 	header {
 		display: flex;
 		align-items: center;
