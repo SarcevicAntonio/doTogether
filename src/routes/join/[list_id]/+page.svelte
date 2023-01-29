@@ -1,7 +1,6 @@
 <script>
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
-	import { set_current_list_id } from '$lib/stores/current_list';
 	import { add_list_key } from '$lib/stores/keychain';
 	import IcRoundArrowBack from '~icons/ic/round-arrow-back';
 	import IcRoundVpnKey from '~icons/ic/round-vpn-key';
@@ -21,8 +20,7 @@
 			pending = true;
 			await add_list_key(id, key);
 			pending = false;
-			set_current_list_id(id);
-			goto('/');
+			goto(id);
 		}}
 	>
 		<IcRoundVpnKey />

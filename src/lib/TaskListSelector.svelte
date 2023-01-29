@@ -1,4 +1,5 @@
-<script>
+TODO: task list selector
+<!-- <script>
 	import { create_list, task_list_map } from '$lib/stores/task_lists';
 	import { Dialog } from 'as-comps';
 	import IcRoundListAlt from '~icons/ic/round-list-alt';
@@ -112,4 +113,4 @@
 		margin-bottom: 0.25em;
 		font-size: 1.25rem;
 	}
-</style>
+</style> -->

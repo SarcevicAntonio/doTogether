@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { page } from '$app/stores';
 	import { Dialog } from 'as-comps';
 	import { createEventDispatcher, tick } from 'svelte';
 	import { flip } from 'svelte/animate';
@@ -12,7 +13,6 @@
 	import IcRoundShare from '~icons/ic/round-share';
 	import Form from './Form.svelte';
 	import { share } from './share';
-	import { current_list_id } from './stores/current_list';
 	import type { Task_List } from './stores/task_lists';
 	import { calc_remaining } from './task';
 	import Todo from './Todo/Todo.svelte';
@@ -33,7 +33,7 @@
 			{
 				title: task_list.label,
 				text: `Join the "${task_list.label}" List on doTogether:`,
-				url: window.location.origin + '/join/' + $current_list_id + '?key=' + task_list.key
+				url: window.location.origin + '/join/' + $page.params['list_id'] + '?key=' + task_list.key
 			},
 			'Copied List invite link to clipboard.'
 		);
