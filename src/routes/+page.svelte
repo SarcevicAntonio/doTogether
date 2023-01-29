@@ -1,13 +1,20 @@
 <script>
-	import { task_list_map } from '$lib/stores/task_lists';
+	import TaskListSelector from '$lib/TaskListSelector.svelte';
+	import IcRoundFolderOff from '~icons/ic/round-folder-off';
 </script>
 
-go to a room:
+<TaskListSelector />
 
-<ul>
-	<li>
-		{#each [...$task_list_map] as [id, list]}
-			<a href="{id}">{list?.label || id}</a>
-		{/each}
-	</li>
-</ul>
+<div class="empty">
+	<IcRoundFolderOff />
+	<span>No List selected...</span>
+	<span>Select or create a list above.</span>
+</div>
+
+<style>
+
+.empty,
+	.fill {
+		flex: 1;
+	}
+</style>

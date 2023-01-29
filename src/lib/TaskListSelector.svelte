@@ -1,12 +1,12 @@
-TODO: task list selector
-<!-- <script>
+<script>
 	import { create_list, task_list_map } from '$lib/stores/task_lists';
 	import { Dialog } from 'as-comps';
 	import IcRoundListAlt from '~icons/ic/round-list-alt';
 	import IcRoundLocalOffer from '~icons/ic/round-local-offer';
 	import IcRoundPlaylistAdd from '~icons/ic/round-playlist-add';
-	import { current_list_id, set_current_list_id } from './stores/current_list';
 	import EosIconsThreeDotsLoading from '~icons/eos-icons/three-dots-loading';
+	import { page } from '$app/stores';
+	import { goto } from '$app/navigation';
 
 	let selectEl;
 
@@ -16,11 +16,8 @@ TODO: task list selector
 			case '#CREATE':
 				isOpen = true;
 				break;
-			case '---not-found---':
-				selectEl.value = $current_list_id;
-				break;
 			default:
-				set_current_list_id(val);
+				goto(val);
 				break;
 		}
 	};
@@ -33,24 +30,18 @@ TODO: task list selector
 {#if $task_list_map}
 	<label for="list" class="list-selector">
 		<IcRoundListAlt /> List:
-		<select id="list" value={$current_list_id} on:change={handleChange} bind:this={selectEl}>
-			{#each [...$task_list_map] as [id, list]}
-				<option value={id}>{list?.label || id}</option>
-			{/each}
-			<option value="---not-found---">-------------</option>
-			<option value="#CREATE">[ + Create List ]</option>
-		</select>
+		{#key $task_list_map}
+			<select id="list" value={$page.params.list_id} on:change={handleChange} bind:this={selectEl}>
+				{#each [...$task_list_map] as [id, list]}
+					<option value={id}>{list?.label || id}</option>
+				{/each}
+				<option value="#CREATE">[ + Create List ]</option>
+			</select>
+		{/key}
 	</label>
 {/if}
 
-<Dialog
-	includedTrigger={false}
-	bind:isOpen
-	let:toggle
-	on:dismiss={() => {
-		selectEl.value = $current_list_id;
-	}}
->
+<Dialog includedTrigger={false} bind:isOpen let:toggle>
 	<svelte:fragment slot="trigger-label">
 		<IcRoundPlaylistAdd />
 		Create New List
@@ -66,7 +57,7 @@ TODO: task list selector
 			const { id } = await create_list(new_list_label);
 			new_list_label = '';
 			pending = false;
-			set_current_list_id(id);
+			goto(id);
 			toggle();
 		}}
 	>
@@ -113,4 +104,4 @@ TODO: task list selector
 		margin-bottom: 0.25em;
 		font-size: 1.25rem;
 	}
-</style> -->
+</style>

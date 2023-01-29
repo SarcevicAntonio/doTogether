@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import { db } from '$lib/firebase';
 	import { delete_list, task_list_map } from '$lib/stores/task_lists';
@@ -26,6 +27,7 @@
 		}}
 		on:delete={() => {
 			delete_list($page.params.list_id);
+			goto('/');
 		}}
 	/>
 {:else}
