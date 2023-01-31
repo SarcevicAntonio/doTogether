@@ -46,9 +46,9 @@ This can all be setup completely free, without a credit card, using the followin
       }
       ```
 
-      1. These rules define what Google Accounts can read and write to your database; replace and add email addresses accordingly
+      1. These rules define what users can read and write to your database. It describes, members can only edit lists whose key they own.
 
-   1. Go to "Project Overview", click "Add app", then "`</>` Web" and then register a new app
+   1. Go to "Project Overview", click "Add app", then "</> Web" and then register a new app
 
 1. Host your frontend and Setup environment variables
    1. I'm using [Vercel](https://vercel.com/) to host the frontend (but any other cloud host supported by SvelteKit with an Adapter should work)
