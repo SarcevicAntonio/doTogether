@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { browser } from '$app/environment';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import { db } from '$lib/firebase';
@@ -12,6 +13,7 @@
 	$: list_ref = ref(db, list_path);
 	$: item_ref = ref(db, list_path + '/tasks');
 	$: current_list = $task_list_map.get($page.params.list_id);
+	$: browser && localStorage.setItem('current_list', $page.params.list_id);
 </script>
 
 <TaskListSelector />

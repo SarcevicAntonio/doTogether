@@ -1,3 +1,5 @@
+import { browser } from '$app/environment';
+import { goto } from '$app/navigation';
 import { db } from '$lib/firebase';
 import type { Task } from '$lib/task';
 import { onValue, ref, remove, type Unsubscribe } from 'firebase/database';
@@ -17,6 +19,7 @@ export const task_list_map = { subscribe };
 const unsubs = new Map<string, Unsubscribe>();
 
 keychain.subscribe(async ($keychain) => {
+	const last_list = browser ? localStorage.getItem('current_list') : '';
 	if (!$keychain) return;
 	for (const list_id of Object.keys($keychain)) {
 		const oldUnsub = unsubs.get(list_id);
@@ -27,6 +30,9 @@ keychain.subscribe(async ($keychain) => {
 			dbRef,
 			(snapshot) => {
 				update((map) => map.set(list_id, snapshot.val()));
+				if (last_list === list_id) {
+					goto(list_id)
+				}
 			},
 			(error) => {
 				if (error.message.includes('permission_denied at /lists/')) {
