@@ -62,7 +62,7 @@
 	li {
 		display: flex;
 		flex-direction: column;
-		align-items: flex-start;
+		justify-content: space-between;
 		padding: 0.5rem 0.75rem;
 	}
 

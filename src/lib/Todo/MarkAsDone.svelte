@@ -77,7 +77,7 @@
 		content: 'Today';
 		position: absolute;
 		background-color: var(--surface);
-		width: 10em;
-		height: 1em;
+		width: 8em;
+		height: 1.2em;
 	}
 </style>

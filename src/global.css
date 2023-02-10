@@ -135,12 +135,6 @@ ol {
 	padding: 0;
 }
 
-li {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-}
-
 p {
 	display: flex;
 	gap: 0.25em;
@@ -148,17 +142,6 @@ p {
 
 .desc {
 	white-space: pre-line;
-}
-
-.item {
-	display: flex;
-	gap: 1em;
-	align-items: center;
-}
-
-.item-label {
-	font-size: 1.2em;
-	font-weight: 500;
 }
 
 .empty {
