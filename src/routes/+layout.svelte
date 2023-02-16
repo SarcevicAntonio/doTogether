@@ -1,4 +1,5 @@
-<script>
+<script lang="ts">
+	import { browser } from '$app/environment';
 	import Credits from '$lib/Credits.svelte';
 	import { auth } from '$lib/firebase';
 	import Landing from '$lib/Landing.svelte';
@@ -8,15 +9,32 @@
 	import IconProfile from '~icons/ic/round-account-circle';
 	import LineMdLoadingLoop from '~icons/line-md/loading-loop';
 	import '../global.css';
+	import type { PageData } from './$types';
 	import Auth from './auth/+page.svelte';
 
-	let img_error = false;
+	export let data: PageData;
+	// if (data.user) $user = data.user;
 
 	let loading_user = true;
+	let img_error = false;
 
-	auth.onAuthStateChanged((user_changed) => {
+	auth.onAuthStateChanged(async (user_changed) => {
+		if (!browser) return;
 		user.set(user_changed);
 		loading_user = false;
+
+		if (!user_changed) {
+			await fetch('/auth', {
+				method: 'POST'
+			});
+			return;
+		}
+
+		const token = await user_changed.getIdToken(true);
+		await fetch('/auth', {
+			method: 'POST',
+			body: JSON.stringify({ token })
+		});
 	});
 
 	let showCredits = false;

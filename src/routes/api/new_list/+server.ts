@@ -1,4 +1,4 @@
-import { dbADMIN } from '$lib/firebase-admin';
+import { dbADMIN } from '$lib/firebase.server';
 import type { RequestHandler } from '@sveltejs/kit';
 
 export const POST: RequestHandler = async ({ request }) => {

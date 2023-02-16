@@ -16,6 +16,8 @@
 		"test": "playwright test"
 	},
 	"dependencies": {
+		"@builder.io/mitosis": "^0.0.90",
+		"@builder.io/mitosis-cli": "^0.0.49",
 		"@firebase/app-types": "^0.x",
 		"date-fns": "^2.29.3",
 		"firebase": "^9.6.11",
