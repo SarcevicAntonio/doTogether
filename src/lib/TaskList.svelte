@@ -13,7 +13,7 @@
 	import IcRoundShare from '~icons/ic/round-share';
 	import Form from './Form.svelte';
 	import { share } from './share';
-	import type { Task_List } from './stores/task_lists';
+	import type { Task_List } from './task_lists';
 	import { calc_remaining } from './task';
 	import Todo from './Todo/Todo.svelte';
 

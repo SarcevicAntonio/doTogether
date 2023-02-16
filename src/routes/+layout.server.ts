@@ -1,4 +1,5 @@
 import { dbADMIN } from '$lib/firebase.server';
+import type { Task_List } from '$lib/task_lists';
 import type { LayoutServerLoad } from './$types';
 
 export const load: LayoutServerLoad = async ({ locals, depends }) => {
@@ -13,7 +14,7 @@ export const load: LayoutServerLoad = async ({ locals, depends }) => {
 	const list_promises = [];
 	for (const list_id of Object.keys(keychain)) {
 		const ref_list = dbADMIN.ref('/lists/' + list_id);
-		list_promises.push(ref_list.get().then((d) => ({ id: list_id, ...d.val() })));
+		list_promises.push(ref_list.get().then((d) => ({ id: list_id, ...d.val() } as Task_List)));
 	}
 
 	return { user: locals.user, task_list: Promise.all(list_promises) };

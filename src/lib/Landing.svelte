@@ -2,7 +2,7 @@
 	import Logo from '$lib/Logo.svelte';
 	import { subDays } from 'date-fns';
 	import { onMount } from 'svelte';
-	import type { Task_List } from './stores/task_lists';
+	import type { Task_List } from './task_lists';
 	import TaskList from './TaskList.svelte';
 
 	let task_list: Task_List = {
