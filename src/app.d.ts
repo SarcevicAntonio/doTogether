@@ -5,7 +5,7 @@
 // for information about these interfaces
 declare namespace App {
 	interface Locals {
-		user: import('./lib/user').User | null;
+		user: import('./lib/user').User | null
 	}
 	// interface Platform {}
 	// interface Session {}

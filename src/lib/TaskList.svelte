@@ -1,31 +1,31 @@
 <script lang="ts">
-	import { page } from '$app/stores';
-	import { Dialog } from 'as-comps';
-	import { createEventDispatcher, tick } from 'svelte';
-	import { flip } from 'svelte/animate';
-	import IcRoundArrowBack from '~icons/ic/round-arrow-back';
-	import IcRoundCloudUpload from '~icons/ic/round-cloud-upload';
-	import IcRoundDeleteForever from '~icons/ic/round-delete-forever';
-	import IcRoundDoneAll from '~icons/ic/round-done-all';
-	import IcRoundFilterNone from '~icons/ic/round-filter-none';
-	import IcRoundLocalOffer from '~icons/ic/round-local-offer';
-	import IcRoundSettings from '~icons/ic/round-settings';
-	import IcRoundShare from '~icons/ic/round-share';
-	import Form from './Form.svelte';
-	import { share } from './share';
-	import type { Task_List } from './task_lists';
-	import { calc_remaining } from './task';
-	import Todo from './Todo/Todo.svelte';
+	import { page } from '$app/stores'
+	import { Dialog } from 'as-comps'
+	import { createEventDispatcher, tick } from 'svelte'
+	import { flip } from 'svelte/animate'
+	import IcRoundArrowBack from '~icons/ic/round-arrow-back'
+	import IcRoundCloudUpload from '~icons/ic/round-cloud-upload'
+	import IcRoundDeleteForever from '~icons/ic/round-delete-forever'
+	import IcRoundDoneAll from '~icons/ic/round-done-all'
+	import IcRoundFilterNone from '~icons/ic/round-filter-none'
+	import IcRoundLocalOffer from '~icons/ic/round-local-offer'
+	import IcRoundSettings from '~icons/ic/round-settings'
+	import IcRoundShare from '~icons/ic/round-share'
+	import Form from './Form.svelte'
+	import { share } from './share'
+	import type { Task_List } from './task_lists'
+	import { calc_remaining } from './task'
+	import Todo from './Todo/Todo.svelte'
 
-	const dispatch = createEventDispatcher();
+	const dispatch = createEventDispatcher()
 
-	export let task_list: Task_List;
-	export let demo: boolean = false;
+	export let task_list: Task_List
+	export let demo: boolean = false
 
 	$: if (!task_list.tasks) {
 		// firebase realtime database removes keys for empty values
 		// so we need to initialize it if it doesn't exist
-		task_list.tasks = [];
+		task_list.tasks = []
 	}
 
 	function share_task_list() {
@@ -36,17 +36,17 @@
 				url: window.location.origin + '/join/' + $page.params['list_id'] + '?key=' + task_list.key
 			},
 			'Copied List invite link to clipboard.'
-		);
+		)
 	}
 
 	function handleNameForm(e: Event) {
-		const data = new FormData(e.target as HTMLFormElement);
-		task_list.label = data.get('name') as string;
-		dispatch('list-change', task_list);
+		const data = new FormData(e.target as HTMLFormElement)
+		task_list.label = data.get('name') as string
+		dispatch('list-change', task_list)
 	}
 
-	$: sorted_list = task_list.tasks.sort((a, b) => calc_remaining(a) - calc_remaining(b));
-	$: remaining_tasks = sorted_list.filter((a) => calc_remaining(a) <= 0);
+	$: sorted_list = task_list.tasks.sort((a, b) => calc_remaining(a) - calc_remaining(b))
+	$: remaining_tasks = sorted_list.filter((a) => calc_remaining(a) <= 0)
 </script>
 
 {#if task_list.tasks.length && !remaining_tasks.length}
@@ -66,12 +66,12 @@
 			<Todo
 				{item}
 				on:delete={() => {
-					task_list.tasks = task_list.tasks.filter((i) => i.id !== item.id);
-					dispatch('tasks-change', task_list.tasks);
+					task_list.tasks = task_list.tasks.filter((i) => i.id !== item.id)
+					dispatch('tasks-change', task_list.tasks)
 				}}
 				on:change={({ detail: newItem }) => {
-					item = newItem;
-					dispatch('tasks-change', task_list.tasks);
+					item = newItem
+					dispatch('tasks-change', task_list.tasks)
 				}}
 			/>
 		</li>
@@ -126,9 +126,9 @@
 					</button>
 					<button
 						on:click={async () => {
-							dispatch('delete');
-							await tick();
-							if (task_list) toggleParent();
+							dispatch('delete')
+							await tick()
+							if (task_list) toggleParent()
 						}}
 					>
 						<IcRoundDeleteForever /> Delete
@@ -139,8 +139,8 @@
 
 		<Form
 			on:edit={({ detail: newItem }) => {
-				task_list.tasks = [...task_list.tasks, { ...newItem, id: crypto.randomUUID() }];
-				dispatch('tasks-change', task_list.tasks);
+				task_list.tasks = [...task_list.tasks, { ...newItem, id: crypto.randomUUID() }]
+				dispatch('tasks-change', task_list.tasks)
 			}}
 		/>
 	</div>

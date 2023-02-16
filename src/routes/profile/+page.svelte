@@ -1,16 +1,16 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
-	import AuthButton from '$lib/AuthButton.svelte';
-	import { auth } from '$lib/firebase';
-	import IcRoundHouse from '~icons/ic/round-house';
-	import IcRoundLogout from '~icons/ic/round-logout';
-	import type { PageData } from './$types';
+	import { goto } from '$app/navigation'
+	import AuthButton from '$lib/AuthButton.svelte'
+	import { auth } from '$lib/firebase'
+	import IcRoundHouse from '~icons/ic/round-house'
+	import IcRoundLogout from '~icons/ic/round-logout'
+	import type { PageData } from './$types'
 
-	export let data: PageData;
+	export let data: PageData
 
 	async function logout() {
-		await auth.signOut();
-		goto('/');
+		await auth.signOut()
+		goto('/')
 	}
 </script>
 

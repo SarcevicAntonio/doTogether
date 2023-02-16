@@ -1,37 +1,37 @@
 <script lang="ts">
-	import { browser } from '$app/environment';
-	import { invalidate } from '$app/navigation';
-	import AuthButton from '$lib/AuthButton.svelte';
-	import Credits from '$lib/Credits.svelte';
-	import { auth } from '$lib/firebase';
-	import Landing from '$lib/Landing.svelte';
-	import Logo from '$lib/Logo.svelte';
-	import { Notifications } from 'as-comps';
-	import IconProfile from '~icons/ic/round-account-circle';
-	import '../global.css';
-	import type { PageData } from './$types';
+	import { browser } from '$app/environment'
+	import { invalidate } from '$app/navigation'
+	import AuthButton from '$lib/AuthButton.svelte'
+	import Credits from '$lib/Credits.svelte'
+	import { auth } from '$lib/firebase'
+	import Landing from '$lib/Landing.svelte'
+	import Logo from '$lib/Logo.svelte'
+	import { Notifications } from 'as-comps'
+	import IconProfile from '~icons/ic/round-account-circle'
+	import '../global.css'
+	import type { PageData } from './$types'
 
-	export let data: PageData;
+	export let data: PageData
 
-	let img_error = false;
+	let img_error = false
 
 	auth.onAuthStateChanged(async (user_changed) => {
-		if (!browser) return;
+		if (!browser) return
 		if (user_changed) {
-			const token = await user_changed.getIdToken(true);
+			const token = await user_changed.getIdToken(true)
 			await fetch('/api/auth', {
 				method: 'POST',
 				body: JSON.stringify({ token })
-			});
+			})
 		} else {
 			await fetch('/api/auth', {
 				method: 'POST'
-			});
+			})
 		}
-		invalidate('data:user');
-	});
+		invalidate('data:user')
+	})
 
-	let showCredits = false;
+	let showCredits = false
 </script>
 
 <header>

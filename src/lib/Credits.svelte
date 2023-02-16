@@ -1,7 +1,7 @@
 <script>
-	import { Dialog } from 'as-comps';
-	import deps from '$lib/dependency-report.json';
-	export let isOpen = false;
+	import { Dialog } from 'as-comps'
+	import deps from '$lib/dependency-report.json'
+	export let isOpen = false
 </script>
 
 <Dialog
