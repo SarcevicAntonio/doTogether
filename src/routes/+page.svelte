@@ -1,15 +1,16 @@
 <script>
-	import TaskListSelector from '$lib/TaskListSelector.svelte';
 	import IcRoundFolderOff from '~icons/ic/round-folder-off';
 </script>
 
-<TaskListSelector />
+logged in user :)
+
+<!-- <TaskListSelector />
 
 <div class="empty">
 	<IcRoundFolderOff />
 	<span>No List selected...</span>
 	<span>Select or create a list above.</span>
-</div>
+</div> -->
 
 <style>
 

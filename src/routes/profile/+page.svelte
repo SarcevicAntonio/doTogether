@@ -1,41 +1,34 @@
-<script>
+<script lang="ts">
 	import { goto } from '$app/navigation';
+	import AuthButton from '$lib/AuthButton.svelte';
 	import { auth } from '$lib/firebase';
-	import { user } from '$lib/stores/user';
-	import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 	import IcRoundHouse from '~icons/ic/round-house';
-	import IcRoundLogin from '~icons/ic/round-login';
 	import IcRoundLogout from '~icons/ic/round-logout';
+	import type { PageData } from './$types';
 
-	const provider = new GoogleAuthProvider();
+	export let data: PageData;
 
-	function logout() {
-		auth.signOut();
+	async function logout() {
+		await auth.signOut();
 		goto('/');
-	}
-
-	function popAuth() {
-		signInWithPopup(auth, provider);
 	}
 </script>
 
 <section>
-	{#if !$user}
-		<button on:click={popAuth} class="big">
-			<IcRoundLogin /> Login with Google
-		</button>
+	{#if !data.user}
+		<AuthButton />
 	{:else}
 		<button on:click={logout}>
 			<IcRoundLogout /> Logout
 		</button>
 		<div class="user">
 			<div class="flx g1 aic">
-				<img src={$user.photoURL} alt="Your Google profile" />
-				<h2>{$user.displayName}</h2>
+				<img src={data.user.photo} alt="Your Google profile" />
+				<h2>{data.user.name}</h2>
 			</div>
 			<ul>
-				<li>Email: {$user.email}</li>
-				<li>uid: {$user.uid}</li>
+				<li>Email: {data.user.email}</li>
+				<li>uid: {data.user.id}</li>
 			</ul>
 		</div>
 		<a href="/"><IcRoundHouse /> Go to your Lists!</a>

@@ -4,7 +4,7 @@
 // for information about these interfaces
 declare namespace App {
 	interface Locals {
-		user: import('firebase/auth').User | import('firebase-admin/auth').UserRecord | null;
+		user: import('./lib/user').User | null;
 	}
 	// interface Platform {}
 	// interface Session {}

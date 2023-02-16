@@ -3,7 +3,7 @@ import { notification } from 'as-comps';
 import type { Unsubscribe } from 'firebase/auth';
 import { onValue, ref, remove as removeDoc, set as setDoc } from 'firebase/database';
 import { derived, get } from 'svelte/store';
-import { user } from './user';
+import { user } from '../user';
 
 let unsubscribe: Unsubscribe;
 

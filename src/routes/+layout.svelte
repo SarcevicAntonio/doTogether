@@ -1,40 +1,34 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
+	import { invalidate } from '$app/navigation';
+	import AuthButton from '$lib/AuthButton.svelte';
 	import Credits from '$lib/Credits.svelte';
 	import { auth } from '$lib/firebase';
 	import Landing from '$lib/Landing.svelte';
 	import Logo from '$lib/Logo.svelte';
-	import { user } from '$lib/stores/user';
 	import { Notifications } from 'as-comps';
 	import IconProfile from '~icons/ic/round-account-circle';
-	import LineMdLoadingLoop from '~icons/line-md/loading-loop';
 	import '../global.css';
 	import type { PageData } from './$types';
-	import Auth from './auth/+page.svelte';
 
 	export let data: PageData;
-	// if (data.user) $user = data.user;
 
-	let loading_user = true;
 	let img_error = false;
 
 	auth.onAuthStateChanged(async (user_changed) => {
 		if (!browser) return;
-		user.set(user_changed);
-		loading_user = false;
-
-		if (!user_changed) {
-			await fetch('/auth', {
+		if (user_changed) {
+			const token = await user_changed.getIdToken(true);
+			await fetch('/api/auth', {
+				method: 'POST',
+				body: JSON.stringify({ token })
+			});
+		} else {
+			await fetch('/api/auth', {
 				method: 'POST'
 			});
-			return;
 		}
-
-		const token = await user_changed.getIdToken(true);
-		await fetch('/auth', {
-			method: 'POST',
-			body: JSON.stringify({ token })
-		});
+		invalidate('data:user');
 	});
 
 	let showCredits = false;
@@ -45,11 +39,11 @@
 		<h1><Logo /> doTogether</h1>
 	</button>
 	<div>
-		{#if $user}
-			<a class="btn text" href="/auth">
-				{#if $user.photoURL && !img_error}
+		{#if data.user}
+			<a class="btn text" href="/profile">
+				{#if data.user.photo && !img_error}
 					<img
-						src={$user.photoURL}
+						src={data.user.photo}
 						alt="You"
 						class="profile-img"
 						on:error={() => (img_error = true)}
@@ -63,14 +57,9 @@
 </header>
 
 <main>
-	{#if loading_user}
-		<div class="empty">
-			<LineMdLoadingLoop />
-			<span>Loading ...</span>
-		</div>
-	{:else if !$user}
+	{#if !data.user}
 		<Landing />
-		<Auth />
+		<AuthButton />
 	{:else}
 		<slot />
 	{/if}
