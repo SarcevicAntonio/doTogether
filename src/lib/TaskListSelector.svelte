@@ -1,20 +1,22 @@
 <script>
-	import { create_list, task_list_map } from '$lib/stores/task_lists';
+	import { goto } from '$app/navigation';
+	import { page } from '$app/stores';
 	import { Dialog } from 'as-comps';
+	import EosIconsThreeDotsLoading from '~icons/eos-icons/three-dots-loading';
 	import IcRoundListAlt from '~icons/ic/round-list-alt';
 	import IcRoundLocalOffer from '~icons/ic/round-local-offer';
 	import IcRoundPlaylistAdd from '~icons/ic/round-playlist-add';
-	import EosIconsThreeDotsLoading from '~icons/eos-icons/three-dots-loading';
-	import { page } from '$app/stores';
-	import { goto } from '$app/navigation';
+	import { create_list } from './stores/task_lists';
 
-	let selectEl;
+	export let task_list;
+
+	let select_element;
 
 	const handleChange = () => {
-		const val = selectEl.value;
+		const val = select_element.value;
 		switch (val) {
 			case '#CREATE':
-				isOpen = true;
+				is_open = true;
 				break;
 			default:
 				goto(val);
@@ -24,24 +26,27 @@
 
 	let new_list_label = '';
 	let pending = false;
-	let isOpen = false;
+	let is_open = false;
 </script>
 
-{#if $task_list_map}
+{#if task_list}
 	<label for="list" class="list-selector">
 		<IcRoundListAlt /> List:
-		{#key $task_list_map}
-			<select id="list" value={$page.params.list_id} on:change={handleChange} bind:this={selectEl}>
-				{#each [...$task_list_map] as [id, list]}
-					<option value={id}>{list?.label || id}</option>
-				{/each}
-				<option value="#CREATE">[ + Create List ]</option>
-			</select>
-		{/key}
+		<select
+			id="list"
+			value={$page.params.list_id}
+			on:change={handleChange}
+			bind:this={select_element}
+		>
+			{#each task_list as { id, label }}
+				<option value={id}>{label || id}</option>
+			{/each}
+			<option value="#CREATE">[ + Create List ]</option>
+		</select>
 	</label>
 {/if}
 
-<Dialog includedTrigger={false} bind:isOpen let:toggle>
+<Dialog includedTrigger={false} bind:isOpen={is_open} let:toggle>
 	<svelte:fragment slot="trigger-label">
 		<IcRoundPlaylistAdd />
 		Create New List

@@ -1,20 +1,20 @@
-<script>
+<script lang="ts">
+	import TaskListSelector from '$lib/TaskListSelector.svelte';
 	import IcRoundFolderOff from '~icons/ic/round-folder-off';
+	import type { PageData } from './$types';
+
+	export let data: PageData;
 </script>
 
-logged in user :)
-
-<!-- <TaskListSelector />
-
+<TaskListSelector task_list={data.task_list} />
 <div class="empty">
 	<IcRoundFolderOff />
 	<span>No List selected...</span>
 	<span>Select or create a list above.</span>
-</div> -->
+</div>
 
 <style>
-
-.empty,
+	.empty,
 	.fill {
 		flex: 1;
 	}
