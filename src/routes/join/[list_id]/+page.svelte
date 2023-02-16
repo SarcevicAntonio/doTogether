@@ -1,7 +1,7 @@
 <script>
 	import { goto } from '$app/navigation'
 	import { page } from '$app/stores'
-	import { add_list_key } from '$lib/stores/keychain'
+	import { add_list_key } from '$lib/user'
 	import IcRoundArrowBack from '~icons/ic/round-arrow-back'
 	import IcRoundVpnKey from '~icons/ic/round-vpn-key'
 

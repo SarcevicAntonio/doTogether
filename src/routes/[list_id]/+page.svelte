@@ -26,7 +26,7 @@
 		if (unsubscribe) unsubscribe()
 
 		unsubscribe = onValue(list_ref, (snapshot) => {
-			console.log(snapshot.val())
+			console.log('realtime snapshot: ', snapshot.val())
 			current_list = snapshot.val() as Task_List
 		})
 	}

@@ -8,7 +8,10 @@ const config = {
 		Icons({
 			compiler: 'svelte'
 		})
-	]
+	],
+	define: {
+		'process.env.NODE_ENV': '"production"'
+	}
 }
 
 export default config
