@@ -1,5 +1,5 @@
 <script lang="ts">
-	import TaskListSelector from '$lib/TaskListSelector.svelte'
+	import TaskListSelector from '$lib/components/TaskListSelector.svelte'
 	import IcRoundFolderOff from '~icons/ic/round-folder-off'
 	import type { PageData } from './$types'
 

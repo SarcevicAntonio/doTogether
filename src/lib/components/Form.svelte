@@ -8,7 +8,7 @@
 	import IcRoundDescription from '~icons/ic/round-description'
 	import IcRoundEdit from '~icons/ic/round-edit'
 	import IcRoundLocalOffer from '~icons/ic/round-local-offer'
-	import { default_item } from './task'
+	import { default_item } from '../task'
 	const dispatch = createEventDispatcher()
 
 	export let item = structuredClone(default_item)

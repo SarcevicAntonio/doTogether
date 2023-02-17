@@ -6,7 +6,7 @@
 	import IcRoundListAlt from '~icons/ic/round-list-alt'
 	import IcRoundLocalOffer from '~icons/ic/round-local-offer'
 	import IcRoundPlaylistAdd from '~icons/ic/round-playlist-add'
-	import { create_list } from './task_lists'
+	import { create_list } from '../task_lists'
 
 	export let task_list
 

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation'
-	import AuthButton from '$lib/AuthButton.svelte'
+	import AuthButton from '$lib/components/AuthButton.svelte'
 	import { auth } from '$lib/firebase'
 	import IcRoundHouse from '~icons/ic/round-house'
 	import IcRoundLogout from '~icons/ic/round-logout'

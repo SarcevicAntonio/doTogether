@@ -1,15 +1,15 @@
 <script>
 	import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 	import IcRoundLogin from '~icons/ic/round-login'
-	import { auth } from './firebase'
+	import { auth } from '../firebase'
 	const provider = new GoogleAuthProvider()
 
-	async function popAuth() {
+	async function pop_auth() {
 		await signInWithPopup(auth, provider)
 	}
 </script>
 
-<button on:click={popAuth}>
+<button on:click={pop_auth}>
 	<IcRoundLogin /> Login with Google
 </button>
 

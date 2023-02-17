@@ -12,9 +12,9 @@
 	import IcRoundSettings from '~icons/ic/round-settings'
 	import IcRoundShare from '~icons/ic/round-share'
 	import Form from './Form.svelte'
-	import { share } from './share'
-	import type { Task_List } from './task_lists'
-	import { calc_remaining } from './task'
+	import { share } from '../share'
+	import type { Task_List } from '../task_lists'
+	import { calc_remaining } from '../task'
 	import Todo from './Todo/Todo.svelte'
 
 	const dispatch = createEventDispatcher()

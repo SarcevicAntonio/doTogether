@@ -1,6 +1,7 @@
 <script>
 	import { Dialog } from 'as-comps'
 	import deps from '$lib/dependency-report.json'
+	import { confetti } from '$lib/confetti'
 	export let isOpen = false
 </script>
 
@@ -32,6 +33,7 @@
 			</li>
 		{/each}
 	</ul>
+	<button on:click={confetti}>Random Confetti Button!</button>
 </Dialog>
 
 <style>

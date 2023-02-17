@@ -1,5 +1,5 @@
 <script>
-	import Accordion from '$lib/Accordion.svelte'
+	import Accordion from '$lib/components/Accordion.svelte'
 	import { Dialog } from 'as-comps'
 	import { createEventDispatcher } from 'svelte'
 	import IcBaseline360 from '~icons/ic/baseline-360'
@@ -8,7 +8,7 @@
 	import IcRoundDeleteForever from '~icons/ic/round-delete-forever'
 	import IcRoundDone from '~icons/ic/round-done'
 	import Form from '../Form.svelte'
-	import { calc_remaining } from '../task'
+	import { calc_remaining } from '$lib/task'
 	import MarkAsDone from './MarkAsDone.svelte'
 
 	const dispatch = createEventDispatcher()

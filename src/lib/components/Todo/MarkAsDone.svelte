@@ -8,7 +8,7 @@
 	import IcRoundArrowBack from '~icons/ic/round-arrow-back'
 	import IcRoundDone from '~icons/ic/round-done'
 	import IcRoundCalendarToday from '~icons/ic/round-calendar-today'
-	import { confetti } from '../confetti'
+	import { confetti } from '$lib/confetti'
 	const dispatch = createEventDispatcher()
 
 	export let item: Task
