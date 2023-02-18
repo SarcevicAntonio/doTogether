@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { goto } from '$app/navigation'
+	import { goto, invalidate } from '$app/navigation'
 	import AuthButton from '$lib/components/AuthButton.svelte'
 	import { auth } from '$lib/firebase'
 	import IcRoundHouse from '~icons/ic/round-house'
@@ -10,6 +10,7 @@
 
 	async function logout() {
 		await auth.signOut()
+		await invalidate('data:user')
 		goto('/')
 	}
 </script>
