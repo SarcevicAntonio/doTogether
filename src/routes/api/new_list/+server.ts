@@ -1,15 +1,17 @@
 import { dbADMIN } from '$lib/firebase.server'
-import type { RequestHandler } from '@sveltejs/kit'
+import { redirect, type RequestHandler } from '@sveltejs/kit'
 
-export const POST: RequestHandler = async ({ request }) => {
-	// TODO: check if authorized n shit
+export const POST: RequestHandler = async ({ request, locals }) => {
+	if (!locals.user) return redirect(401, '/profile')
 	const { label } = await request.json()
-	const list = {
-		label,
-		key: crypto.randomUUID()
-	}
 	const id = crypto.randomUUID()
-	const ref = dbADMIN.ref('lists/' + id)
-	await ref.set(list)
+	const key = crypto.randomUUID()
+	const list = { label, key }
+	const list_ref = dbADMIN.ref('/lists/' + id)
+	await list_ref.set(list)
+	const keychain_ref = dbADMIN.ref('/members/' + locals.user.id)
+	const keychain = await keychain_ref.get().then((d) => d.val() as Record<string, string>)
+	keychain[id] = key
+	await keychain_ref.set(keychain)
 	return new Response(JSON.stringify({ list, id }))
 }

@@ -1,5 +1,5 @@
 <script>
-	import { goto } from '$app/navigation'
+	import { goto, invalidate } from '$app/navigation'
 	import { page } from '$app/stores'
 	import { Dialog } from 'as-comps'
 	import EosIconsThreeDotsLoading from '~icons/eos-icons/three-dots-loading'
@@ -57,12 +57,13 @@
 	</h2>
 	<form
 		on:submit|preventDefault={async () => {
-			if (pending) return
+			if (pending || !new_list_label.trim()) return
 			pending = true
 			const { id } = await create_list(new_list_label)
-			new_list_label = ''
 			pending = false
+			await invalidate('data:user')
 			goto(id)
+			new_list_label = ''
 			toggle()
 		}}
 	>
@@ -73,7 +74,7 @@
 			</span>
 			<input bind:value={new_list_label} />
 		</label>
-		<button disabled={pending}>
+		<button disabled={pending || !new_list_label.trim()}>
 			<IcRoundPlaylistAdd />
 			{#if !pending}
 				Create New List
