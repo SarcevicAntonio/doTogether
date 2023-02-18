@@ -14,8 +14,7 @@
 </div>
 
 <style>
-	.empty,
-	.fill {
+	.empty {
 		flex: 1;
 	}
 </style>

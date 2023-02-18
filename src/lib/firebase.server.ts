@@ -8,7 +8,7 @@ const admin_credentials = {
 	privateKey: (import.meta.env.VITE_FIRE_ADMIN_KEY as string).replace(/\\n/g, '\n')
 }
 
-export function getAdmin() {
+export function get_admin_app() {
 	let app = undefined
 	if (getApps().length) {
 		app = getApp()
@@ -27,6 +27,6 @@ export function getAdmin() {
 	return { app, db, auth }
 }
 
-export const appADMIN = getAdmin().app
-export const authADMIN = getAdmin().auth
-export const dbADMIN = getAdmin().db
+export const server_app = get_admin_app().app
+export const server_auth = get_admin_app().auth
+export const server_db = get_admin_app().db

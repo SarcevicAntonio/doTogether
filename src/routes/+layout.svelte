@@ -14,6 +14,7 @@
 	export let data: PageData
 
 	let img_error = false
+	let show_credits = false
 
 	auth.onAuthStateChanged(async (user_changed) => {
 		if (!browser) return
@@ -30,12 +31,10 @@
 		}
 		invalidate('data:user')
 	})
-
-	let showCredits = false
 </script>
 
 <header>
-	<button on:click={() => (showCredits = !showCredits)}>
+	<button on:click={() => (show_credits = !show_credits)}>
 		<h1><Logo /> doTogether</h1>
 	</button>
 	<div>
@@ -55,7 +54,6 @@
 		{/if}
 	</div>
 </header>
-
 <main>
 	{#if !data.user}
 		<Landing />
@@ -64,10 +62,8 @@
 		<slot />
 	{/if}
 </main>
-
+<Credits bind:isOpen={show_credits} />
 <Notifications />
-
-<Credits bind:isOpen={showCredits} />
 
 <style>
 	button {
@@ -91,9 +87,5 @@
 	.profile-img {
 		aspect-ratio: 1/1;
 		height: 1.8em;
-	}
-
-	.empty {
-		flex: 1;
 	}
 </style>

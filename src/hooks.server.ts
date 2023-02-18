@@ -1,4 +1,4 @@
-import { authADMIN } from '$lib/firebase.server'
+import { server_auth } from '$lib/firebase.server'
 import type { Handle } from '@sveltejs/kit'
 
 export const handle: Handle = async ({ event, resolve }) => {
@@ -10,8 +10,8 @@ export const handle: Handle = async ({ event, resolve }) => {
 	}
 
 	try {
-		const decoded = await authADMIN.verifyIdToken(token)
-		const { uid, displayName, email, photoURL } = await authADMIN.getUser(decoded.uid)
+		const decoded = await server_auth.verifyIdToken(token)
+		const { uid, displayName, email, photoURL } = await server_auth.getUser(decoded.uid)
 		event.locals.user = {
 			id: uid,
 			name: displayName,
