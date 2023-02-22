@@ -3,12 +3,14 @@
 	import { invalidate } from '$app/navigation'
 	import AuthButton from '$lib/components/AuthButton.svelte'
 	import Credits from '$lib/components/Credits.svelte'
-	import { auth } from '$lib/firebase'
 	import Landing from '$lib/components/Landing.svelte'
 	import Logo from '$lib/components/Logo.svelte'
+	import { auth } from '$lib/firebase'
 	import { Notifications } from 'as-comps'
 	import IconProfile from '~icons/ic/round-account-circle'
+	import LineMdLoadingLoop from '~icons/line-md/loading-loop'
 	import '../global.css'
+
 	import type { PageData } from './$types'
 
 	export let data: PageData
@@ -16,6 +18,7 @@
 	let img_error = false
 	let show_credits = false
 
+	let auth_state_changed = false
 	auth.onAuthStateChanged(async (user_changed) => {
 		if (!browser) return
 		if (user_changed) {
@@ -29,7 +32,8 @@
 				method: 'POST'
 			})
 		}
-		invalidate('data:user')
+		await invalidate('data:user')
+		auth_state_changed = true
 	})
 </script>
 
@@ -56,8 +60,15 @@
 </header>
 <main>
 	{#if !data.user}
-		<Landing />
-		<AuthButton />
+		{#if !auth_state_changed}
+			<div class="empty">
+				<LineMdLoadingLoop />
+				<span>Loading ...</span>
+			</div>
+		{:else}
+			<Landing />
+			<AuthButton />
+		{/if}
 	{:else}
 		<slot />
 	{/if}
@@ -87,5 +98,9 @@
 	.profile-img {
 		aspect-ratio: 1/1;
 		height: 1.8em;
+	}
+
+	.empty {
+		flex: 1;
 	}
 </style>
