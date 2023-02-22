@@ -1,6 +1,4 @@
-<img src="./static/favicon.svg" width="64" height="64" alt="" />
-
-# [doTogether](https://do-together.vercel.app/)
+![doTogether - stupidly simple multiplayer todo list for recurring tasks. - A mockup of a Phone with the UI of doTogether showing. The app displays a list of tasks, each with a button to mark as done, or a notice for when the item will come back.](header.png)
 
 [**doTogether**](https://do-together.vercel.app/) helps you keep track of stuff you have get done via **a List of recurring Tasks**.
 
@@ -9,8 +7,6 @@ Each **Task** has a certain number of days it takes to recur. When you mark a Ta
 The app is build to be as **simple as possible**, so you can focus on getting stuff done instead of figuring out all the features. It's also build to be used with multiple people. **Realtime data** means the Lists are always in sync and up to date, but you can of course also use the app by yourself. You can create a List for your shared home chores and one for your daily habits!
 
 The app is completely open source and free to use. To get started, login with your Google account under https://do-together.vercel.app/. We don't save any personal data.
-
-![A mockup of a Phone with the UI of doTogether open. It displays a list of household tasks with a button to mark as done, or a notice for when the item will come back.](./device-frame.png)
 
 ## Self Hosting Guide
 
