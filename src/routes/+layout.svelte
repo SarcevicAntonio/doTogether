@@ -10,19 +10,17 @@
 	import IconProfile from '~icons/ic/round-account-circle'
 	import LineMdLoadingLoop from '~icons/line-md/loading-loop'
 	import '../global.css'
-
 	import type { PageData } from './$types'
 
 	export let data: PageData
 
-	let img_error = false
 	let show_credits = false
-
 	let auth_state_changed = false
-	auth.onAuthStateChanged(async (user_changed) => {
+
+	auth.onAuthStateChanged(async (user) => {
 		if (!browser) return
-		if (user_changed) {
-			const token = await user_changed.getIdToken(true)
+		if (user) {
+			const token = await user.getIdToken(true)
 			await fetch('/api/auth', {
 				method: 'POST',
 				body: JSON.stringify({ token })
@@ -44,16 +42,9 @@
 	<div>
 		{#if data.user}
 			<a class="btn text" href="/profile">
-				{#if data.user.photo && !img_error}
-					<img
-						src={data.user.photo}
-						alt="You"
-						class="profile-img"
-						on:error={() => (img_error = true)}
-					/>
-				{:else}
+				<object class="profile-img " title="Profile" data={data.user.photo} type="image/jpg">
 					<IconProfile />
-				{/if}
+				</object>
 			</a>
 		{/if}
 	</div>
@@ -98,6 +89,8 @@
 	.profile-img {
 		aspect-ratio: 1/1;
 		height: 1.8em;
+		display: grid;
+		place-content: center;
 	}
 
 	.empty {
