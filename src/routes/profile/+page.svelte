@@ -60,9 +60,4 @@
 		text-align: center;
 		padding: 0;
 	}
-
-	.big {
-		justify-content: center;
-		font-size: 1.75rem;
-	}
 </style>

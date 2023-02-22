@@ -56,11 +56,6 @@
 		overflow: auto;
 	}
 
-	hr {
-		border-color: var(--surface);
-		width: 100%;
-	}
-
 	li {
 		display: flex;
 		flex-direction: column;

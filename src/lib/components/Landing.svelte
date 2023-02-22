@@ -6,6 +6,7 @@
 	import TaskList from './TaskList.svelte'
 
 	let task_list: Task_List = {
+		id: crypto.randomUUID(),
 		key: 'string',
 		label: 'string',
 		tasks: [
@@ -82,8 +83,7 @@
 </section>
 
 <style>
-	h2,
-	h3 {
+	h2 {
 		display: flex;
 		align-items: center;
 	}
