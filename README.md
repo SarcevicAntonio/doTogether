@@ -1,4 +1,4 @@
-![doTogether - stupidly simple multiplayer todo list for recurring tasks. - A mockup of a Phone with the UI of doTogether showing. The app displays a list of tasks, each with a button to mark as done, or a notice for when the item will come back.](header.png)
+[![doTogether - stupidly simple multiplayer todo list for recurring tasks. - A mockup of a Phone with the UI of doTogether showing. The app displays a list of tasks, each with a button to mark as done, or a notice for when the item will come back.](header.png)](https://do-together.vercel.app/)
 
 [**doTogether**](https://do-together.vercel.app/) helps you keep track of stuff you have get done via **a List of recurring Tasks**.
 
