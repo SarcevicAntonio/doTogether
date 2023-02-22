@@ -20,7 +20,7 @@
 	const dispatch = createEventDispatcher()
 
 	export let task_list: Task_List
-	export let demo: boolean = false
+	export let demo = false
 
 	$: if (!task_list.tasks) {
 		// firebase realtime database removes keys for empty values
