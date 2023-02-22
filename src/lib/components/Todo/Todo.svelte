@@ -1,21 +1,21 @@
 <script>
-	import Accordion from '$lib/Accordion.svelte';
-	import { Dialog } from 'as-comps';
-	import { createEventDispatcher } from 'svelte';
-	import IcBaseline360 from '~icons/ic/baseline-360';
-	import IcRoundAlarm from '~icons/ic/round-alarm';
-	import IcRoundArrowBack from '~icons/ic/round-arrow-back';
-	import IcRoundDeleteForever from '~icons/ic/round-delete-forever';
-	import IcRoundDone from '~icons/ic/round-done';
-	import Form from '../Form.svelte';
-	import { calc_remaining } from '../task';
-	import MarkAsDone from './MarkAsDone.svelte';
+	import Accordion from '$lib/components/Accordion.svelte'
+	import { Dialog } from 'as-comps'
+	import { createEventDispatcher } from 'svelte'
+	import IcBaseline360 from '~icons/ic/baseline-360'
+	import IcRoundAlarm from '~icons/ic/round-alarm'
+	import IcRoundArrowBack from '~icons/ic/round-arrow-back'
+	import IcRoundDeleteForever from '~icons/ic/round-delete-forever'
+	import IcRoundDone from '~icons/ic/round-done'
+	import Form from '../Form.svelte'
+	import { calc_remaining } from '$lib/task'
+	import MarkAsDone from './MarkAsDone.svelte'
 
-	const dispatch = createEventDispatcher();
+	const dispatch = createEventDispatcher()
 
-	export let item;
-	$: remaining = calc_remaining(item);
-	$: done = remaining > 0;
+	export let item
+	$: remaining = calc_remaining(item)
+	$: done = remaining > 0
 </script>
 
 <Accordion let:toggle={toggleParent}>
@@ -47,8 +47,8 @@
 			edit
 			{item}
 			on:edit={({ detail: newItem }) => {
-				dispatch('change', newItem);
-				toggleParent();
+				dispatch('change', newItem)
+				toggleParent()
 			}}
 		/>
 		<Dialog let:toggle triggerProps={{ class: 'delete-btn' }}>
@@ -61,9 +61,9 @@
 				<button on:click={toggle}><IcRoundArrowBack /> Do nothing</button>
 				<button
 					on:click={() => {
-						dispatch('delete');
-						toggle();
-						toggleParent();
+						dispatch('delete')
+						toggle()
+						toggleParent()
 					}}
 				>
 					<IcRoundDeleteForever /> Delete

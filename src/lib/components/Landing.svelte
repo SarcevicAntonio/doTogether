@@ -1,11 +1,12 @@
 <script lang="ts">
-	import Logo from '$lib/Logo.svelte';
-	import { subDays } from 'date-fns';
-	import { onMount } from 'svelte';
-	import type { Task_List } from './stores/task_lists';
-	import TaskList from './TaskList.svelte';
+	import Logo from '$lib/components/Logo.svelte'
+	import { subDays } from 'date-fns'
+	import { onMount } from 'svelte'
+	import type { Task_List } from '../task_lists'
+	import TaskList from './TaskList.svelte'
 
 	let task_list: Task_List = {
+		id: crypto.randomUUID(),
 		key: 'string',
 		label: 'string',
 		tasks: [
@@ -31,22 +32,22 @@
 				done_at: subDays(new Date(), 45).toISOString().substring(0, 10)
 			}
 		]
-	};
+	}
 
 	function mark_first_as_done() {
 		// works because .sort is in-place
-		task_list.tasks[0].done_at = new Date().toISOString().substring(0, 10);
+		task_list.tasks[0].done_at = new Date().toISOString().substring(0, 10)
 	}
 
 	onMount(() => {
 		let timeout = setTimeout(() => {
-			mark_first_as_done();
+			mark_first_as_done()
 			timeout = setTimeout(() => {
-				mark_first_as_done();
-			}, 3000);
-		}, 5000);
-		return () => clearTimeout(timeout);
-	});
+				mark_first_as_done()
+			}, 3000)
+		}, 5000)
+		return () => clearTimeout(timeout)
+	})
 </script>
 
 <section>
@@ -82,8 +83,7 @@
 </section>
 
 <style>
-	h2,
-	h3 {
+	h2 {
 		display: flex;
 		align-items: center;
 	}

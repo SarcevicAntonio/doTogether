@@ -1,22 +1,22 @@
 <script lang="ts">
-	import { calc_remaining, today_string, type Task } from '$lib/task';
-	import { Dialog } from 'as-comps';
-	import { differenceInCalendarDays } from 'date-fns';
-	import { createEventDispatcher } from 'svelte';
-	import IcBaseline360 from '~icons/ic/baseline-360';
-	import IcRoundAlarm from '~icons/ic/round-alarm';
-	import IcRoundArrowBack from '~icons/ic/round-arrow-back';
-	import IcRoundDone from '~icons/ic/round-done';
-	import IcRoundCalendarToday from '~icons/ic/round-calendar-today';
-	import { confetti } from '../confetti';
-	const dispatch = createEventDispatcher();
+	import { calc_remaining, today_string, type Task } from '$lib/task'
+	import { Dialog } from 'as-comps'
+	import { differenceInCalendarDays } from 'date-fns'
+	import { createEventDispatcher } from 'svelte'
+	import IcBaseline360 from '~icons/ic/baseline-360'
+	import IcRoundAlarm from '~icons/ic/round-alarm'
+	import IcRoundArrowBack from '~icons/ic/round-arrow-back'
+	import IcRoundDone from '~icons/ic/round-done'
+	import IcRoundCalendarToday from '~icons/ic/round-calendar-today'
+	import { confetti } from '$lib/confetti'
+	const dispatch = createEventDispatcher()
 
-	export let item: Task;
+	export let item: Task
 
-	let new_done_at = today_string();
-	$: remaining = calc_remaining(item);
-	$: next_return = item.days - differenceInCalendarDays(new Date(), new Date(new_done_at));
-	$: done = remaining > 0;
+	let new_done_at = today_string()
+	$: remaining = calc_remaining(item)
+	$: next_return = item.days - differenceInCalendarDays(new Date(), new Date(new_done_at))
+	$: done = remaining > 0
 </script>
 
 <Dialog let:toggle>
@@ -46,10 +46,10 @@
 		<button on:click={toggle}><IcRoundArrowBack /> Do nothing</button>
 		<button
 			on:click={() => {
-				toggle();
-				item.done_at = new_done_at;
-				dispatch('change', item);
-				confetti();
+				toggle()
+				item.done_at = new_done_at
+				dispatch('change', item)
+				confetti()
 			}}
 		>
 			<IcRoundDone /> Mark as Done

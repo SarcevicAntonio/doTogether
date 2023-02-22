@@ -1,6 +1,6 @@
-import { getApp, getApps, initializeApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
-import { getDatabase } from 'firebase/database';
+import { getApp, getApps, initializeApp } from 'firebase/app'
+import { getAuth } from 'firebase/auth'
+import { getDatabase } from 'firebase/database'
 
 const firebaseConfig = {
 	apiKey: import.meta.env.VITE_FIRE_APIKEY,
@@ -10,27 +10,27 @@ const firebaseConfig = {
 	messagingSenderId: import.meta.env.VITE_FIRE_MESSAGINGSENDERID,
 	appId: import.meta.env.VITE_FIRE_APPID,
 	databaseURL: import.meta.env.VITE_FIRE_DATABASEURL
-};
+}
 
 if (!firebaseConfig.apiKey) {
-	throw new Error('VITE_FIRE_APIKEY is not set');
+	throw new Error('VITE_FIRE_APIKEY is not set')
 }
 
 export function getClient() {
-	let app = undefined;
+	let app = undefined
 	if (getApps().length) {
-		app = getApp();
+		app = getApp()
 	} else {
-		app = initializeApp(firebaseConfig);
+		app = initializeApp(firebaseConfig)
 	}
-	if (!app) throw new Error('something went wrong with app: ' + JSON.stringify(app, null, 2));
+	if (!app) throw new Error('something went wrong with app: ' + JSON.stringify(app, null, 2))
 
-	const auth = getAuth(app);
-	const db = getDatabase(app);
+	const auth = getAuth(app)
+	const db = getDatabase(app)
 
-	return { app, db, auth };
+	return { app, db, auth }
 }
 
-export const app = getClient().app;
-export const auth = getClient().auth;
-export const db = getClient().db;
+export const app = getClient().app
+export const auth = getClient().auth
+export const db = getClient().db

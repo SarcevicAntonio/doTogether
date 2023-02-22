@@ -1,66 +1,71 @@
-<script>
-	import Credits from '$lib/Credits.svelte';
-	import { auth } from '$lib/firebase';
-	import Landing from '$lib/Landing.svelte';
-	import Logo from '$lib/Logo.svelte';
-	import { user } from '$lib/stores/user';
-	import { Notifications } from 'as-comps';
-	import IconProfile from '~icons/ic/round-account-circle';
-	import LineMdLoadingLoop from '~icons/line-md/loading-loop';
-	import '../global.css';
-	import Auth from './auth/+page.svelte';
+<script lang="ts">
+	import { browser } from '$app/environment'
+	import { invalidate } from '$app/navigation'
+	import AuthButton from '$lib/components/AuthButton.svelte'
+	import Credits from '$lib/components/Credits.svelte'
+	import Landing from '$lib/components/Landing.svelte'
+	import Logo from '$lib/components/Logo.svelte'
+	import { auth } from '$lib/firebase'
+	import { Notifications } from 'as-comps'
+	import IconProfile from '~icons/ic/round-account-circle'
+	import LineMdLoadingLoop from '~icons/line-md/loading-loop'
+	import '../global.css'
+	import type { PageData } from './$types'
 
-	let img_error = false;
+	export let data: PageData
 
-	let loading_user = true;
+	let show_credits = false
+	let auth_state_changed = false
 
-	auth.onAuthStateChanged((user_changed) => {
-		user.set(user_changed);
-		loading_user = false;
-	});
-
-	let showCredits = false;
+	auth.onAuthStateChanged(async (user) => {
+		if (!browser) return
+		if (user) {
+			const token = await user.getIdToken(true)
+			await fetch('/api/auth', {
+				method: 'POST',
+				body: JSON.stringify({ token })
+			})
+		} else {
+			await fetch('/api/auth', {
+				method: 'POST'
+			})
+		}
+		await invalidate('data:user')
+		auth_state_changed = true
+	})
 </script>
 
 <header>
-	<button on:click={() => (showCredits = !showCredits)}>
+	<button on:click={() => (show_credits = !show_credits)}>
 		<h1><Logo /> doTogether</h1>
 	</button>
 	<div>
-		{#if $user}
-			<a class="btn text" href="/auth">
-				{#if $user.photoURL && !img_error}
-					<img
-						src={$user.photoURL}
-						alt="You"
-						class="profile-img"
-						on:error={() => (img_error = true)}
-					/>
-				{:else}
+		{#if data.user}
+			<a class="btn text" href="/profile">
+				<object class="profile-img " title="Profile" data={data.user.photo} type="image/jpg">
 					<IconProfile />
-				{/if}
+				</object>
 			</a>
 		{/if}
 	</div>
 </header>
-
 <main>
-	{#if loading_user}
-		<div class="empty">
-			<LineMdLoadingLoop />
-			<span>Loading ...</span>
-		</div>
-	{:else if !$user}
-		<Landing />
-		<Auth />
+	{#if !data.user}
+		{#if !auth_state_changed}
+			<div class="empty">
+				<LineMdLoadingLoop />
+				<span>Loading ...</span>
+			</div>
+		{:else}
+			<Landing />
+			<AuthButton />
+		{/if}
 	{:else}
 		<slot />
 	{/if}
 </main>
-
+<Credits bind:isOpen={show_credits} />
 <Notifications />
-
-<Credits bind:isOpen={showCredits} />
 
 <style>
 	button {
@@ -84,6 +89,8 @@
 	.profile-img {
 		aspect-ratio: 1/1;
 		height: 1.8em;
+		display: grid;
+		place-content: center;
 	}
 
 	.empty {

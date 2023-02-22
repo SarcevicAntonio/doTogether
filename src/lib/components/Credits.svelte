@@ -1,7 +1,8 @@
 <script>
-	import { Dialog } from 'as-comps';
-	import deps from '$lib/dependency-report.json';
-	export let isOpen = false;
+	import { Dialog } from 'as-comps'
+	import deps from '$lib/dependency-report.json'
+	import { confetti } from '$lib/confetti'
+	export let isOpen = false
 </script>
 
 <Dialog
@@ -32,6 +33,7 @@
 			</li>
 		{/each}
 	</ul>
+	<button on:click={confetti}>Random Confetti Button!</button>
 </Dialog>
 
 <style>
@@ -52,11 +54,6 @@
 		height: 100%;
 		padding: 0;
 		overflow: auto;
-	}
-
-	hr {
-		border-color: var(--surface);
-		width: 100%;
 	}
 
 	li {

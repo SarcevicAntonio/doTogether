@@ -1,14 +1,14 @@
 <script>
-	import { goto } from '$app/navigation';
-	import { page } from '$app/stores';
-	import { add_list_key } from '$lib/stores/keychain';
-	import IcRoundArrowBack from '~icons/ic/round-arrow-back';
-	import IcRoundVpnKey from '~icons/ic/round-vpn-key';
+	import { goto } from '$app/navigation'
+	import { page } from '$app/stores'
+	import { add_list_key } from '$lib/user'
+	import IcRoundArrowBack from '~icons/ic/round-arrow-back'
+	import IcRoundVpnKey from '~icons/ic/round-vpn-key'
 
-	const id = $page.params.list_id;
-	const key = $page.url.searchParams.get('key');
+	const id = $page.params.list_id
+	const key = $page.url.searchParams.get('key')
 
-	let pending = false;
+	let pending = false
 </script>
 
 <div class="join-list-buttons">
@@ -16,11 +16,11 @@
 	<button
 		disabled={pending}
 		on:click={async () => {
-			if (pending) return;
-			pending = true;
-			await add_list_key(id, key);
-			pending = false;
-			goto(id);
+			if (pending) return
+			pending = true
+			await add_list_key(id, key)
+			pending = false
+			goto(id)
 		}}
 	>
 		<IcRoundVpnKey />

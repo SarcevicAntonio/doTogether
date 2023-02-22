@@ -1,10 +1,10 @@
 <script>
-	import { slide } from 'svelte/transition';
+	import { slide } from 'svelte/transition'
 
-	export let is_open = false;
+	export let is_open = false
 
 	function toggle() {
-		is_open = !is_open;
+		is_open = !is_open
 	}
 </script>
 

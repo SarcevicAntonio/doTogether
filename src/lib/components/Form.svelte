@@ -1,18 +1,18 @@
 <script>
-	import { Dialog } from 'as-comps';
-	import { createEventDispatcher } from 'svelte';
-	import IcBaseline360 from '~icons/ic/baseline-360';
-	import IcRoundAdd from '~icons/ic/round-add';
-	import IcRoundAlarm from '~icons/ic/round-alarm';
-	import IcRoundCloudUpload from '~icons/ic/round-cloud-upload';
-	import IcRoundDescription from '~icons/ic/round-description';
-	import IcRoundEdit from '~icons/ic/round-edit';
-	import IcRoundLocalOffer from '~icons/ic/round-local-offer';
-	import { default_item } from './task';
-	const dispatch = createEventDispatcher();
+	import { Dialog } from 'as-comps'
+	import { createEventDispatcher } from 'svelte'
+	import IcBaseline360 from '~icons/ic/baseline-360'
+	import IcRoundAdd from '~icons/ic/round-add'
+	import IcRoundAlarm from '~icons/ic/round-alarm'
+	import IcRoundCloudUpload from '~icons/ic/round-cloud-upload'
+	import IcRoundDescription from '~icons/ic/round-description'
+	import IcRoundEdit from '~icons/ic/round-edit'
+	import IcRoundLocalOffer from '~icons/ic/round-local-offer'
+	import { default_item } from '../task'
+	const dispatch = createEventDispatcher()
 
-	export let item = structuredClone(default_item);
-	export let edit = false;
+	export let item = structuredClone(default_item)
+	export let edit = false
 </script>
 
 <Dialog let:toggle>
@@ -32,9 +32,9 @@
 	</h2>
 	<form
 		on:submit|preventDefault={() => {
-			toggle();
-			dispatch('edit', item);
-			item = structuredClone(default_item);
+			toggle()
+			dispatch('edit', item)
+			item = structuredClone(default_item)
 		}}
 	>
 		<label>
