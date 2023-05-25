@@ -1,5 +1,6 @@
-<script>
+<script lang="ts">
 	import Accordion from '$lib/components/Accordion.svelte'
+	import { calc_remaining, type Task } from '$lib/task'
 	import { Dialog } from 'as-comps'
 	import { createEventDispatcher } from 'svelte'
 	import IcBaseline360 from '~icons/ic/baseline-360'
@@ -8,22 +9,28 @@
 	import IcRoundDeleteForever from '~icons/ic/round-delete-forever'
 	import IcRoundDone from '~icons/ic/round-done'
 	import Form from '../Form.svelte'
-	import { calc_remaining } from '$lib/task'
 	import MarkAsDone from './MarkAsDone.svelte'
 
 	const dispatch = createEventDispatcher()
 
-	export let item
+	export let item: Task
 	$: remaining = calc_remaining(item)
 	$: done = remaining > 0
+
+	let width: number
+	$: is_very_narrow = width < 320
 </script>
+
+<svelte:window bind:innerWidth={width} />
 
 <Accordion let:toggle={toggleParent}>
 	<div class="item" slot="trigger-label">
 		<h2 class="item-label" class:done>
 			{item.label}
 		</h2>
-		<MarkAsDone {item} on:change />
+		{#if !is_very_narrow}
+			<MarkAsDone {item} on:change />
+		{/if}
 	</div>
 	{#if item.desc}
 		<p class="desc">{item.desc}</p>
@@ -43,14 +50,6 @@
 	{/if}
 
 	<div class="flx jcsb">
-		<Form
-			edit
-			{item}
-			on:edit={({ detail: newItem }) => {
-				dispatch('change', newItem)
-				toggleParent()
-			}}
-		/>
 		<Dialog let:toggle triggerProps={{ class: 'delete-btn' }}>
 			<svelte:fragment slot="trigger-label">
 				<IcRoundDeleteForever />
@@ -70,6 +69,17 @@
 				</button>
 			</div>
 		</Dialog>
+		<Form
+			edit
+			{item}
+			on:edit={({ detail: newItem }) => {
+				dispatch('change', newItem)
+				toggleParent()
+			}}
+		/>
+		{#if is_very_narrow}
+			<MarkAsDone {item} on:change />
+		{/if}
 	</div>
 </Accordion>
 
