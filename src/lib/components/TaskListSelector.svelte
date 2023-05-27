@@ -99,7 +99,7 @@
 	}
 
 	select {
-		flex-grow: 1;
+		width: 100%;
 	}
 
 	.list-selector {
