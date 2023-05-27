@@ -9,7 +9,6 @@ const config = {
 
 	kit: {
 		adapter: adapter({
-			runtime: 'edge',
 			regions: ['cdg1']
 		})
 	},
