@@ -13,7 +13,6 @@
 
 	export let data: PageData
 
-	$: current_list = data.task_list?.find((l) => l.id === $page.params.list_id)
 	$: list_path = `/lists/${$page.params.list_id}`
 	$: list_ref = ref(db, list_path)
 	$: item_ref = ref(db, list_path + '/tasks')
@@ -27,16 +26,16 @@
 		if (unsubscribe) unsubscribe()
 		unsubscribe = onValue(list_ref, (snapshot) => {
 			console.log('realtime snapshot: ', snapshot.val())
-			current_list = snapshot.val() as Task_List
+			data.current_list = snapshot.val() as Task_List
 		})
 	}
 </script>
 
 <TaskListSelector task_list={data.task_list} />
 
-{#if current_list}
+{#if data.current_list}
 	<TaskList
-		task_list={current_list}
+		task_list={data.current_list}
 		on:list-change={({ detail: list }) => {
 			set(list_ref, list)
 		}}
