@@ -13,7 +13,7 @@
 		<slot name="trigger-label" />
 	</summary>
 	{#if is_open}
-		<div transition:slide>
+		<div transition:slide|global>
 			<slot {toggle} />
 		</div>
 	{/if}
