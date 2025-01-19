@@ -2,7 +2,7 @@
 
 [**doTogether**](https://do-together.vercel.app/) helps you keep track of stuff you have get done via **a List of recurring Tasks**.
 
-Each **Task** has a certain number of days it takes to recur. When you mark a Task as done, it will recur after that set amount of days. **Lists** contain Tasks and can be shared with other people, so you can work on Tasks together. The List is ordererd by the remaining / overdue days of each Task.
+Each **Task** has a certain number of days it takes to recur. When you mark a Task as done, it will recur after that set amount of days. **Lists** contain Tasks and can be shared with other people, so you can work on Tasks together. The List is ordered by the remaining / overdue days of each Task.
 
 The app is build to be as **simple as possible**, so you can focus on getting stuff done instead of figuring out all the features. It's also build to be used with multiple people. **Realtime data** means the Lists are always in sync and up to date, but you can of course also use the app by yourself. You can create a List for your shared home chores and one for your daily habits!
 
