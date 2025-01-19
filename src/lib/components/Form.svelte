@@ -43,7 +43,7 @@
 		</label>
 		<label>
 			<span><IcRoundDescription /> Description</span>
-			<textarea bind:value={item.desc} />
+			<textarea bind:value={item.desc}></textarea>
 		</label>
 		<label>
 			<span><IcBaseline360 /> Days to return after</span>

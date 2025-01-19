@@ -85,7 +85,7 @@
 		<span>Create Tasks with the button below.</span>
 	</div>
 {:else if remaining_tasks.length}
-	<div class="fill" />
+	<div class="fill"></div>
 {/if}
 
 {#if !demo}
