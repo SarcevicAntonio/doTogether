@@ -63,6 +63,7 @@
 <ol class="mt1" class:mb2={demo}>
 	{#each sorted_list as item (item.id)}
 		<li animate:flip>
+			{calc_remaining(item)}
 			<Todo
 				{item}
 				on:delete={() => {
@@ -70,7 +71,8 @@
 					dispatch('tasks-change', task_list.tasks)
 				}}
 				on:change={({ detail: newItem }) => {
-					item = newItem
+					const idx = task_list.tasks.findIndex((i) => i.id === newItem.id)
+					task_list.tasks[idx] = newItem
 					dispatch('tasks-change', task_list.tasks)
 				}}
 			/>
