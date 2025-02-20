@@ -63,7 +63,6 @@
 <ol class="mt1" class:mb2={demo}>
 	{#each sorted_list as item (item.id)}
 		<li animate:flip>
-			{calc_remaining(item)}
 			<Todo
 				{item}
 				on:delete={() => {
