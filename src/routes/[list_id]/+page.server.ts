@@ -6,7 +6,7 @@ export const load: PageServerLoad = async ({ cookies, params, parent }) => {
 	const current_list = data.task_list?.find((l) => l.id === params.list_id)
 
 	if (!current_list) {
-		/* @migration task: add path argument */ cookies.delete('last_list_id')
+		cookies.delete('last_list_id', { path: '/' })
 		redirect(303, '/');
 	}
 
