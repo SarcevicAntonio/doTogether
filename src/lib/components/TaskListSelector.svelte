@@ -40,6 +40,8 @@
 		>
 			{#each task_list as { id, label }}
 				<option value={id}>{label || id}</option>
+			{:else}
+				<option value={undefined}>-- no list --</option>
 			{/each}
 			<option value="#CREATE">[ + Create List ]</option>
 		</select>
