@@ -31,8 +31,8 @@
 	function share_task_list() {
 		share(
 			{
-				title: task_list.label,
-				text: `Join the "${task_list.label}" List on doTogether:`,
+				title: task_list.label + ' ',
+				text: ` Join the "${task_list.label}" List on doTogether: `,
 				url: window.location.origin + '/join/' + $page.params['list_id'] + '?key=' + task_list.key
 			},
 			'Copied List invite link to clipboard.'
