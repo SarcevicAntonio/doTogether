@@ -10,7 +10,7 @@ export const POST: RequestHandler = async ({ request, locals }) => {
 	const list_ref = server_db.ref('/lists/' + id)
 	await list_ref.set(list)
 	const keychain_ref = server_db.ref('/members/' + locals.user.id)
-	const keychain = await keychain_ref.get().then((d) => d.val() as Record<string, string>)
+	const keychain = (await keychain_ref.get().then((d) => d.val() as Record<string, string>)) || {}
 	keychain[id] = key
 	await keychain_ref.set(keychain)
 	return new Response(JSON.stringify({ list, id }))
