@@ -46,7 +46,7 @@
 		"tslib": "2.4.0",
 		"typescript": "^5.9.3",
 		"unplugin-icons": "^0.14.15",
-		"vite": "^5.4.21",
+		"vite": "^6.4.2",
 		"vite-plugin-devtools-json": "^1.0.0"
 	},
 	"packageManager": "pnpm@10.26.2+sha256.63b50a4ba15cde20006ddba5d9e21fd623e23f094c9f63bb15f686b0e496aed6"
